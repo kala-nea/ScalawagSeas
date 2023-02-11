@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="script" href="JS/app.js">
 </head>
 <body>
+    
     <header>
         <h1>BattleTech Counter (Simplified)</h1>
     </header>
@@ -31,56 +31,58 @@
                 <tr>
                     <td class="rowHead">Walking</td>
                     <td>
-                        <input type="number">
+                        <input id="walkMax" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="tilesWalked" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="rotationsWalked" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="LCWalked" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="HCWalked" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="altWalked" type="number">
                     </td>
-                    <td></td>
+                    <td>
+                        <p id="walkCurrent"></p>
+                    </td>
                 </tr>
                 <tr>
                     <td class="rowHead">Running</td>
                     <td>
-                        <input type="number">
+                        <input id="runMax" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="tilesRan" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="rotationsRan" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="LCRan" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="HCRan" type="number">
                     </td>
                     <td>
-                        <input type="number">
+                        <input id="altRan" type="number">
                     </td>
-                    <td></td>
+                    <td>
+                        <p id="runCurrent"></p>
+                    </td>
                 </tr>
                 <tr>
                     <td class="rowHead">Jumping</td>
                     <td>
-                        <input type="number">
+                        <input id="jumpMax" type="number">
                     </td>
                     <td>
-                        <input type="number">
-                    </td>
-                    <td>
+                        <input id="tilesJumped" type="number">
                     </td>
                     <td>
                     </td>
@@ -88,7 +90,11 @@
                     </td>
                     <td>
                     </td>
-                    <td></td>
+                    <td>
+                    </td>
+                    <td>
+                        <p id="jumpCurrent"></p>
+                    </td>
                 </tr>
             </table>
         </section>
@@ -104,57 +110,73 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Head (H)</td>
-                        <td>9</td>
-                        <td></td>
+                        <td id="H">9</td>
+                        <td>
+                            <p id="curH"></p>
+                        </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Center Torso (CT)</td>
-                        <td>
+                        <td id="CT">
                             <input type="number">
                         </td>
-                        <td></td>
+                        <td>
+                            <p id="curCT"></p>
+                        </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Left Torso (LT)</td>
-                        <td>
+                        <td id="LT">
                             <input type="number">
                         </td>
-                        <td></td>
+                        <td>
+                            <p id="curLT"></p>
+                        </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Right Torso (RT)</td>
-                        <td>
+                        <td id="RT">
                             <input type="number">
                         </td>
-                        <td></td>
+                        <td>
+                            <p id="curRT"></p>
+                        </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Left Arm (LA)</td>
-                        <td>
+                        <td id="LA">
                             <input type="number">
                         </td>
-                        <td></td>
+                        <td>
+                            <p id="curLA"></p>
+                        </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Right Arm (RA)</td>
-                        <td>
+                        <td id="RA">
                             <input type="number">
                         </td>
-                        <td></td>
+                        <td>
+                            <p id="curRA"></p>
+                        </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Left Leg (LL)</td>
-                        <td>
+                        <td id="LL">
                             <input type="number">
                         </td>
-                        <td></td>
+                        <td>
+                            <p id="curLL"></p>
+                        </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Right Leg (RL)</td>
-                        <td>
+                        <td id="RL">
                             <input type="number">
                         </td>
-                        <td></td>
+                        <td>
+                            <p id="curRL"></p>
+                        </td>
                     </tr>
                 </table>
             </section>
@@ -166,6 +188,7 @@
                         <td class="tableHead">Quantity</td>
                         <td class="tableHead">Type</td>
                         <td class="tableHead">Damage</td>
+                        <td class="tableHead">Cluster</td>
                     </tr>
                     <tr>
                         <td>
@@ -177,16 +200,20 @@
                         <td>
                             <input type="number">
                         </td>
+                        <td>
+                            <input type="number">
+                        </td>
                     </tr>
                 </table>
                 <button>Add Gun</button>
+                <button>Reset</button>
             </section>
 
             <section class="nthSection">
                 <h3>Ammunitions</h3>
                 <table>
                     <tr>
-                        <td class="tableHead">Ammo Type</td>
+                        <td class="tableHead">Corresponding Gun</td>
                         <td class="tableHead">Max Amount</td>
                         <td class="tableHead">Current Amount</td>
                     </tr>
@@ -201,6 +228,7 @@
                     </tr>
                 </table>
                 <button>Add Ammo</button>
+                <button>Reset</button>
             </section>
         </article>
         
@@ -293,5 +321,7 @@
         </article>
         
     </main>
+
+    <script src="JS/app.js"></script>
 </body>
 </html>
