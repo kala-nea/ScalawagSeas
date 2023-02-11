@@ -1,11 +1,12 @@
 article {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 section {
     width: auto;
-    margin-bottom: 15px;
+    border: 1px solid black;
 }
 
 .tableHead {
@@ -17,17 +18,27 @@ section {
     color: rgb(99, 99, 99)
 }
 
+td {
+    padding: 2px;
+    margin: 1px;
+    background-color: rgb(214, 214, 214);
+    width: 500px;
+}
+
 span {
     height: 1px;
     border: solid 1px black;
     width: 100%;
 }
 
-article,
-section {
-    margin-left: 20px;
+h1,
+h2,
+h3 {
+    text-align: center;
 }
 
-.nthSection{
-    margin-left: 100px;
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
