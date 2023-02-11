@@ -110,15 +110,17 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Head (H)</td>
-                        <td id="H">9</td>
+                        <td>
+                            <input id="H" type="number">
+                        </td>
                         <td>
                             <p id="curH"></p>
                         </td>
                     </tr>
                     <tr>
                         <td class="rowHead">Center Torso (CT)</td>
-                        <td id="CT">
-                            <input type="number">
+                        <td>
+                            <input id="CT" type="number">
                         </td>
                         <td>
                             <p id="curCT"></p>
@@ -126,8 +128,8 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Left Torso (LT)</td>
-                        <td id="LT">
-                            <input type="number">
+                        <td>
+                            <input id="LT" type="number">
                         </td>
                         <td>
                             <p id="curLT"></p>
@@ -135,8 +137,8 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Right Torso (RT)</td>
-                        <td id="RT">
-                            <input type="number">
+                        <td>
+                            <input id="RT" type="number">
                         </td>
                         <td>
                             <p id="curRT"></p>
@@ -144,8 +146,8 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Left Arm (LA)</td>
-                        <td id="LA">
-                            <input type="number">
+                        <td>
+                            <input id="LA" type="number">
                         </td>
                         <td>
                             <p id="curLA"></p>
@@ -153,8 +155,8 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Right Arm (RA)</td>
-                        <td id="RA">
-                            <input type="number">
+                        <td>
+                            <input id="RA" type="number">
                         </td>
                         <td>
                             <p id="curRA"></p>
@@ -162,8 +164,8 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Left Leg (LL)</td>
-                        <td id="LL">
-                            <input type="number">
+                        <td>
+                            <input id="LL" type="number">
                         </td>
                         <td>
                             <p id="curLL"></p>
@@ -171,8 +173,8 @@
                     </tr>
                     <tr>
                         <td class="rowHead">Right Leg (RL)</td>
-                        <td id="RL">
-                            <input type="number">
+                        <td>
+                            <input id="RL" type="number">
                         </td>
                         <td>
                             <p id="curRL"></p>
@@ -192,21 +194,22 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="number">
+                            <input id="numG" type="number">
                         </td>
                         <td>
-                            <input type="text">
+                            <input id="typeG" type="text">
                         </td>
                         <td>
-                            <input type="number">
+                            <input id="dmg" type="number">
                         </td>
                         <td>
-                            <input type="number">
+                            <input id="cluster" type="number">
                         </td>
                     </tr>
                 </table>
-                <button>Add Gun</button>
-                <button>Reset</button>
+                <button onclick="addGun()">Add Gun</button>
+                <button onclick="resetGuns()">Reset</button>
+                <table id="guns"></table>
             </section>
 
             <section class="nthSection">
@@ -218,17 +221,18 @@
                         <td class="tableHead">Current Amount</td>
                     </tr>
                     <tr>
-                        <td class="rowHead">
-                            <input type="text">
+                        <td>
+                            <input id="numA" type="number">
                         </td>
                         <td>
-                            <input type="number">
+                            <input id="typeA" type="text">
                         </td>
                         <td></td>
                     </tr>
                 </table>
                 <button>Add Ammo</button>
                 <button>Reset</button>
+                <table id="ammos"></table>
             </section>
         </article>
         

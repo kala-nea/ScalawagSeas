@@ -74,24 +74,101 @@ document.querySelectorAll("#tilesJumped")
     .forEach(input => input.addEventListener("change", setJump));
 
 
-let H = document.getElementById("H");
-let CT = document.getElementById("CT");
-let LT = document.getElementById("LT");
-let RT = document.getElementById("RT");
-let LA = document.getElementById("LA");
-let RA = document.getElementById("RA");
-let LL = document.getElementById("LL");
-let RL = document.getElementById("RL");
+let healthElements = document.querySelectorAll("#H, #CT, #LT, #RT, #LA, #RA, #LL, #RL");
+let curHealthElements = document.querySelectorAll("#curH, #curCT, #curLT, #curRT, #curLA, #curRA, #curLL, #curRL");
 
-let curH = document.getElementById("curH");
-let curCT = document.getElementById("curCT");
-let curLT = document.getElementById("curLT");
-let curRT = document.getElementById("curRT");
-let curLA = document.getElementById("curLA");
-let curRA = document.getElementById("curRA");
-let curLL = document.getElementById("curLL");
-let curRL = document.getElementById("curRL");
+function setHealth(event) {
+    let id = event.target.id;
+    let index = id.indexOf("_") + 1;
+    let target = id.slice(index);
+    let value = event.target.value;
+    document.getElementById("cur" + target).textContent = value;
+}
 
-function setHealthH (x, y) {
+healthElements.forEach((element) => {
+element.addEventListener("change", setHealth);
+});
+
+
+let gunAmount = document.getElementById("numG");
+let gunName = document.getElementById("typeG");
+let gunDmg = document.getElementById("dmg");
+let gunCluster = document.getElementById("cluster");
+let guns = [];
+
+function addGun () {
+    // get the input values as an array
     
+    let newGun = [gunAmount.value, gunName.value, gunDmg.value, gunCluster.value];
+
+    // get the table body element
+    let tableBody = document.getElementById("guns");
+
+    // create a new row element
+    let newRow = document.createElement("tr");
+
+    // loop through the input values and create a cell for each one
+    for (value of newGun) {
+        let newCell = document.createElement("td");
+        let cellText = document.createElement("p");
+        cellText.textContent = value;
+        newCell.appendChild(cellText);
+        newRow.appendChild(newCell);
+    }
+
+    // append the new row to the table body
+    tableBody.appendChild(newRow);
+
+    // add the input values to a 2D array
+    guns.append(newGun);
+}
+
+function resetGuns () {
+    let gunTable = document.getElementById("guns");
+    while (gunTable.rows.length > 0) {
+        gunTable.deleteRow(0);
+    }
+
+    guns = [];
+}
+
+
+let ammoName = document.getElementById("typeA");
+let ammoCount = document.getElementById("numA");
+let ammo = [];
+
+function addAmmo () {
+    // get the input values as an array
+    
+    let newAmmo = [ammoName.value, ammoCount.value];
+
+    // get the table body element
+    let tableBodyA = document.getElementById("ammos");
+
+    // create a new row element
+    let newRowA = document.createElement("tr");
+
+    // loop through the input values and create a cell for each one
+    for (value of newAmmo) {
+        let newCellA = document.createElement("td");
+        let cellTextA = document.createElement("p");
+        cellTextA.textContent = value;
+        newCellA.appendChild(cellTextA);
+        newRowA.appendChild(newCellA);
+    }
+
+    // append the new row to the table body
+    tableBodyA.appendChild(newRowA);
+
+    // add the input values to a 2D array
+    guns.append(newAmmo);
+}
+
+function resetAmmo () {
+    let ammoTable = document.getElementById("ammos");
+    while (ammoTable.rows.length > 0) {
+        ammoTable.deleteRow(0);
+    }
+
+    ammo = [];
 }
