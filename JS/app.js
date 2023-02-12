@@ -136,6 +136,7 @@ function resetGuns () {
 let ammoName = document.getElementById("typeA");
 let ammoCount = document.getElementById("numA");
 let ammo = [];
+let count = 0;
 
 function addAmmo () {
     // get the input values as an array
@@ -157,6 +158,13 @@ function addAmmo () {
         newRowA.appendChild(newCellA);
     }
 
+    let newCellB = document.createElement("td");
+    let cellTextB = document.createElement("p");
+    cellTextB.setAttribute("id", "gun" + count);
+    count = count + 1;
+    newCellB.appendChild(cellTextB);
+    newRowA.appendChild(newCellB);
+
     // append the new row to the table body
     tableBodyA.appendChild(newRowA);
 
@@ -170,5 +178,94 @@ function resetAmmo () {
         ammoTable.deleteRow(0);
     }
 
+    count = 0;
+
     ammo = [];
+}
+
+
+let skill = document.getElementById("skill");
+let typeM = document.getElementById("typeM");
+let moveCount = document.getElementById("moveCount");
+let typeT = document.getElementById("typeT");
+let LCCount = document.getElementById("LCCount");
+let HCCount = document.getElementById("HCCount");
+let range = document.getElementById("range");
+let output = document.getElementById("rtbOutput");
+
+function getRollToBeat () {
+    let rollToBeat;
+
+    let skillVal = skill.value;
+    let moveVal;
+    switch (typeM.value) {
+        case 0:
+            moveVal = 0;
+            break;
+        case 1:
+            moveVal = 1;
+            break;
+        case 2:
+            moveVal = 2;
+            break;
+    }
+    let mCountVal;
+    switch (true) {
+        case (moveCount.value >= 25):
+            mCountVal = 6;
+            break;
+        case (moveCount.value >= 18):
+            mCountVal = 5;
+            break;
+        case (moveCount.value >= 10):
+            mCountVal = 4;
+            break;
+        case (moveCount.value >= 7):
+            mCountVal = 3;
+            break;
+        case (moveCount.value >= 5):
+            mCountVal = 2;
+            break;
+        case (moveCount.value >= 3):
+            mCountVal = 1;
+            break;
+        case (moveCount.value >= 0):
+            mCountVal = 0;
+            break;
+    }
+    let tileVal;
+    switch (typeT.value) {
+        case 0:
+            tileVal = 0;
+            break;
+        case 1:
+            tileVal = 1;
+            break;
+        case 2:
+            tileVal = 2;
+            break;
+    }
+    let lcCountVal = LCCount.value;
+    let hcCountVal = 2 * HCCount.value;
+    let rangeVal;
+    switch (range.value) {
+        case 0:
+            rangeVal = 0;
+            break;
+        case 1:
+            rangeVal = 1;
+            break;
+        case 2:
+            rangeVal = 2;
+            break;
+    }
+
+    rollToBeat = skillVal + moveVal + mCountVal + tileVal + lcCountVal + hcCountVal + rangeVal;
+    if (LCCount.value + HCCount.value - typeTSelected >= 3) {
+        output.innerText = "You cannot see this Mech";
+    } else if (rollToBeat > 12) {
+        output.innerText = "You cannot attack this Mech";
+    } else {
+        output.innerText = "You can hit this Mech with a roll of " + rollToBeat + " or higher";
+    }
 }
