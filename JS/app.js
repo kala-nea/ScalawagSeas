@@ -169,7 +169,7 @@ function addAmmo () {
     tableBodyA.appendChild(newRowA);
 
     // add the input values to a 2D array
-    guns.append(newAmmo);
+    ammo.append(newAmmo);
 }
 
 function resetAmmo () {
@@ -184,42 +184,158 @@ function resetAmmo () {
 }
 
 
-let skill = document.getElementById("skill");
-let moveCount = document.getElementById("moveCount");
-let mc = parseFloat(moveCount.value);
-let LCCount = document.getElementById("LCCount");
-let HCCount = document.getElementById("HCCount");
-let range = document.getElementById("range");
-let r = parseFloat(range.value);
-let typeM = document.getElementById("typeM");
-let tm = parseFloat(typeM.value);
-let typeT = document.getElementById("typeT");
-let tt = parseFloat(typeT.value);
+// Cache frequently accessed DOM elements
+let input1 = document.getElementById("skill");
+let input2 = document.getElementById("moveCount");
+let input3 = document.getElementById("LCCount");
+let input4 = document.getElementById("HCCount");
+let dropdown1 = document.getElementById("typeM");
+let dropdown2 = document.getElementById("typeT");
+let dropdown3 = document.getElementById("range");
+let sum;
 let output = document.getElementById("rtbOutput");
 
-let moveValues = { 0: 0, 1: 1, 2: 2 };
-let moveCountValues = {
-  25: 6, 18: 5, 10: 4, 7: 3, 5: 2, 3: 1, 0: 0
-};
-let tileValues = { 0: 0, 1: 1, 2: 2 };
-let rangeValues = { 0: 0, 1: 1, 2: 2 };
-
-function getRollToBeat () {
-  let skillVal = parseFloat(skill.value);
-  let moveVal = moveValues[tm] || 0;
-  let mCountVal = moveCountValues[Math.floor(mc)] || 0;
-  let tileVal = tileValues[tt] || 0;
-  let lcCountVal = parseFloat(LCCount.value);
-  let hcCountVal = 2 * parseFloat(HCCount.value);
-  let rangeVal = rangeValues[r] || 0;
-
-  let rollToBeat = skillVal + moveVal + mCountVal + tileVal + lcCountVal + hcCountVal + rangeVal;
-
-  if (lcCountVal + hcCountVal - tileVal >= 3) {
-    output.innerText = "You cannot see this Mech";
-  } else if (rollToBeat > 12) {
-    output.innerText = "You cannot attack this Mech";
-  } else {
-    output.innerText = "You can hit this Mech with a roll of " + rollToBeat + " or higher";
-  }
+function getRollToBeat() {
+    // Get the numerical values of the inputs and dropdowns
+    let value1 = Number(input1.value);
+    let value2;
+    if (input2.value >= 25) {
+        value2 = 6;
+    } else if (input2.value >= 18) {
+        value2 = 5;
+    } else if (input2.value >= 10) {
+        value2 = 4;
+    } else if (input2.value >= 7) {
+        value2 = 3;
+    } else if (input2.value >= 5) {
+        value2 = 2;
+    } else if (input2.value >= 3) {
+        value2 = 1;
+    } else {
+        value2 = 0;
+    }
+    // 25, 18, 10, 7, 5, 3, 0
+    let value3 = Number(input3.value);
+    let value4 = Number(input4.value);
+    let value5 = Number(dropdown1.value);
+    let value6 = Number(dropdown2.value);
+    let value7 = Number(dropdown3.value);
+    // Compute the sum and output text
+    sum = value1 + value2 + value3 + 2 * value4 + value5 + value6 + 2 * value7;
+    let outputText;
+    if (value3 + 2 * value4 - value6 >= 3) {
+        outputText = "You cannot see this Mech";
+    } else if (sum > 12) {
+        outputText = "You cannot hit this Mech";
+    } else {
+        outputText = "You can hit this Mech with a roll of " + sum + " or higher";
+    }
+    
+    // Output the sum to the console and update the output element
+    console.log(sum);
+    output.textContent = outputText;
 }
+
+
+let gunInUse = document.getElementById("gunInUse");
+let rtbDisplay = document.getElementById("rtbDisplay");
+let dmgOutput = document.getElementById("dmgOutput");
+
+rtbDisplay = sum;
+let match = 0;
+let ammoOfGun = 0;
+
+function dmgCalc () {
+    let gIU = gunInUse.value;
+    for (let i = 0; i < guns.length; i++) {
+        console.log("Gun Found: " + guns[i][0])
+        if (gIU === guns[i][0]) {
+            match = i + 1;
+            console.log("Gun Matched: " + gIU)
+        }
+    }
+
+    if (match != 0) {
+        for (let i = 0; i < ammo.length; i++) {
+            console.log("Ammo Found: " + ammo[i][0]);
+            if (gIU === ammo[i][0]) {
+                console.log("Ammo Matched: " + gIU);
+                if (ammo[i][1] == 0) {
+                    dmgOutput.textContent = "You cannot attack with this weapon";
+                    return;
+                }
+                ammoOfGun = ammo[i][1];
+            }
+        }
+    } else {
+        dmgOutput.textContent = "You cannot attack with this weapon";
+    }
+}
+
+
+// CLUSTER DAMAGE CALC
+// let x = 14
+// let y = [0];
+// let i = 0;
+// while (x > 0) {
+//     y[i] = y[i] + 1;
+//     x = x - 1;
+//     if (y[i] >= 5) {
+//         i = i + 1;
+//         y[i] = 0;
+//     }
+// }
+// console.log(y);
+// function getArea (item) {
+//     let diceRoll = Math.floor((Math.random() * 11) + 2);
+//     switch (diceRoll) {
+//         case 2:
+//             console.log(item + " damage dealt to center torso");
+//             break;
+//         case 3:
+//             console.log(item + " damage dealt to center torso");
+//             break;
+//         case 4:
+//             console.log(item + " damage dealt to left torso");
+//             break;
+//         case 5:
+//             console.log(item + " damage dealt to right torso");
+//             break;
+//         case 6:
+//             console.log(item + " damage dealt to right arm");
+//             break;
+//         case 7:
+//             console.log(item + " damage dealt to right arm");
+//             break;
+//         case 8:
+//             console.log(item + " damage dealt to left arm");
+//             break;
+//         case 9:
+//             console.log(item + " damage dealt to left arm");
+//             break;
+//         case 10:
+//             console.log(item + " damage dealt to right leg");
+//             break;
+//         case 11:
+//             console.log(item + " damage dealt to left leg");
+//             break;
+//         case 12:
+//             console.log(item + " damage dealt to head");
+//             break;
+//     }
+// }
+// y.forEach(getArea);
+
+
+let areaHit = document.getElementById("areaHit");
+let dmgTaken = document.getElementById("dmgTaken");
+
+let curHealthH = document.getElementById("curH");
+let curHealthCT = document.getElementById("curCT");
+let curHealthLT = document.getElementById("curLT");
+let curHealthRT = document.getElementById("curRT");
+let curHealthLA = document.getElementById("curLA");
+let curHealthRA = document.getElementById("curRA");
+let curHealthLL = document.getElementById("curLL");
+let curHealthRL = document.getElementById("curRL");
+

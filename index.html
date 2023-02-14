@@ -255,9 +255,9 @@
                     </td>
                     <td>
                         <select name="" id="typeM">
-                            <option value="0">Walk</option>
-                            <option value="1">Run</option>
-                            <option value="2">Jump</option>
+                            <option value=0>Walk</option>
+                            <option value=1>Run</option>
+                            <option value=2>Jump</option>
                         </select>
                     </td>
                     <td>
@@ -265,9 +265,9 @@
                     </td>
                     <td>
                         <select name="" id="typeT">
-                            <option value="0">Normal</option>
-                            <option value="1">Light</option>
-                            <option value="2">Heavy</option>
+                            <option value=0>Normal</option>
+                            <option value=1>Light</option>
+                            <option value=2>Heavy</option>
                         </select>
                     </td>
                     <td>
@@ -278,9 +278,9 @@
                     </td>
                     <td>
                         <select name="" id="range">
-                            <option value="0">Short</option>
-                            <option value="1">Mid</option>
-                            <option value="2">Long</option>
+                            <option value=0>Short</option>
+                            <option value=1>Mid</option>
+                            <option value=2>Long</option>
                         </select>
                     </td>
                     <td>
@@ -301,14 +301,17 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="text">
+                            <input id="gunInUse" type="text">
                         </td>
-                        <td></td>
                         <td>
-                            <button>Calculate Damage</button>
+                            <p id="rtbDisplay"></p>
+                        </td>
+                        <td>
+                            <button onclick="dmgCalc()">Calculate Damage</button>
                         </td>
                     </tr>
                 </table>
+                <p id="dmgOutput"></p>
             </section>
 
             <section class="nthSection">
