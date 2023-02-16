@@ -1,0 +1,32 @@
+.PlayArea{
+    min-height: 90vh;
+    display: flex;
+}
+
+.SideBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: grey;
+    width: 20%;
+    height: 100%;
+}
+
+.Tiles{
+    display: flex;
+}
+
+.TileColumn{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.Tile{
+    position: relative;
+}
+
+
+
+
+
