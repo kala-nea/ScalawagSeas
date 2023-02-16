@@ -18,11 +18,12 @@ function MakeBoard(){
     HexColumn = document.createElement("section");
     HexColumn.setAttribute("class","TileColumn");
     HexColumn.style.width = `${100/parseFloat(BoardXIn.value)}%`
-    Hex = document.createElement("img");
+    Hex = document.createElement("div");
     Hex.setAttribute("class","Tile");
-    Hex.setAttribute("Src","IMG/GroundHex.png");
-    Hex.setAttribute("clip-path", "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)");
-    Hex.style.width="100%"
+    Hex.style.backgroundImage = "url(IMG/pexels-james-frid-1097016.jpg)";
+    Hex.style.clipPath = "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)";
+    Hex.style.width="100%";
+    Hex.style.aspectRatio = `1/1`;
     
     for(let i = 0; i<parseFloat(BoardXIn.value);i++){
         let SubmitCol = HexColumn.cloneNode(true)
@@ -31,6 +32,7 @@ function MakeBoard(){
             let SubmitHex = Hex.cloneNode(true);
             SubmitHex.setAttribute(`id`,`col${i}row${j}`);
             SubmitHex.addEventListener("click",(e) => test(e.target.id));
+            SubmitHex.addEventListener("hover",(e) => test(e.target.id));
             if(i%2==0){
                 SubmitHex.style.top = `${100/BoardYIn.value/2}%`;
             }

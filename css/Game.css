@@ -12,8 +12,13 @@
     height: 100%;
 }
 
+.Board{
+  width: 80%;
+}
+
 .Tiles{
     display: flex;
+    width: 100%;
 }
 
 .TileColumn{
@@ -24,9 +29,27 @@
 
 .Tile{
     position: relative;
+    background-position: center;
+    background-size: cover;
+    border: 5px black solid;
+    display: inline;
+    box-sizing: border-box;
 }
+/*.Tile:hover{
+    order: -1;
+}*/
 
 
 
 
 
+.hex3 {
+    height: 100px;
+    width: 100px;
+    background: red;
+    -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+  }
+
+
+  
