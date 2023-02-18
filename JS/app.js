@@ -241,7 +241,7 @@ let gunInUse = document.getElementById("gunInUse");
 let rtbDisplay = document.getElementById("rtbDisplay");
 let dmgOutput = document.getElementById("dmgOutput");
 
-rtbDisplay = sum;
+rtbDisplay.textContent = sum;
 let match = 0;
 let ammoOfGun = 0;
 
@@ -264,8 +264,224 @@ function dmgCalc () {
                     dmgOutput.textContent = "You cannot attack with this weapon";
                     return;
                 }
-                ammoOfGun = ammo[i][1];
+                ammo[i][1] = ammo[i][1] - 1;
             }
+        }
+        let roll = Math.floor(Math.random() * 6) * 2;
+        if (roll >= sum) {
+            let trueMatch = match - 1;
+            if (guns[trueMatch][3] >= 2) {
+                let x;
+                let newRoll = Math.floor((Math.random() * 6) * 2);
+                if (guns[trueMatch][3] == 2) {
+                    switch (newRoll) {
+                        case 2, 3, 4, 5, 6, 7:
+                            x = 1 * guns[trueMatch][2];
+                            break;
+                        case 8, 9, 10, 11, 12:
+                            x = 2 * guns[trueMatch][2];
+                            break;
+                    }
+                } else if (guns[trueMatch][3] == 4) {
+                    switch (newRoll) {
+                        case 2:
+                            x = 1 * guns[trueMatch][2];
+                            break;
+                        case 3, 4, 5, 6:
+                            x = 2 * guns[trueMatch][2];
+                            break;
+                        case 7, 8, 9, 10:
+                            x = 3 * guns[trueMatch][2];
+                            break;
+                        case 11, 12:
+                            x = 4 * guns[trueMatch][2];
+                            break;
+                    }
+                } else if (guns[trueMatch][3] == 5) {
+                    switch (newRoll) {
+                        case 2:
+                            x = 1 * guns[trueMatch][2];
+                            break;
+                        case 3, 4:
+                            x = 2 * guns[trueMatch][2];
+                            break;
+                        case 5, 6, 7, 8:
+                            x = 3 * guns[trueMatch][2];
+                            break;
+                        case 9, 10:
+                            x = 4 * guns[trueMatch][2];
+                            break;
+                        case 11, 12:
+                            x = 5 * guns[trueMatch][2];
+                            break;
+                    }
+                } else if (guns[trueMatch][3] == 6) {
+                    switch (newRoll) {
+                        case 2, 3:
+                            x = 2 * guns[trueMatch][2];
+                            break;
+                        case 4, 5:
+                            x = 3 * guns[trueMatch][2];
+                            break;
+                        case 6, 7, 8:
+                            x = 4 * guns[trueMatch][2];
+                            break;
+                        case 9, 10:
+                            x = 5 * guns[trueMatch][2];
+                            break;
+                        case 11, 12:
+                            x = 6 * guns[trueMatch][2];
+                            break;
+                    }
+                } else if (guns[trueMatch][3] == 10) {
+                    switch (newRoll) {
+                        case 2, 3:
+                            x = 3 * guns[trueMatch][2];
+                            break;
+                        case 4:
+                            x = 4 * guns[trueMatch][2];
+                            break;
+                        case 5, 6, 7, 8:
+                            x = 6 * guns[trueMatch][2];
+                            break;
+                        case 9, 10:
+                            x = 8 * guns[trueMatch][2];
+                            break;
+                        case 11, 12:
+                            x = 10 * guns[trueMatch][2];
+                            break;
+                    }
+                } else if (guns[trueMatch][3] == 15) {
+                    switch (newRoll) {
+                        case 2, 3:
+                            x = 5 * guns[trueMatch][2];
+                            break;
+                        case 4:
+                            x = 6 * guns[trueMatch][2];
+                            break;
+                        case 5, 6, 7, 8:
+                            x = 9 * guns[trueMatch][2];
+                            break;
+                        case 9, 12:
+                            x = 8 * guns[trueMatch][2];
+                            break;
+                        case 11, 12:
+                            x = 15 * guns[trueMatch][2];
+                            break;
+                    }
+                } else if (guns[trueMatch][3] == 20) {
+                    switch (newRoll) {
+                        case 2, 3:
+                            x = 6 * guns[trueMatch][2];
+                            break;
+                        case 4:
+                            x = 9 * guns[trueMatch][2];
+                            break;
+                        case 5, 6, 7, 8:
+                            x = 12 * guns[trueMatch][2];
+                            break;
+                        case 9, 10:
+                            x = 15 * guns[trueMatch][2];
+                            break;
+                        case 11, 12:
+                            x = 20 * guns[trueMatch][2];
+                            break;
+                    }
+                } else {
+                    dmgOutput.textContent = "You cannot attack with this weapon";
+                    return;
+                }
+                let y = [0];
+                let i = 0;
+                while (x > 0) {
+                    y[i] = y[i] + 1;
+                    x = x - 1;
+                    if (y[i] >= 5) {
+                        i = i + 1;
+                        y[i] = 0;
+                    }
+                }
+                console.log(y);
+                function getArea (item) {
+                    let diceRoll = Math.floor((Math.random() * 6) * 2);
+                    switch (diceRoll) {
+                        case 2:
+                            console.log(item + " damage dealt to center torso");
+                            break;
+                        case 3:
+                            console.log(item + " damage dealt to center torso");
+                            break;
+                        case 4:
+                            console.log(item + " damage dealt to left torso");
+                            break;
+                        case 5:
+                            console.log(item + " damage dealt to right torso");
+                            break;
+                        case 6:
+                            console.log(item + " damage dealt to right arm");
+                            break;
+                        case 7:
+                            console.log(item + " damage dealt to right arm");
+                            break;
+                        case 8:
+                            console.log(item + " damage dealt to left arm");
+                            break;
+                        case 9:
+                            console.log(item + " damage dealt to left arm");
+                            break;
+                        case 10:
+                            console.log(item + " damage dealt to right leg");
+                            break;
+                        case 11:
+                            console.log(item + " damage dealt to left leg");
+                            break;
+                        case 12:
+                            console.log(item + " damage dealt to head");
+                            break;
+                    }
+                }
+                y.forEach(getArea);
+            } else if (guns[trueMatch][3] == 1) {
+                let finRoll = Math.floor((Math.random() * 6) * 2);
+                    switch (finRoll) {
+                        case 2:
+                            console.log(guns[trueMatch][2] + " damage dealt to center torso");
+                            break;
+                        case 3:
+                            console.log(guns[trueMatch][2] + " damage dealt to center torso");
+                            break;
+                        case 4:
+                            console.log(guns[trueMatch][2] + " damage dealt to left torso");
+                            break;
+                        case 5:
+                            console.log(guns[trueMatch][2] + " damage dealt to right torso");
+                            break;
+                        case 6:
+                            console.log(guns[trueMatch][2] + " damage dealt to right arm");
+                            break;
+                        case 7:
+                            console.log(guns[trueMatch][2] + " damage dealt to right arm");
+                            break;
+                        case 8:
+                            console.log(guns[trueMatch][2] + " damage dealt to left arm");
+                            break;
+                        case 9:
+                            console.log(guns[trueMatch][2] + " damage dealt to left arm");
+                            break;
+                        case 10:
+                            console.log(guns[trueMatch][2] + " damage dealt to right leg");
+                            break;
+                        case 11:
+                            console.log(guns[trueMatch][2] + " damage dealt to left leg");
+                            break;
+                        case 12:
+                            console.log(guns[trueMatch][2] + " damage dealt to head");
+                            break;
+                    }
+            }
+        } else {
+            dmgOutput.textContent = "You missed";
+            return;
         }
     } else {
         dmgOutput.textContent = "You cannot attack with this weapon";
@@ -273,58 +489,7 @@ function dmgCalc () {
 }
 
 
-// CLUSTER DAMAGE CALC
-// let x = 14
-// let y = [0];
-// let i = 0;
-// while (x > 0) {
-//     y[i] = y[i] + 1;
-//     x = x - 1;
-//     if (y[i] >= 5) {
-//         i = i + 1;
-//         y[i] = 0;
-//     }
-// }
-// console.log(y);
-// function getArea (item) {
-//     let diceRoll = Math.floor((Math.random() * 11) + 2);
-//     switch (diceRoll) {
-//         case 2:
-//             console.log(item + " damage dealt to center torso");
-//             break;
-//         case 3:
-//             console.log(item + " damage dealt to center torso");
-//             break;
-//         case 4:
-//             console.log(item + " damage dealt to left torso");
-//             break;
-//         case 5:
-//             console.log(item + " damage dealt to right torso");
-//             break;
-//         case 6:
-//             console.log(item + " damage dealt to right arm");
-//             break;
-//         case 7:
-//             console.log(item + " damage dealt to right arm");
-//             break;
-//         case 8:
-//             console.log(item + " damage dealt to left arm");
-//             break;
-//         case 9:
-//             console.log(item + " damage dealt to left arm");
-//             break;
-//         case 10:
-//             console.log(item + " damage dealt to right leg");
-//             break;
-//         case 11:
-//             console.log(item + " damage dealt to left leg");
-//             break;
-//         case 12:
-//             console.log(item + " damage dealt to head");
-//             break;
-//     }
-// }
-// y.forEach(getArea);
+
 
 
 let areaHit = document.getElementById("areaHit");
@@ -339,3 +504,33 @@ let curHealthRA = document.getElementById("curRA");
 let curHealthLL = document.getElementById("curLL");
 let curHealthRL = document.getElementById("curRL");
 
+let dmgToHead;
+
+function takeHealth () {
+    switch (areaHit) {
+        case "H":
+            curHealthH.textContent = parseFloat(curHealthH.value) - parseFloat(dmgTaken);
+            break;
+        case "CT":
+            curHealthCT.textContent = parseFloat(curHealthCT.value) - parseFloat(dmgTaken);
+            break;
+        case "LT":
+            curHealthLT.textContent = parseFloat(curHealthLT.value) - parseFloat(dmgTaken);
+            break;
+        case "RT":
+            curHealthRT.textContent = parseFloat(curHealthRT.value) - parseFloat(dmgTaken);
+            break;
+        case "LA":
+            curHealthLA.textContent = parseFloat(curHealthLA.value) - parseFloat(dmgTaken);
+            break;
+        case "RA":
+            curHealthRA.textContent = parseFloat(curHealthRA.value) - parseFloat(dmgTaken);
+            break;
+        case "LL":
+            curHealthLL.textContent = parseFloat(curHealthLL.value) - parseFloat(dmgTaken);
+            break;
+        case "RL":
+            curHealthRL.textContent = parseFloat(curHealthRL.value) - parseFloat(dmgTaken);
+            break;
+    }
+}
