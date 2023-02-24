@@ -13,17 +13,36 @@
     <main>
         <section class="PlayArea" id="PlayArea">
             <section class="SideBar" id="SideBar">
-                <input type="number" id="BoardX" value="10">
-                <input type="number" id="BoardY" value="10">
+                <input type="number" id="BoardX" value="20">
+                <input type="number" id="BoardY" value="7">
+                <button id="makeBoard" onClick="MakeBoard()">Build board</button>
+                <!--<input type="number" name="team" id="team" placeholder="team">
+                <br>
+                <input type="number" id="teams" placeholder="teams">
+                <input type="number" id="boatCountPer" placeholder="boats per team">
+                <input type="number" id="movePer" placeholder="move per boat">
+                <button id="makeBoard" onClick="makeBoats()">Build boats</button>
+                <button id="makeBoard" onClick="startGame()">start</button>
+                <button id="nextBoat" onClick="nextBoat()">Next Boat</button>
+                <p id="phase">Phase:move</p>
+                <p id="activeTeam">Active Team:</p>
+                <p id="activeBoat">Active Boat:</p>
+                <p id="Movement left">Movement Left:</p>-->
             </section>
-            <section class="Board" id="Board">
+            <section class="Board" id="Board" onClick="update()">
             </section>
+            <section id="PieceStorage"></section>
         </section>
     </main>
 
 
-    <script src="JS/Board.js"></script>
-    <script src="JS/Move.js"></script>
-    <script src="JS/Combat.js"></script>
+    <script type="text/javascript" src="JS/Board.js"></script>
+    <script type="text/javascript" src="JS/Ships.js"></script>
+    <script type="text/javascript" src="JS/Move.js"></script>
+    <script type="text/javascript" src="JS/Combat.js"></script>
+    <script src="JS/Sidebar.js"></script>
+    <script src="JS/Teams.js"></script>
+    <script src="JS/GameplayControl.js"></script>
+    <!--  I own a musket for home defense, since that's what the founding fathers intended. Four ruffians break into my house. "What the devil?" As I grab my powdered wig and Kentucky rifle. Blow a golf ball sized hole through the first man, he's dead on the spot. Draw my pistol on the second man, miss him entirely because it's smoothbore and nails the neighbors dog. I have to resort to the cannon mounted at the top of the stairs loaded with grape shot, "Tally ho lads" the grape shot shreds two men in the blast, the sound and extra shrapnel set off car alarms. Fix bayonet and charge the last terrified rapscallion. He Bleeds out waiting on the police to arrive since triangular bayonet wounds are impossible to stitch up. Just as the founding fathers intended. -->
 </body>
 </html>

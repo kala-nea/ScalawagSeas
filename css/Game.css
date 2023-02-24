@@ -1,6 +1,14 @@
+body{
+    margin: 0;
+}
+
 .PlayArea{
-    min-height: 90vh;
+    min-height: 100vh;
     display: flex;
+    flex-wrap: wrap;
+    background-image: url(../IMG/pexels-fwstudio-139306.jpg);
+    background-position: center;
+    background-size: cover;
 }
 
 .SideBar{
@@ -14,6 +22,10 @@
 
 .Tiles{
     display: flex;
+    background-image: url(../IMG/waaaaa.png);
+    background-size: cover;
+    background-position: center;
+    overflow: visible;
 }
 
 .TileColumn{
@@ -22,11 +34,18 @@
     position: relative;
 }
 
+
 .Tile{
     position: relative;
 }
 
 
+.Board{
+    box-sizing: border-box;
+    padding: 20px;
+    width: 80%;
+}
 
-
-
+[class^="Ship"]{
+    position: fixed;
+}
