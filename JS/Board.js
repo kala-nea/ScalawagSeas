@@ -7,18 +7,29 @@ let Hex;
 let HexColumn;
 let HexGrid;
 
-BoardXIn.addEventListener('change',(e) => MakeBoard());
-BoardYIn.addEventListener('change',(e) => MakeBoard());
+let boardWidth;
+let boardHeight;
+let boardBuilt = false;
+
+//BoardXIn.addEventListener('change',(e) => MakeBoard());
+//BoardYIn.addEventListener('change',(e) => MakeBoard());
 makeBoardButton = document.getElementById("makeBoard");
 
+window.addEventListener('resize',resizeBoard);
 
 function MakeBoard(){
+    try{
+        boardWidth = BoardXIn.value;
+    }catch{}
+    try{
+        boardHeight = BoardYIn.value;
+    }catch{}
     Board.innerHTML ="";
     HexGrid = document.createElement("section");
     HexGrid.setAttribute("class","Tiles");
     HexColumn = document.createElement("section");
     HexColumn.setAttribute("class","TileColumn");
-    HexColumn.style.width = `${100/parseFloat(BoardXIn.value)*5}%`
+    HexColumn.style.width = `${100/parseFloat(boardWidth)*5}%`
     Hex = document.createElement("img");
     Hex.setAttribute("class","Tile");
     Hex.setAttribute("Src","IMG/Hex.png");
@@ -31,25 +42,25 @@ function MakeBoard(){
 
     let HexsInfo= [];
     
-    for(let i = 0; i<parseInt(BoardXIn.value);i++){
+    for(let i = 0; i<parseInt(boardWidth);i++){
         HexsInfo.push([]);
         let SubmitCol = HexColumn.cloneNode(true)
         SubmitCol.setAttribute(`id`,`col${i}`);
-        for(let j = 0; j<parseInt(BoardYIn.value);j++){
+        for(let j = 0; j<parseInt(boardHeight);j++){
             //{terrain}
             HexsInfo[i][j] = [0];
             let SubmitHex = Hex.cloneNode(true);
             SubmitHex.setAttribute(`id`,`col${i}row${j}`);
             SubmitHex.addEventListener("click",(e) => moveShipClick(e.target.id));
             if(i%2==0){
-                SubmitHex.style.top = `${100/BoardYIn.value/2}%`;
+                SubmitHex.style.top = `${100/boardHeight/2}%`;
             }
             SubmitCol.appendChild(SubmitHex);
         }
-        //SubmitCol.style.right = `${((i-parseFloat(BoardXIn.value))+1)*100/(parseFloat(BoardXIn.value)*4)}%`;
-        //SubmitCol.style.left = `${-(i)*100/(parseFloat(BoardXIn.value)*3.5)}%`;
+        //SubmitCol.style.right = `${((i-parseFloat(boardWidth))+1)*100/(parseFloat(boardWidth)*4)}%`;
+        //SubmitCol.style.left = `${-(i)*100/(parseFloat(boardWidth)*3.5)}%`;
         if(i!=0){
-            SubmitCol.style.marginLeft = `${-100/(parseFloat(BoardXIn.value)*2.4)}%`;  
+            SubmitCol.style.marginLeft = `${-100/(parseFloat(boardWidth)*2.8)}%`;  
         }
         HexGrid.appendChild(SubmitCol);
     }
@@ -60,11 +71,25 @@ function MakeBoard(){
         Board.innerHTML ="";
         Board.appendChild(HexGrid);
     }
-    removeBoardMake();
-    addBoatMake();
+    if(!boardBuilt){
+        clearSidebar();
+        addBoatMake();
+    }
+    
+    boardBuilt = true;
 }
 
+function resizeBoard(){
+    if(boardBuilt==true){
+        MakeBoard()
+    }
+    redoShade();
+}
 
+function redoShade(){
+    moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+}
 
 function highlight(id){
     let hex = document.getElementById(id);
@@ -108,9 +133,73 @@ function select(id){
 }
 
 function moveShade(col,row){
-    
-    console.log(col +", "+row);
     let goal
+    if(teams[activeTeam].ships[activeBoat].rotation==0||teams[activeTeam].ships[activeBoat].rotation==3){
+        try{
+            goal = document.getElementById(`col${col}row${row+1}`);
+            goal.style.filter ="brightness(0.5)";
+            goal.style.zIndex = "1"
+    
+        }catch{}
+        try{
+            goal = document.getElementById(`col${col}row${row-1}`);
+            goal.style.filter ="brightness(0.5)";
+            goal.style.zIndex = "1"
+        }catch{}
+    }else if(teams[activeTeam].ships[activeBoat].rotation==1||teams[activeTeam].ships[activeBoat].rotation==4){
+        if(col%2==0){
+            try{
+                goal = document.getElementById(`col${col+1}row${row}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row+1}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }else{
+            try{
+                goal = document.getElementById(`col${col+1}row${row-1}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }
+    }else if(teams[activeTeam].ships[activeBoat].rotation==2||teams[activeTeam].ships[activeBoat].rotation==5){
+        if(col%2==0){
+            try{
+                goal = document.getElementById(`col${col+1}row${row+1}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }else{
+            try{
+                goal = document.getElementById(`col${col+1}row${row}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row-1}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }
+    }
+    /*
     try{
         goal = document.getElementById(`col${col}row${row+1}`);
         goal.style.filter ="brightness(0.5)";
@@ -155,7 +244,7 @@ function moveShade(col,row){
             goal.style.filter ="brightness(0.5)";
             goal.style.zIndex = "1"
         }catch{}
-    }
+    }*/
     
 }
 function moveShadent(col,row){
