@@ -75,6 +75,7 @@ function MakeBoard(){
         clearSidebar();
         addBoatMake();
     }
+    
     boardBuilt = true;
 }
 
@@ -82,9 +83,13 @@ function resizeBoard(){
     if(boardBuilt==true){
         MakeBoard()
     }
+    redoShade();
 }
 
-
+function redoShade(){
+    moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+}
 
 function highlight(id){
     let hex = document.getElementById(id);
@@ -128,9 +133,73 @@ function select(id){
 }
 
 function moveShade(col,row){
-    
-    console.log(col +", "+row);
     let goal
+    if(teams[activeTeam].ships[activeBoat].rotation==0||teams[activeTeam].ships[activeBoat].rotation==3){
+        try{
+            goal = document.getElementById(`col${col}row${row+1}`);
+            goal.style.filter ="brightness(0.5)";
+            goal.style.zIndex = "1"
+    
+        }catch{}
+        try{
+            goal = document.getElementById(`col${col}row${row-1}`);
+            goal.style.filter ="brightness(0.5)";
+            goal.style.zIndex = "1"
+        }catch{}
+    }else if(teams[activeTeam].ships[activeBoat].rotation==1||teams[activeTeam].ships[activeBoat].rotation==4){
+        if(col%2==0){
+            try{
+                goal = document.getElementById(`col${col+1}row${row}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row+1}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }else{
+            try{
+                goal = document.getElementById(`col${col+1}row${row-1}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }
+    }else if(teams[activeTeam].ships[activeBoat].rotation==2||teams[activeTeam].ships[activeBoat].rotation==5){
+        if(col%2==0){
+            try{
+                goal = document.getElementById(`col${col+1}row${row+1}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }else{
+            try{
+                goal = document.getElementById(`col${col+1}row${row}`);
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col-1}row${row-1}`);
+                
+                goal.style.filter ="brightness(0.5)";
+                goal.style.zIndex = "1"
+            }catch{}
+        }
+    }
+    /*
     try{
         goal = document.getElementById(`col${col}row${row+1}`);
         goal.style.filter ="brightness(0.5)";
@@ -175,7 +244,7 @@ function moveShade(col,row){
             goal.style.filter ="brightness(0.5)";
             goal.style.zIndex = "1"
         }catch{}
-    }
+    }*/
     
 }
 function moveShadent(col,row){

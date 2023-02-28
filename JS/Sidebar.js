@@ -1,8 +1,7 @@
 let sidebar = document.getElementById("SideBar");
 
 function removeBoardMake(){
-    sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.replace(`<input type="number" id="BoardX" value="20">\n                <input type="number" id="BoardY" value="7">\n                <button id="makeBoard" onclick="MakeBoard()">Build board</button>\n  `,``);
+    clearSidebar()
 }
 
 function addBoatMake(){
@@ -11,8 +10,7 @@ function addBoatMake(){
 }
 
 function removeBoatMake(){
-    sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.replace(`<input type="number" id="teams" placeholder="teams" value="2">\n                <input type="number" id="boatCountPer" placeholder="boats per team" value="3">\n                <input type="number" id="movePer" placeholder="move per boat" value="5">\n                <button id="makeBoard" onclick="makeBoats()">Build boats</button>\n`,``);
+    clearSidebar()
 }
 
 function addStart(){
@@ -21,13 +19,12 @@ function addStart(){
 }
 
 function removeStart(){
-    sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.replace(`<button id="makeBoard" onclick="startGame()">start</button>\n`,``);
+    clearSidebar()
 }
 
 function addProgress(){
     sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   <section id="PieceInfo" class="PieceInfo"></section>`);
 }
 
 function clearSidebar(){

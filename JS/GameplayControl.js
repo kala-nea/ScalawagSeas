@@ -3,8 +3,8 @@ let activeBoat
 
 
 function startGame(){
-    startMovePhase()
     removeStart();
+    startMovePhase();
 }
 
 function update(){
@@ -67,9 +67,9 @@ function startMovePhase(){
 }
 
 function StartAttackPhase(){
-    clearSidebar();
     startMovePhase();
-    /*activeTeam = 0;
+    /*clearSidebar();
+    activeTeam = 0;
     activeBoat = 0;
     readyAll();
     teams[activeTeam].ships[activeBoat].selectColor();

@@ -1,6 +1,7 @@
 
 
 let pieceStorage = document.getElementById("PieceStorage");
+let PieceInfo = document.getElementById("PieceInfo");
 class Ship{
     constructor(x = 0,y = 0,team = 0, movePower = 5){
         x=parseInt(x);
@@ -43,12 +44,14 @@ class Ship{
         shipmake.setAttribute("id",this.id);
         pieceStorage.append(shipmake);
         this.ship = document.getElementById(this.id);
+        this.ship.addEventListener("click",this.displayStats);
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
         this.ship.style.height = `${desiredHex.height}px`;
         this.ship.style.width = `${desiredHex.width}px`;
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
+        this.ship.style.zIndex = "5"
     }
     
     
@@ -71,9 +74,10 @@ class Ship{
     adjustShip(){
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = desiredHex.getBoundingClientRect();
+        this.ship.style.height = `${desiredHex.height}px`;
+        this.ship.style.width = `${desiredHex.width}px`;
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
-        this.ship.style.width = `${desiredHex.width}px`;
     }
 
     rotate(rotationAmmount){
@@ -86,6 +90,8 @@ class Ship{
             }
         }
         this.ship.style.transform = `rotate(${360/6*this.rotation}deg)`
+        moveShadent(this.shipx,this.shipy);
+        moveShade(this.shipx,this.shipy);
     }
 
     selectColor(){
@@ -95,6 +101,11 @@ class Ship{
         this.ship.style.filter = "brightness(100%)";
     }
 
+    displayStats(){
+        PieceInfo = document.getElementById("PieceInfo");
+        console.log("doint");
+        PieceInfo.innerText=this;
+    }
 }
 
 
