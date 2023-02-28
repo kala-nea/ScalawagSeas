@@ -1,0 +1,22 @@
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.horizontal > * {
+    margin: 0;
+    margin-right: 5px;
+}
+
+.box {
+    border: 1px solid black;
+    width: 15%;
+    padding: 20px;
+}
+
+article {
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+}

@@ -16,28 +16,106 @@
 
     <main>
         <h2>Stats</h2>
+        <section class="horizontal">
+            <h3>Ship Name:</h3>
+            <input type="text">
+        </section>
         <article>
-            <section>
-                <h3>Ship Name:</h3>
-                <input type="text">
+            <section class="box">
+                <section class="horizontal">
+                    <h3>Tonnage:</h3>
+                    <select name="" id="tonnageTable"></select>
+                </section>
+
+                <section class="horizontal">
+                    <h3>Weight Class:</h3>
+                    <p id="wcDisplay"></p>
+                </section>
             </section>
-            <section>
-                <h3>Select Tonnage:</h3>
-                <select name="" id="tonnageTable">
-                </select>
-            </section>
-            <section>
+
+            <section class="box">
                 <h3>Movement Points:</h3>
-                <h4>Cruising:</h4>
-                <p></p>
-                <h4>Full Steam:</h4>
-                <p></p>
-                <h4>Flanking:</h4>
-                <p></p>
+                <section class="horizontal">
+                    <h4>Cruising:</h4>
+                    <p id="cpDisplay"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Full Steam:</h4>
+                    <p id="fspDisplay"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Flanking:</h4>
+                    <p id="fpDisplay"></p>
+                </section>
+            </section>
+
+            <section class="box">
+                <h3>Hitpoints</h3>
+                <section class="horizontal">
+                    <h4>Bridge HP:</h4>
+                    <p id="bridgeHP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Bow HP:</h4>
+                    <p id="bowHP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Aft HP:</h4>
+                    <p id="aftHP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Port HP:</h4>
+                    <p id="portHP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Starboard HP:</h4>
+                    <p id="starboardHP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Bilge HP:</h4>
+                    <p id="bilgeHP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Mast HP:</h4>
+                    <p id="mastHP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Rudder HP:</h4>
+                    <p id="rudderHP"></p>
+                </section>
             </section>
         </article>
-        
-        
+
+        <article>
+            <section class="box">
+                <h3>Add Armor</h3>
+                <section class="horizontal">
+                    <h4>Add</h4>
+                    <select name="" id="armorType"></select>
+                    <h4>to</h4>
+                    <select name="" id="armorArea">
+                        <option value="0">Bridge</option>
+                        <option value="1">Bow</option>
+                        <option value="2">Aft</option>
+                        <option value="3">Port</option>
+                        <option value="4">Starboard</option>
+                        <option value="5">Bilge</option>
+                        <option value="6">Mast</option>
+                        <option value="7">Rudder</option>
+                    </select>
+                    <button id="addArmorButton">Add</button>
+                </section>
+            </section>
+        </article>
     </main>
 
     <script src="JS/app.js"></script>
