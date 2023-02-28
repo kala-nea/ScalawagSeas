@@ -30,6 +30,11 @@ function addProgress(){
     sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoat()">Next Boat</button>`);
 }
 
+function clearSidebar(){
+    sidebar = document.getElementById("SideBar");
+    sidebar.innerHTML = "";
+}
+
 function setPhase(input){
     document.getElementById("phase").innerText = `Phase:${input}`;
 }

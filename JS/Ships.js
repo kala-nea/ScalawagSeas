@@ -1,4 +1,5 @@
 
+
 let pieceStorage = document.getElementById("PieceStorage");
 class Ship{
     constructor(x = 0,y = 0,team = 0, movePower = 5){
@@ -11,17 +12,30 @@ class Ship{
         this.shipNum = ships.length;
         this.id = `Ship${ships.length}`
         this.makeShip();
-        this.movePower = movePower;
+        this.movePower = [movePower,movePower*1.5,movePower*2];
         this.moveLeft = movePower;
         this.exhausted = false;
         //this.ship.style.cssText = "#theDiv:before {background: black;}"
+
+        this.name;
+        this.tonnage;
+        this.weightclass;
+        //bow,port,starboard
+        this.Weapons= [[],[],[]];
+        //[type,max,ammountLeft]
+        this.ammo=[[],[]];
+        this.captanSkill;
+        //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
+        //[max,ammountLeft]
+        this.hitpoints = [[],[],[],[],[],[],[],[]];
+
         ships.push(this);
     }
     
     
     makeShip(){
         let shipmake = document.createElement("img");
-        shipmake.setAttribute("src","IMG/wellermanm.png");
+        shipmake.setAttribute("src","IMG/basic-ship.png");
         shipmake.setAttribute("class","Ship");
         shipmake.setAttribute("id",this.id);
         pieceStorage.append(shipmake);

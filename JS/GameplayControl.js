@@ -3,10 +3,11 @@ let activeBoat
 
 
 function startGame(){
+    startMovePhase()
+    removeStart();
     activeTeam = 0;
     activeBoat = 0;
     teams[activeTeam].ships[activeBoat].selectColor();
-    removeStart();
     addProgress();
     setPhase("move");
     setTeam(activeTeam);
@@ -16,20 +17,22 @@ function startGame(){
 }
 
 function update(){
-    teams[activeTeam].ships[activeBoat].deselectColor();
-    // if(teams[activeTeam].ships[activeBoat].moveLeft==0){
-    //     activeBoat++;
-    // }
-    // if(activeBoat>teams[activeTeam].ships.length-1){
-    //     activeTeam++;
-    //     activeBoat = 0;
-    // }
-    teams[activeTeam].ships[activeBoat].selectColor();
-    setPhase("move");
-    setTeam(activeTeam);
-    setBoat(activeBoat);
-    setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
-    moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    try{
+        teams[activeTeam].ships[activeBoat].deselectColor();
+        // if(teams[activeTeam].ships[activeBoat].moveLeft==0){
+        //     activeBoat++;
+        // }
+        // if(activeBoat>teams[activeTeam].ships.length-1){
+        //     activeTeam++;
+        //     activeBoat = 0;
+        // }
+        teams[activeTeam].ships[activeBoat].selectColor();
+        setPhase("move");
+        setTeam(activeTeam);
+        setBoat(activeBoat);
+        setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
+        moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    }catch{}
 }
 
 function nextBoat(){
@@ -46,4 +49,12 @@ function nextBoat(){
     setBoat(activeBoat);
     setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
     moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+}
+
+function startMovePhase(){
+
+}
+
+function StartAttackPhase(){
+
 }
