@@ -8,6 +8,8 @@ class Ship{
         this.ship;
         this.shipx = x;
         this.shipy = y;
+        //0=top,1=topright 2=bottomright etc until 5
+        this.rotation = 0;
         this.team = team 
         this.shipNum = ships.length;
         this.id = `Ship${ships.length}`
@@ -15,7 +17,8 @@ class Ship{
         this.movePower = [movePower,movePower*1.5,movePower*2];
         this.moveLeft = movePower;
         this.exhausted = false;
-        //this.ship.style.cssText = "#theDiv:before {background: black;}"
+        this.identifier = document.createElement("p");
+        this.identifier.innerText = `Team${this.team} Boat`;
 
         this.name;
         this.tonnage;
@@ -42,9 +45,10 @@ class Ship{
         this.ship = document.getElementById(this.id);
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
+        this.ship.style.height = `${desiredHex.height}px`;
+        this.ship.style.width = `${desiredHex.width}px`;
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
-        this.ship.style.width = `${desiredHex.width}px`;
     }
     
     
@@ -72,13 +76,28 @@ class Ship{
         this.ship.style.width = `${desiredHex.width}px`;
     }
 
+    rotate(rotationAmmount){
+        this.rotation += rotationAmmount;
+        while(this.rotation>5||this.rotation<0){
+            if(this.rotation>5){
+                this.rotation -=6
+            }else{
+                this.rotation +=6
+            }
+        }
+        this.ship.style.transform = `rotate(${360/6*this.rotation}deg)`
+    }
+
     selectColor(){
         this.ship.style.filter = "brightness(150%)";
     }
     deselectColor(){
         this.ship.style.filter = "brightness(100%)";
     }
+
 }
+
+
 
 
 let ships = []
@@ -90,6 +109,12 @@ setTimeout(adjustAll,100);
 function adjustAll(){
     for(let ship of ships){
         ship.adjustShip();
+    }
+}
+
+function readyAll(){
+    for(let ship of ships){
+        ship.exhausted = false;
     }
 }
 
