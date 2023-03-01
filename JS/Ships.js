@@ -18,25 +18,28 @@ class Ship{
         this.movePower = [movePower,movePower*1.5,movePower*2];
         this.moveLeft = movePower;
         this.exhausted = false;
-        this.identifier = document.createElement("p");
-        this.identifier.innerText = `Team${this.team} Boat`;
+        
 
-        this.name;
-        this.tonnage;
-        this.weightclass;
+        this.name = "ship do dad";
+        this.tonnage = 10;
+        this.weightclass = "feather";
         //bow,port,starboard
-        this.Weapons= [[],[],[]];
+        //type,weight,quantity
+        this.Weapons= [[["Cannon",8,3]],[["Cannon",8,3]],[["Cannon",8,3]]];
         //[type,max,ammountLeft]
-        this.ammo=[[],[]];
-        this.captanSkill;
+        this.ammo=[["Round Shot",100,50],["Grapeshot",20,10]];
+        this.captanSkill = 4;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft]
-        this.hitpoints = [[],[],[],[],[],[],[],[]];
+        this.hitpoints = [[10,5],[10,5],[10,5],[10,5],[10,5],[10,5],[10,5],[10,5]];
 
         ships.push(this);
     }
     
-    
+    pushThis(){
+        ships.push(this);
+    }
+
     makeShip(){
         let shipmake = document.createElement("img");
         shipmake.setAttribute("src","IMG/basic-ship.png");
@@ -44,7 +47,7 @@ class Ship{
         shipmake.setAttribute("id",this.id);
         pieceStorage.append(shipmake);
         this.ship = document.getElementById(this.id);
-        this.ship.addEventListener("click",this.displayStats);
+        this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
         this.ship.style.height = `${desiredHex.height}px`;
@@ -52,6 +55,17 @@ class Ship{
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
         this.ship.style.zIndex = "5"
+        this.identifier = document.createElement("p");
+        this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
+        this.identifier.setAttribute("class",`Identifier`);
+        this.identifier.innerText = `Team${this.team+1} Boat put a number here please`;
+        this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
+        this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
+        this.identifier.style.top = `${desiredPos.top-desiredHex.height/2.2+this.identifier.height/2}px`;   //dooo the off set for 20x40
+        //this.identifier.style.height = `${desiredHex.height}px`;
+        //this.identifier.style.width = `${desiredHex.width}px`;
+        this.identifier.style.zIndex = "6"
+        pieceStorage.append(this.identifier);
     }
     
     
@@ -59,14 +73,10 @@ class Ship{
         x=parseInt(x);
         y=parseInt(y);
         if(this.moveLeft>0){
-            let desiredHex = document.getElementById(`col${x}row${y}`);
-            let desiredPos = desiredHex.getBoundingClientRect();
-            this.ship.style.left = `${desiredPos.left}px`;
-            this.ship.style.top = `${desiredPos.top}px`;
-            this.ship.style.width = `${desiredHex.width}px`;
             this.shipx = x;
             this.shipy = y;
             this.moveLeft--;
+            this.adjustShip();
         }
     }
     
@@ -78,6 +88,11 @@ class Ship{
         this.ship.style.width = `${desiredHex.width}px`;
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
+        this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
+        this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
+        this.identifier.style.top = `${desiredPos.top-desiredHex.height/2.2+this.identifier.height/2}px`;
+        //this.identifier.style.height = `${desiredHex.height}px`;
+        //this.identifier.style.width = `${desiredHex.width}px`;
     }
 
     rotate(rotationAmmount){
@@ -103,8 +118,58 @@ class Ship{
 
     displayStats(){
         PieceInfo = document.getElementById("PieceInfo");
-        console.log("doint");
-        PieceInfo.innerText=this;
+        PieceInfo.innerText=`
+        Name:${this.name}
+        Tonnage:${this.tonnage}
+        Weight Class:${this.weightclass}
+        Captain Skill:${this.captanSkill}
+      
+        Movement Points:
+            Crusing:${this.movePower[0]}
+            Full Steam:${this.movePower[1]}
+            Flanking:${this.movePower[2]}
+
+        Weapons:
+          `;
+        if(this.Weapons[0].length>0){
+        PieceInfo.innerText+=`Bow:
+        `;
+        }
+        for(let i=0;i<this.Weapons[0].length;i++){
+        PieceInfo.innerText+=`${this.Weapons[0][i][2]}x ${this.Weapons[0][i][1]}lb ${this.Weapons[0][i][0]}
+        `;
+        }
+        if(this.Weapons[1].length>0){
+        PieceInfo.innerText+=`Port:
+        `;
+        }
+        for(let i=0;i<this.Weapons[1].length;i++){
+        PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}
+        `;
+        }
+        if(this.Weapons[2].length>0){
+        PieceInfo.innerText+=`Starboard:
+        `;
+        }
+        for(let i=0;i<this.Weapons[2].length;i++){
+        PieceInfo.innerText+=`${this.Weapons[2][i][2]}x ${this.Weapons[2][i][1]}lb ${this.Weapons[2][i][0]}
+        `;
+        }
+        PieceInfo.innerText+=`
+        Ammo:
+        `;
+        for(let i=0;i<this.ammo.length;i++){
+            PieceInfo.innerText+=`${this.ammo[i][0]}: ${this.ammo[i][2]}/${this.ammo[i][1]}
+            `;
+        }
+        let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
+        PieceInfo.innerText+=`
+        Hitpoints:
+        `;
+        for(let i=0;i<this.hitpoints.length;i++){
+            PieceInfo.innerText+=`${shipParts[i]}: ${this.hitpoints[i][1]}/${this.hitpoints[i][0]}
+            `;
+        }
     }
 }
 
@@ -137,10 +202,14 @@ function makeBoats(){
     for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
         let teamPlaceHoler = new Team();
         for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
-            let shipPlaceHolder = new Ship(i*2,j*2,i,parseInt(document.getElementById("movePer").value));
+            let shipPlaceHolder = new Ship(i*7,j*3,i,parseInt(document.getElementById("movePer").value));
             teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
         }
     }
     removeBoatMake();
     addStart();
+}
+
+function displayAShipsStats(shipsNum){
+    ships[shipsNum].displayStats();
 }

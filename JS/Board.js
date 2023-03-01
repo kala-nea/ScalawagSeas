@@ -27,6 +27,7 @@ function MakeBoard(){
     Board.innerHTML ="";
     HexGrid = document.createElement("section");
     HexGrid.setAttribute("class","Tiles");
+    HexGrid.style.aspectRatio = `${boardWidth}/${1.15470051*boardHeight}`
     HexColumn = document.createElement("section");
     HexColumn.setAttribute("class","TileColumn");
     HexColumn.style.width = `${100/parseFloat(boardWidth)*5}%`
@@ -60,7 +61,7 @@ function MakeBoard(){
         //SubmitCol.style.right = `${((i-parseFloat(boardWidth))+1)*100/(parseFloat(boardWidth)*4)}%`;
         //SubmitCol.style.left = `${-(i)*100/(parseFloat(boardWidth)*3.5)}%`;
         if(i!=0){
-            SubmitCol.style.marginLeft = `${-100/(parseFloat(boardWidth)*2.8)}%`;  
+            SubmitCol.style.marginLeft = `${-100/(parseFloat(boardWidth)*2.85)}%`;  
         }
         HexGrid.appendChild(SubmitCol);
     }
@@ -68,6 +69,7 @@ function MakeBoard(){
     setTimeout(spaceify,100);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
+        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+20}px`
         Board.innerHTML ="";
         Board.appendChild(HexGrid);
     }
@@ -119,16 +121,16 @@ function unhighlight(id){
     }
 }
 
-let movePower = 2;
+
 let pastid = "";
 function select(id){
     if(pastid!=""){
         let pastloc =pastid.split("col").pop().split("row");
-        moveShadent(parseFloat(pastloc[0]),parseFloat(pastloc[1]),movePower);
+        moveShadent(parseFloat(pastloc[0]),parseFloat(pastloc[1]));
     }
     let location = id.split("col").pop().split("row");
     console.log(`row ${location[0]}  col ${location[1]}`)
-    moveShade(parseFloat(location[0]),parseFloat(location[1]),movePower);
+    moveShade(parseFloat(location[0]),parseFloat(location[1]));
     pastid = id;
 }
 
