@@ -34,6 +34,12 @@ for (ton in statsByTon) {
 
 tonnageTable.addEventListener("change", setValues);
 tonnageTable.addEventListener("change", getArmorOptions);
+tonnageTable.addEventListener("change", getWeaponOptionsB1);
+tonnageTable.addEventListener("change", getWeaponOptionsB2);
+tonnageTable.addEventListener("change", getWeaponOptionsP1);
+tonnageTable.addEventListener("change", getWeaponOptionsP2);
+tonnageTable.addEventListener("change", getWeaponOptionsS1);
+tonnageTable.addEventListener("change", getWeaponOptionsS2);
 
 let wcDisplay = document.getElementById("wcDisplay");
 
@@ -344,3 +350,884 @@ function addArmor () {
 addArmorButton.addEventListener("click", addArmor);
 addArmorButton.addEventListener("click", getArmorOptions);
 
+let weaponLbB = document.getElementById("weaponLbB");
+let weaponLbP = document.getElementById("weaponLbP");
+let weaponLbS = document.getElementById("weaponLbS");
+let weaponTypeB = document.getElementById("weaponTypeB");
+let weaponTypeP = document.getElementById("weaponTypeP");
+let weaponTypeS = document.getElementById("weaponTypeS");
+let weaponAmmoB = document.getElementById("weaponAmmoB");
+let weaponAmmoP = document.getElementById("weaponAmmoP");
+let weaponAmmoS = document.getElementById("weaponAmmoS");
+
+function getWeaponOptionsB1 () {
+    weaponTypeB.replaceChildren('');
+
+    let newRow1 = document.createElement("option");
+    newRow1.setAttribute("value", 0);
+    newRow1.textContent = "Cannon";
+    let newRow2 = document.createElement("option");
+    newRow2.setAttribute("value", 1);
+    newRow2.textContent = "Long Nine";
+    let newRow3 = document.createElement("option");
+    newRow3.setAttribute("value", 2);
+    newRow3.textContent = "Carronade";
+    let newRow4 = document.createElement("option");
+    newRow4.setAttribute("value", 3);
+    newRow4.textContent = "Paixhan";
+
+    if (weaponsRemainingB >= 8) {
+        weaponTypeB.appendChild(newRow1);
+        weaponTypeB.appendChild(newRow2);
+        weaponTypeB.appendChild(newRow3);
+        weaponTypeB.appendChild(newRow4);
+    } else if (weaponsRemainingB >= 4) {
+        weaponTypeB.appendChild(newRow1);
+        weaponTypeB.appendChild(newRow2);
+        weaponTypeB.appendChild(newRow3);
+    } else if (weaponsRemainingB > 0) {
+        weaponTypeB.appendChild(newRow1);
+        weaponTypeB.appendChild(newRow2);
+    }
+
+    
+}
+
+function getWeaponOptionsB2 () {
+    weaponLbB.replaceChildren('');
+    weaponAmmoB.replaceChildren('');
+
+    let newPound1 = document.createElement("option");
+    newPound1.setAttribute("value", 0);
+    newPound1.textContent = "6lb";
+    let newPound2 = document.createElement("option");
+    newPound2.setAttribute("value", 1);
+    newPound2.textContent = "8lb";
+    let newPound3 = document.createElement("option");
+    newPound3.setAttribute("value", 2);
+    newPound3.textContent = "9lb";
+    let newPound4 = document.createElement("option");
+    newPound4.setAttribute("value", 3);
+    newPound4.textContent = "12lb";
+    let newPound5 = document.createElement("option");
+    newPound5.setAttribute("value", 4);
+    newPound5.textContent = "18lb";
+    let newPound6 = document.createElement("option");
+    newPound6.setAttribute("value", 5);
+    newPound6.textContent = "24lb";
+    let newPound7 = document.createElement("option");
+    newPound7.setAttribute("value", 6);
+    newPound7.textContent = "32lb";
+    let newPound8 = document.createElement("option");
+    newPound8.setAttribute("value", 7);
+    newPound8.textContent = "36lb";
+    let newPound9 = document.createElement("option");
+    newPound9.setAttribute("value", 8);
+    newPound9.textContent = "42lb";
+
+    if (parseInt(weaponTypeB.value) == 0) {
+        if (weaponsRemainingB >= 8) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+            weaponLbB.appendChild(newPound4);
+            weaponLbB.appendChild(newPound5);
+            weaponLbB.appendChild(newPound6);
+            weaponLbB.appendChild(newPound7);
+            weaponLbB.appendChild(newPound8);
+            weaponLbB.appendChild(newPound9);
+        } else if (weaponsRemainingB >= 7) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+            weaponLbB.appendChild(newPound4);
+            weaponLbB.appendChild(newPound5);
+            weaponLbB.appendChild(newPound6);
+            weaponLbB.appendChild(newPound7);
+            weaponLbB.appendChild(newPound8);
+        } else if (weaponsRemainingB >= 6) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+            weaponLbB.appendChild(newPound4);
+            weaponLbB.appendChild(newPound5);
+            weaponLbB.appendChild(newPound6);
+            weaponLbB.appendChild(newPound7);
+        } else if (weaponsRemainingB >= 5) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+            weaponLbB.appendChild(newPound4);
+            weaponLbB.appendChild(newPound5);
+            weaponLbB.appendChild(newPound6);
+        } else if (weaponsRemainingB >= 4) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+            weaponLbB.appendChild(newPound4);
+            weaponLbB.appendChild(newPound5);
+        } else if (weaponsRemainingB >= 3) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+            weaponLbB.appendChild(newPound4);
+        } else if (weaponsRemainingB >= 2) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+        } else if (weaponsRemainingB >= 1) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+        }
+    } else if (parseInt(weaponTypeB.value) == 1) {
+        if (weaponsRemainingB >= 3) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+            weaponLbB.appendChild(newPound3);
+        } else if (weaponsRemainingB >= 2) {
+            weaponLbB.appendChild(newPound1);
+            weaponLbB.appendChild(newPound2);
+        } else if (weaponsRemainingB >= 1) {
+            weaponLbB.appendChild(newPound1);
+        }
+    } else if (parseInt(weaponTypeB.value) == 2) {
+        if (weaponsRemainingB >= 6) {
+            weaponLbB.appendChild(newPound4);
+            weaponLbB.appendChild(newPound5);
+            weaponLbB.appendChild(newPound6);
+        } else if (weaponsRemainingB >= 5) {
+            weaponLbB.appendChild(newPound4);
+            weaponLbB.appendChild(newPound5);
+        } else if (weaponsRemainingB >= 4) {
+            weaponLbB.appendChild(newPound4);
+        }
+    } else if (parseInt(weaponTypeB.value) == 3) {
+        if (weaponsRemainingB >= 10) {
+            weaponLbB.appendChild(newPound7);
+            weaponLbB.appendChild(newPound8);
+            weaponLbB.appendChild(newPound9);
+        } else if (weaponsRemainingB >= 9) {
+            weaponLbB.appendChild(newPound7);
+            weaponLbB.appendChild(newPound8);
+        } else if (weaponsRemainingB >= 8) {
+            weaponLbB.appendChild(newPound7);
+        }
+    }
+
+    let newAmmo1 = document.createElement("option");
+    newAmmo1.setAttribute("value", 0);
+    newAmmo1.textContent = "Round Shot";
+    let newAmmo2 = document.createElement("option");
+    newAmmo2.setAttribute("value", 1);
+    newAmmo2.textContent = "Grapeshot";
+    let newAmmo3 = document.createElement("option");
+    newAmmo3.setAttribute("value", 2);
+    newAmmo3.textContent = "Chain Shot";
+
+    if (parseInt(weaponTypeB.value) == 0) {
+        weaponAmmoB.appendChild(newAmmo1);
+        weaponAmmoB.appendChild(newAmmo2);
+        weaponAmmoB.appendChild(newAmmo3);
+    } else if (parseInt(weaponTypeB.value) == 1) {
+        weaponAmmoB.appendChild(newAmmo1);
+        weaponAmmoB.appendChild(newAmmo2);
+    } else if (parseInt(weaponTypeB.value) == 2) {
+        weaponAmmoB.appendChild(newAmmo1);
+        weaponAmmoB.appendChild(newAmmo3);
+    } else if (parseInt(weaponTypeB.value) == 3) {
+        weaponAmmoB.appendChild(newAmmo1);
+    }
+}
+
+weaponTypeB.addEventListener("change", getWeaponOptionsB2);
+
+function getWeaponOptionsP1 () {
+    weaponTypeP.replaceChildren('');
+
+    let newRow1 = document.createElement("option");
+    newRow1.setAttribute("value", 0);
+    newRow1.textContent = "Cannon";
+    let newRow2 = document.createElement("option");
+    newRow2.setAttribute("value", 1);
+    newRow2.textContent = "Long Nine";
+    let newRow3 = document.createElement("option");
+    newRow3.setAttribute("value", 2);
+    newRow3.textContent = "Carronade";
+    let newRow4 = document.createElement("option");
+    newRow4.setAttribute("value", 3);
+    newRow4.textContent = "Paixhan";
+
+    if (weaponsRemainingP >= 8) {
+        weaponTypeP.appendChild(newRow1);
+        weaponTypeP.appendChild(newRow2);
+        weaponTypeP.appendChild(newRow3);
+        weaponTypeP.appendChild(newRow4);
+    } else if (weaponsRemainingP >= 4) {
+        weaponTypeP.appendChild(newRow1);
+        weaponTypeP.appendChild(newRow2);
+        weaponTypeP.appendChild(newRow3);
+    } else if (weaponsRemainingP > 0) {
+        weaponTypeP.appendChild(newRow1);
+        weaponTypeP.appendChild(newRow2);
+    }
+
+    
+}
+
+function getWeaponOptionsP2 () {
+    weaponLbP.replaceChildren('');
+    weaponAmmoP.replaceChildren('');
+
+    let newPound1 = document.createElement("option");
+    newPound1.setAttribute("value", 0);
+    newPound1.textContent = "6lb";
+    let newPound2 = document.createElement("option");
+    newPound2.setAttribute("value", 1);
+    newPound2.textContent = "8lb";
+    let newPound3 = document.createElement("option");
+    newPound3.setAttribute("value", 2);
+    newPound3.textContent = "9lb";
+    let newPound4 = document.createElement("option");
+    newPound4.setAttribute("value", 3);
+    newPound4.textContent = "12lb";
+    let newPound5 = document.createElement("option");
+    newPound5.setAttribute("value", 4);
+    newPound5.textContent = "18lb";
+    let newPound6 = document.createElement("option");
+    newPound6.setAttribute("value", 5);
+    newPound6.textContent = "24lb";
+    let newPound7 = document.createElement("option");
+    newPound7.setAttribute("value", 6);
+    newPound7.textContent = "32lb";
+    let newPound8 = document.createElement("option");
+    newPound8.setAttribute("value", 7);
+    newPound8.textContent = "36lb";
+    let newPound9 = document.createElement("option");
+    newPound9.setAttribute("value", 8);
+    newPound9.textContent = "42lb";
+
+    if (parseInt(weaponTypeP.value) == 0) {
+        if (weaponsRemainingP >= 8) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+            weaponLbP.appendChild(newPound4);
+            weaponLbP.appendChild(newPound5);
+            weaponLbP.appendChild(newPound6);
+            weaponLbP.appendChild(newPound7);
+            weaponLbP.appendChild(newPound8);
+            weaponLbP.appendChild(newPound9);
+        } else if (weaponsRemainingP >= 7) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+            weaponLbP.appendChild(newPound4);
+            weaponLbP.appendChild(newPound5);
+            weaponLbP.appendChild(newPound6);
+            weaponLbP.appendChild(newPound7);
+            weaponLbP.appendChild(newPound8);
+        } else if (weaponsRemainingP >= 6) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+            weaponLbP.appendChild(newPound4);
+            weaponLbP.appendChild(newPound5);
+            weaponLbP.appendChild(newPound6);
+            weaponLbP.appendChild(newPound7);
+        } else if (weaponsRemainingP >= 5) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+            weaponLbP.appendChild(newPound4);
+            weaponLbP.appendChild(newPound5);
+            weaponLbP.appendChild(newPound6);
+        } else if (weaponsRemainingP >= 4) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+            weaponLbP.appendChild(newPound4);
+            weaponLbP.appendChild(newPound5);
+        } else if (weaponsRemainingP >= 3) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+            weaponLbP.appendChild(newPound4);
+        } else if (weaponsRemainingP >= 2) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+        } else if (weaponsRemainingP >= 1) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+        }
+    } else if (parseInt(weaponTypeP.value) == 1) {
+        if (weaponsRemainingP >= 3) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+            weaponLbP.appendChild(newPound3);
+        } else if (weaponsRemainingP >= 2) {
+            weaponLbP.appendChild(newPound1);
+            weaponLbP.appendChild(newPound2);
+        } else if (weaponsRemainingP >= 1) {
+            weaponLbP.appendChild(newPound1);
+        }
+    } else if (parseInt(weaponTypeP.value) == 2) {
+        if (weaponsRemainingP >= 6) {
+            weaponLbP.appendChild(newPound4);
+            weaponLbP.appendChild(newPound5);
+            weaponLbP.appendChild(newPound6);
+        } else if (weaponsRemainingP >= 5) {
+            weaponLbP.appendChild(newPound4);
+            weaponLbP.appendChild(newPound5);
+        } else if (weaponsRemainingP >= 4) {
+            weaponLbP.appendChild(newPound4);
+        }
+    } else if (parseInt(weaponTypeP.value) == 3) {
+        if (weaponsRemainingP >= 10) {
+            weaponLbP.appendChild(newPound7);
+            weaponLbP.appendChild(newPound8);
+            weaponLbP.appendChild(newPound9);
+        } else if (weaponsRemainingP >= 9) {
+            weaponLbP.appendChild(newPound7);
+            weaponLbP.appendChild(newPound8);
+        } else if (weaponsRemainingP >= 8) {
+            weaponLbP.appendChild(newPound7);
+        }
+    }
+
+    let newAmmo1 = document.createElement("option");
+    newAmmo1.setAttribute("value", 0);
+    newAmmo1.textContent = "Round Shot";
+    let newAmmo2 = document.createElement("option");
+    newAmmo2.setAttribute("value", 1);
+    newAmmo2.textContent = "Grapeshot";
+    let newAmmo3 = document.createElement("option");
+    newAmmo3.setAttribute("value", 2);
+    newAmmo3.textContent = "Chain Shot";
+
+    if (parseInt(weaponTypeP.value) == 0) {
+        weaponAmmoP.appendChild(newAmmo1);
+        weaponAmmoP.appendChild(newAmmo2);
+        weaponAmmoP.appendChild(newAmmo3);
+    } else if (parseInt(weaponTypeP.value) == 1) {
+        weaponAmmoP.appendChild(newAmmo1);
+        weaponAmmoP.appendChild(newAmmo2);
+    } else if (parseInt(weaponTypeP.value) == 2) {
+        weaponAmmoP.appendChild(newAmmo1);
+        weaponAmmoP.appendChild(newAmmo3);
+    } else if (parseInt(weaponTypeP.value) == 3) {
+        weaponAmmoP.appendChild(newAmmo1);
+    }
+}
+
+weaponTypeP.addEventListener("change", getWeaponOptionsP2);
+
+function getWeaponOptionsS1 () {
+    weaponTypeS.replaceChildren('');
+
+    let newRow1 = document.createElement("option");
+    newRow1.setAttribute("value", 0);
+    newRow1.textContent = "Cannon";
+    let newRow2 = document.createElement("option");
+    newRow2.setAttribute("value", 1);
+    newRow2.textContent = "Long Nine";
+    let newRow3 = document.createElement("option");
+    newRow3.setAttribute("value", 2);
+    newRow3.textContent = "Carronade";
+    let newRow4 = document.createElement("option");
+    newRow4.setAttribute("value", 3);
+    newRow4.textContent = "Paixhan";
+
+    if (weaponsRemainingS >= 8) {
+        weaponTypeS.appendChild(newRow1);
+        weaponTypeS.appendChild(newRow2);
+        weaponTypeS.appendChild(newRow3);
+        weaponTypeS.appendChild(newRow4);
+    } else if (weaponsRemainingS >= 4) {
+        weaponTypeS.appendChild(newRow1);
+        weaponTypeS.appendChild(newRow2);
+        weaponTypeS.appendChild(newRow3);
+    } else if (weaponsRemainingS > 0) {
+        weaponTypeS.appendChild(newRow1);
+        weaponTypeS.appendChild(newRow2);
+    }
+
+    
+}
+
+function getWeaponOptionsS2 () {
+    weaponLbS.replaceChildren('');
+    weaponAmmoS.replaceChildren('');
+
+    let newPound1 = document.createElement("option");
+    newPound1.setAttribute("value", 0);
+    newPound1.textContent = "6lb";
+    let newPound2 = document.createElement("option");
+    newPound2.setAttribute("value", 1);
+    newPound2.textContent = "8lb";
+    let newPound3 = document.createElement("option");
+    newPound3.setAttribute("value", 2);
+    newPound3.textContent = "9lb";
+    let newPound4 = document.createElement("option");
+    newPound4.setAttribute("value", 3);
+    newPound4.textContent = "12lb";
+    let newPound5 = document.createElement("option");
+    newPound5.setAttribute("value", 4);
+    newPound5.textContent = "18lb";
+    let newPound6 = document.createElement("option");
+    newPound6.setAttribute("value", 5);
+    newPound6.textContent = "24lb";
+    let newPound7 = document.createElement("option");
+    newPound7.setAttribute("value", 6);
+    newPound7.textContent = "32lb";
+    let newPound8 = document.createElement("option");
+    newPound8.setAttribute("value", 7);
+    newPound8.textContent = "36lb";
+    let newPound9 = document.createElement("option");
+    newPound9.setAttribute("value", 8);
+    newPound9.textContent = "42lb";
+
+    if (parseInt(weaponTypeS.value) == 0) {
+        if (weaponsRemainingS >= 8) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+            weaponLbS.appendChild(newPound4);
+            weaponLbS.appendChild(newPound5);
+            weaponLbS.appendChild(newPound6);
+            weaponLbS.appendChild(newPound7);
+            weaponLbS.appendChild(newPound8);
+            weaponLbS.appendChild(newPound9);
+        } else if (weaponsRemainingS >= 7) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+            weaponLbS.appendChild(newPound4);
+            weaponLbS.appendChild(newPound5);
+            weaponLbS.appendChild(newPound6);
+            weaponLbS.appendChild(newPound7);
+            weaponLbS.appendChild(newPound8);
+        } else if (weaponsRemainingS >= 6) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+            weaponLbS.appendChild(newPound4);
+            weaponLbS.appendChild(newPound5);
+            weaponLbS.appendChild(newPound6);
+            weaponLbS.appendChild(newPound7);
+        } else if (weaponsRemainingS >= 5) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+            weaponLbS.appendChild(newPound4);
+            weaponLbS.appendChild(newPound5);
+            weaponLbS.appendChild(newPound6);
+        } else if (weaponsRemainingS >= 4) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+            weaponLbS.appendChild(newPound4);
+            weaponLbS.appendChild(newPound5);
+        } else if (weaponsRemainingS >= 3) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+            weaponLbS.appendChild(newPound4);
+        } else if (weaponsRemainingS >= 2) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+        } else if (weaponsRemainingS >= 1) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+        }
+    } else if (parseInt(weaponTypeS.value) == 1) {
+        if (weaponsRemainingS >= 3) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+            weaponLbS.appendChild(newPound3);
+        } else if (weaponsRemainingS >= 2) {
+            weaponLbS.appendChild(newPound1);
+            weaponLbS.appendChild(newPound2);
+        } else if (weaponsRemainingS >= 1) {
+            weaponLbS.appendChild(newPound1);
+        }
+    } else if (parseInt(weaponTypeS.value) == 2) {
+        if (weaponsRemainingS >= 6) {
+            weaponLbS.appendChild(newPound4);
+            weaponLbS.appendChild(newPound5);
+            weaponLbS.appendChild(newPound6);
+        } else if (weaponsRemainingS >= 5) {
+            weaponLbS.appendChild(newPound4);
+            weaponLbS.appendChild(newPound5);
+        } else if (weaponsRemainingS >= 4) {
+            weaponLbS.appendChild(newPound4);
+        }
+    } else if (parseInt(weaponTypeS.value) == 3) {
+        if (weaponsRemainingS >= 10) {
+            weaponLbS.appendChild(newPound7);
+            weaponLbS.appendChild(newPound8);
+            weaponLbS.appendChild(newPound9);
+        } else if (weaponsRemainingS >= 9) {
+            weaponLbS.appendChild(newPound7);
+            weaponLbS.appendChild(newPound8);
+        } else if (weaponsRemainingS >= 8) {
+            weaponLbS.appendChild(newPound7);
+        }
+    }
+
+    let newAmmo1 = document.createElement("option");
+    newAmmo1.setAttribute("value", 0);
+    newAmmo1.textContent = "Round Shot";
+    let newAmmo2 = document.createElement("option");
+    newAmmo2.setAttribute("value", 1);
+    newAmmo2.textContent = "Grapeshot";
+    let newAmmo3 = document.createElement("option");
+    newAmmo3.setAttribute("value", 2);
+    newAmmo3.textContent = "Chain Shot";
+
+    if (parseInt(weaponTypeS.value) == 0) {
+        weaponAmmoS.appendChild(newAmmo1);
+        weaponAmmoS.appendChild(newAmmo2);
+        weaponAmmoS.appendChild(newAmmo3);
+    } else if (parseInt(weaponTypeS.value) == 1) {
+        weaponAmmoS.appendChild(newAmmo1);
+        weaponAmmoS.appendChild(newAmmo2);
+    } else if (parseInt(weaponTypeS.value) == 2) {
+        weaponAmmoS.appendChild(newAmmo1);
+        weaponAmmoS.appendChild(newAmmo3);
+    } else if (parseInt(weaponTypeS.value) == 3) {
+        weaponAmmoS.appendChild(newAmmo1);
+    }
+}
+
+weaponTypeS.addEventListener("change", getWeaponOptionsS2);
+
+let ammo = [0, 0, 0]
+
+let addWeaponButtonB = document.getElementById("addWeaponButtonB");
+let addWeaponButtonP = document.getElementById("addWeaponButtonP");
+let addWeaponButtonS = document.getElementById("addWeaponButtonS");
+let bowWeaponTable = document.getElementById("bowWeaponTable");
+let portWeaponTable = document.getElementById("portWeaponTable");
+let starboardWeaponTable = document.getElementById("starboardWeaponTable");
+
+let ammoTable = document.getElementById("ammoTable");
+let roundDisplay = document.getElementById("roundDisplay");
+let grapeDisplay = document.getElementById("grapeDisplay");
+let chainDisplay = document.getElementById("chainDisplay");
+
+function addWeaponB () {
+    console.log("works");
+    let newLine1 = document.createElement("p");
+    switch (weaponTypeB.value + "-" + weaponLbB.value) {
+        case "0-0":
+            newLine1.textContent = "6lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 1;
+            break;
+        case "0-1":
+            newLine1.textContent = "8lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 1;
+            break;
+        case "0-2":
+            newLine1.textContent = "9lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 2;
+            break;
+        case "0-3":
+            newLine1.textContent = "12lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 3;
+            break;
+        case "0-4":
+            newLine1.textContent = "18lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 4;
+            break;
+        case "0-5":
+            newLine1.textContent = "24lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 5;
+            break;
+        case "0-6":
+            newLine1.textContent = "32lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 6;
+            break;
+        case "0-7":
+            newLine1.textContent = "36lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 7;
+            break;
+        case "0-8":
+            newLine1.textContent = "42lb Cannon";
+            weaponsRemainingB = weaponsRemainingB - 8;
+            break;
+
+        case "1-0":
+            newLine1.textContent = "6lb Long Nine";
+            weaponsRemainingB = weaponsRemainingB - 1;
+            break;
+        case "1-1":
+            newLine1.textContent = "8lb Long Nine";
+            weaponsRemainingB = weaponsRemainingB - 2;
+            break;
+        case "1-2":
+            newLine1.textContent = "9lb Long Nine";
+            weaponsRemainingB = weaponsRemainingB - 3;
+            break;
+
+        case "2-3":
+            newLine1.textContent = "12lb Carronade";
+            weaponsRemainingB = weaponsRemainingB - 4;
+            break;
+        case "2-4":
+            newLine1.textContent = "18lb Carronade";
+            weaponsRemainingB = weaponsRemainingB - 5;
+            break;
+        case "2-5":
+            newLine1.textContent = "24lb Carronade";
+            weaponsRemainingB = weaponsRemainingB - 6;
+            break;
+        
+        case "3-6":
+            newLine1.textContent = "32lb Paixhan";
+            weaponsRemainingB = weaponsRemainingB - 8;
+            break;
+        case "3-7":
+            newLine1.textContent = "36lb Paixhan";
+            weaponsRemainingB = weaponsRemainingB - 9;
+            break;
+        case "3-8":
+            newLine1.textContent = "42lb Paixhan";
+            weaponsRemainingB = weaponsRemainingB - 10;
+            break;
+    }
+    bowWeaponTable.appendChild(newLine1);
+    wlDisplayB.textContent = weaponsRemainingB;
+}
+
+function getAmmoB () {
+    console.log("works");
+    switch (weaponAmmoB.value) {
+        case "0":
+            ammo[0] = ammo[0] + 5;
+            break;
+        case "1":
+            ammo[1] = ammo[1] + 5;
+            break;
+        case "2":
+            ammo[2] = ammo[2] + 5;
+            break;
+    }
+    roundDisplay.textContent = ammo[0];
+    grapeDisplay.textContent = ammo[1];
+    chainDisplay.textContent = ammo[2];
+}
+
+addWeaponButtonB.addEventListener("click", addWeaponB);
+addWeaponButtonB.addEventListener("click", getAmmoB);
+
+function addWeaponP () {
+    console.log("works");
+    let newLine1 = document.createElement("p");
+    switch (weaponTypeP.value + "-" + weaponLbP.value) {
+        case "0-0":
+            newLine1.textContent = "6lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 1;
+            break;
+        case "0-1":
+            newLine1.textContent = "8lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 1;
+            break;
+        case "0-2":
+            newLine1.textContent = "9lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 2;
+            break;
+        case "0-3":
+            newLine1.textContent = "12lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 3;
+            break;
+        case "0-4":
+            newLine1.textContent = "18lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 4;
+            break;
+        case "0-5":
+            newLine1.textContent = "24lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 5;
+            break;
+        case "0-6":
+            newLine1.textContent = "32lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 6;
+            break;
+        case "0-7":
+            newLine1.textContent = "36lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 7;
+            break;
+        case "0-8":
+            newLine1.textContent = "42lb Cannon";
+            weaponsRemainingP = weaponsRemainingP - 8;
+            break;
+
+        case "1-0":
+            newLine1.textContent = "6lb Long Nine";
+            weaponsRemainingP = weaponsRemainingP - 1;
+            break;
+        case "1-1":
+            newLine1.textContent = "8lb Long Nine";
+            weaponsRemainingP = weaponsRemainingP - 2;
+            break;
+        case "1-2":
+            newLine1.textContent = "9lb Long Nine";
+            weaponsRemainingP = weaponsRemainingP - 3;
+            break;
+
+        case "2-3":
+            newLine1.textContent = "12lb Carronade";
+            weaponsRemainingP = weaponsRemainingP - 4;
+            break;
+        case "2-4":
+            newLine1.textContent = "18lb Carronade";
+            weaponsRemainingP = weaponsRemainingP - 5;
+            break;
+        case "2-5":
+            newLine1.textContent = "24lb Carronade";
+            weaponsRemainingP = weaponsRemainingP - 6;
+            break;
+        
+        case "3-6":
+            newLine1.textContent = "32lb Paixhan";
+            weaponsRemainingP = weaponsRemainingP - 8;
+            break;
+        case "3-7":
+            newLine1.textContent = "36lb Paixhan";
+            weaponsRemainingP = weaponsRemainingP - 9;
+            break;
+        case "3-8":
+            newLine1.textContent = "42lb Paixhan";
+            weaponsRemainingP = weaponsRemainingP - 10;
+            break;
+    }
+    portWeaponTable.appendChild(newLine1);
+    wlDisplayP.textContent = weaponsRemainingP;
+}
+
+function getAmmoP () {
+    console.log("works");
+    switch (weaponAmmoP.value) {
+        case "0":
+            ammo[0] = ammo[0] + 5;
+            break;
+        case "1":
+            ammo[1] = ammo[1] + 5;
+            break;
+        case "2":
+            ammo[2] = ammo[2] + 5;
+            break;
+    }
+    roundDisplay.textContent = ammo[0];
+    grapeDisplay.textContent = ammo[1];
+    chainDisplay.textContent = ammo[2];
+}
+
+addWeaponButtonP.addEventListener("click", addWeaponP);
+addWeaponButtonP.addEventListener("click", getAmmoP);
+
+function addWeaponS () {
+    console.log("works");
+    let newLine1 = document.createElement("p");
+    switch (weaponTypeS.value + "-" + weaponLbS.value) {
+        case "0-0":
+            newLine1.textContent = "6lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 1;
+            break;
+        case "0-1":
+            newLine1.textContent = "8lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 1;
+            break;
+        case "0-2":
+            newLine1.textContent = "9lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 2;
+            break;
+        case "0-3":
+            newLine1.textContent = "12lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 3;
+            break;
+        case "0-4":
+            newLine1.textContent = "18lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 4;
+            break;
+        case "0-5":
+            newLine1.textContent = "24lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 5;
+            break;
+        case "0-6":
+            newLine1.textContent = "32lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 6;
+            break;
+        case "0-7":
+            newLine1.textContent = "36lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 7;
+            break;
+        case "0-8":
+            newLine1.textContent = "42lb Cannon";
+            weaponsRemainingS = weaponsRemainingS - 8;
+            break;
+
+        case "1-0":
+            newLine1.textContent = "6lb Long Nine";
+            weaponsRemainingS = weaponsRemainingS - 1;
+            break;
+        case "1-1":
+            newLine1.textContent = "8lb Long Nine";
+            weaponsRemainingS = weaponsRemainingS - 2;
+            break;
+        case "1-2":
+            newLine1.textContent = "9lb Long Nine";
+            weaponsRemainingS = weaponsRemainingS - 3;
+            break;
+
+        case "2-3":
+            newLine1.textContent = "12lb Carronade";
+            weaponsRemainingS = weaponsRemainingS - 4;
+            break;
+        case "2-4":
+            newLine1.textContent = "18lb Carronade";
+            weaponsRemainingS = weaponsRemainingS - 5;
+            break;
+        case "2-5":
+            newLine1.textContent = "24lb Carronade";
+            weaponsRemainingS = weaponsRemainingS - 6;
+            break;
+        
+        case "3-6":
+            newLine1.textContent = "32lb Paixhan";
+            weaponsRemainingS = weaponsRemainingS - 8;
+            break;
+        case "3-7":
+            newLine1.textContent = "36lb Paixhan";
+            weaponsRemainingS = weaponsRemainingS - 9;
+            break;
+        case "3-8":
+            newLine1.textContent = "42lb Paixhan";
+            weaponsRemainingS = weaponsRemainingS - 10;
+            break;
+    }
+    starboardWeaponTable.appendChild(newLine1);
+    wlDisplayS.textContent = weaponsRemainingS;
+}
+
+function getAmmoP () {
+    console.log("works");
+    switch (weaponAmmoS.value) {
+        case "0":
+            ammo[0] = ammo[0] + 5;
+            break;
+        case "1":
+            ammo[1] = ammo[1] + 5;
+            break;
+        case "2":
+            ammo[2] = ammo[2] + 5;
+            break;
+    }
+    roundDisplay.textContent = ammo[0];
+    grapeDisplay.textContent = ammo[1];
+    chainDisplay.textContent = ammo[2];
+}
+
+addWeaponButtonS.addEventListener("click", addWeaponS);
+addWeaponButtonS.addEventListener("click", getAmmoS);
