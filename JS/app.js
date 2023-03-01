@@ -50,7 +50,15 @@ let bilgeHP = document.getElementById("bilgeHP");
 let mastHP = document.getElementById("mastHP");
 let rudderHP = document.getElementById("rudderHP");
 
+let alDisplay = document.getElementById("alDisplay");
+let wlDisplayB = document.getElementById("wlDisplayB");
+let wlDisplayP = document.getElementById("wlDisplayP");
+let wlDisplayS = document.getElementById("wlDisplayS");
+
 let armorRemaining;
+let weaponsRemainingB;
+let weaponsRemainingP;
+let weaponsRemainingS;
 let wc;
 let cp;
 let fsp;
@@ -81,8 +89,12 @@ function setValues () {
     mHP = statsByTon[parseInt(tonnageTable.value)][8];
     rHP = statsByTon[parseInt(tonnageTable.value)][9];
     armorRemaining = statsByTon[parseInt(tonnageTable.value)][10];
+    weaponsRemainingB = statsByTon[parseInt(tonnageTable.value)][11];
+    weaponsRemainingP = statsByTon[parseInt(tonnageTable.value)][12];
+    weaponsRemainingS = statsByTon[parseInt(tonnageTable.value)][13];
 
     wcDisplay.textContent = wc;
+    
 
     cpDisplay.textContent = cp;
     fspDisplay.textContent = fsp;
@@ -96,6 +108,11 @@ function setValues () {
     bilgeHP.textContent = biHP;
     mastHP.textContent = mHP;
     rudderHP.textContent = rHP;
+
+    alDisplay.textContent = armorRemaining;
+    wlDisplayB.textContent = weaponsRemainingB;
+    wlDisplayP.textContent = weaponsRemainingP;
+    wlDisplayS.textContent = weaponsRemainingS;
 }
 
 let armorArea = document.getElementById("armorArea");
@@ -321,7 +338,9 @@ function addArmor () {
     bilgeHP.textContent = biHP;
     mastHP.textContent = mHP;
     rudderHP.textContent = rHP;
+    alDisplay.textContent = armorRemaining;
 }
 
 addArmorButton.addEventListener("click", addArmor);
 addArmorButton.addEventListener("click", getArmorOptions);
+

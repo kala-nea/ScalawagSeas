@@ -52,7 +52,7 @@
             </section>
 
             <section class="box">
-                <h3>Hitpoints</h3>
+                <h3>Hitpoints and Limits</h3>
                 <section class="horizontal">
                     <h4>Bridge HP:</h4>
                     <p id="bridgeHP"></p>
@@ -92,12 +92,16 @@
                     <h4>Rudder HP:</h4>
                     <p id="rudderHP"></p>
                 </section>
-            </section>
-        </article>
 
-        <article>
+                
+            </section>
             <section class="box">
-                <h3>Add Armor</h3>
+                <h3>Armory</h3>
+                <section class="horizontal">
+                    <h4>Armor Limit:</h4>
+                    <p id="alDisplay"></p>
+                </section>
+
                 <section class="horizontal">
                     <h4>Add</h4>
                     <select name="" id="armorType"></select>
@@ -113,6 +117,49 @@
                         <option value="7">Rudder</option>
                     </select>
                     <button id="addArmorButton">Add</button>
+                </section>
+
+                <h3>Weaponry</h3>
+                <section class="horizontal">
+                    <h4>Weaponry Limit (Bow):</h4>
+                    <p id="wlDisplayB"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Add</h4>
+                    <select name="" id="weaponTypeB"></select>
+                    <h4>with</h4>
+                    <select name="" id="WeaponAmmoB">
+                    </select>
+                    <button id="addWeaponButtonB">Add</button>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Weaponry Limit (Port):</h4>
+                    <p id="wlDisplayP"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Add</h4>
+                    <select name="" id="weaponTypeP"></select>
+                    <h4>with</h4>
+                    <select name="" id="WeaponAmmoP">
+                    </select>
+                    <button id="addWeaponButtonP">Add</button>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Weaponry Limit (Starboard):</h4>
+                    <p id="wlDisplayS"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Add</h4>
+                    <select name="" id="weaponTypeS"></select>
+                    <h4>with</h4>
+                    <select name="" id="WeaponAmmoS">
+                    </select>
+                    <button id="addWeaponButtonS">Add</button>
                 </section>
             </section>
         </article>
