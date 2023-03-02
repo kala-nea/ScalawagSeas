@@ -79,7 +79,6 @@ let mHP;
 let rHP;
 
 function setValues () {
-    console.log(parseInt(tonnageTable.value));
     wc = statsByTon[parseInt(tonnageTable.value)][1];
 
     cp = statsByTon[parseInt(tonnageTable.value)][14];
@@ -903,7 +902,12 @@ function getWeaponOptionsS2 () {
 
 weaponTypeS.addEventListener("change", getWeaponOptionsS2);
 
-let ammo = [0, 0, 0]
+let weaponsArray = [
+    [],
+    [],
+    []
+];
+let ammo = [0, 0, 0];
 
 let addWeaponButtonB = document.getElementById("addWeaponButtonB");
 let addWeaponButtonP = document.getElementById("addWeaponButtonP");
@@ -999,6 +1003,8 @@ function addWeaponB () {
     }
     bowWeaponTable.appendChild(newLine1);
     wlDisplayB.textContent = weaponsRemainingB;
+
+    
 }
 
 function getAmmoB () {
@@ -1211,7 +1217,7 @@ function addWeaponS () {
     wlDisplayS.textContent = weaponsRemainingS;
 }
 
-function getAmmoP () {
+function getAmmoS () {
     console.log("works");
     switch (weaponAmmoS.value) {
         case "0":
@@ -1231,3 +1237,62 @@ function getAmmoP () {
 
 addWeaponButtonS.addEventListener("click", addWeaponS);
 addWeaponButtonS.addEventListener("click", getAmmoS);
+
+function armorReset () {
+    brHP = statsByTon[parseInt(tonnageTable.value)][2];
+    boHP = statsByTon[parseInt(tonnageTable.value)][3];
+    aHP = statsByTon[parseInt(tonnageTable.value)][4];
+    pHP = statsByTon[parseInt(tonnageTable.value)][5];
+    sHP = statsByTon[parseInt(tonnageTable.value)][6];
+    biHP = statsByTon[parseInt(tonnageTable.value)][7];
+    mHP = statsByTon[parseInt(tonnageTable.value)][8];
+    rHP = statsByTon[parseInt(tonnageTable.value)][9];
+    armorRemaining = statsByTon[parseInt(tonnageTable.value)][10];bridgeHP.textContent = brHP;
+    bowHP.textContent = boHP;
+    aftHP.textContent = aHP;
+    portHP.textContent = pHP;
+    starboardHP.textContent = sHP;
+    bilgeHP.textContent = biHP;
+    mastHP.textContent = mHP;
+    rudderHP.textContent = rHP;
+    alDisplay.textContent = armorRemaining;
+}
+
+function resetWeapons () {
+    weaponsRemainingB = statsByTon[parseInt(tonnageTable.value)][11];
+    weaponsRemainingP = statsByTon[parseInt(tonnageTable.value)][12];
+    weaponsRemainingS = statsByTon[parseInt(tonnageTable.value)][13];
+    wlDisplayB.textContent = weaponsRemainingB;
+    wlDisplayP.textContent = weaponsRemainingP;
+    wlDisplayS.textContent = weaponsRemainingS;
+    bowWeaponTable.replaceChildren('');
+    portWeaponTable.replaceChildren('');
+    starboardWeaponTable.replaceChildren('');
+    ammo = [0, 0, 0];
+    roundDisplay.textContent = ammo[0];
+    grapeDisplay.textContent = ammo[1];
+    chainDisplay.textContent = ammo[2];
+}
+
+let shipName = document.getElementById("shipName");
+
+let ship = [
+    shipName.value,
+    statsByTon[parseInt(tonnageTable.value)][0],
+    statsByTon[parseInt(tonnageTable.value)][1],
+    weaponsArray,
+    ammo,
+    Math.floor(Math.random() * 3) + 2,
+    [
+        [brHP, brHP],
+        [boHP, boHP],
+        [aHP, aHP],
+        [pHP, pHP],
+        [sHP, sHP],
+        [biHP, biHP],
+        [mHP, mHP],
+        [rHP, rHP],
+    ],
+
+]
+
