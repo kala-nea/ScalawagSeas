@@ -18,6 +18,7 @@ class Ship{
         this.movePower = [movePower,movePower*1.5,movePower*2];
         this.moveLeft = movePower;
         this.exhausted = false;
+        this.crowsNest = false;
         
 
         this.name = "ship do dad";
@@ -58,14 +59,14 @@ class Ship{
         this.identifier = document.createElement("p");
         this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
         this.identifier.setAttribute("class",`Identifier`);
-        this.identifier.innerText = `Team${this.team+1} Boat put a number here please`;
+        this.identifier.innerText = `Team${this.team+1} Boat ${teams[this.team].ships.length}`;
         this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
-        this.identifier.style.top = `${desiredPos.top-desiredHex.height/2.2+this.identifier.height/2}px`;   //dooo the off set for 20x40
         //this.identifier.style.height = `${desiredHex.height}px`;
         //this.identifier.style.width = `${desiredHex.width}px`;
-        this.identifier.style.zIndex = "6"
+        this.identifier.style.zIndex = "7"
         pieceStorage.append(this.identifier);
+        this.identifier.style.top = `${desiredPos.top-desiredHex.height/1.8-this.identifier.getBoundingClientRect().height/2}px`;   //dooo the off set for 20x40
     }
     
     
@@ -90,7 +91,7 @@ class Ship{
         this.ship.style.top = `${desiredPos.top}px`;
         this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
-        this.identifier.style.top = `${desiredPos.top-desiredHex.height/2.2+this.identifier.height/2}px`;
+        this.identifier.style.top = `${desiredPos.top-desiredHex.height/1.8-this.identifier.getBoundingClientRect().height/2}px`;
         //this.identifier.style.height = `${desiredHex.height}px`;
         //this.identifier.style.width = `${desiredHex.width}px`;
     }
