@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Make Your Ship - Scalawag Seas</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -16,12 +16,14 @@
 
     <main>
         <h2>Stats</h2>
-        <section class="horizontal">
-            <h3>Ship Name:</h3>
-            <input type="text">
-        </section>
+        
         <article>
             <section class="box">
+                <section class="horizontal">
+                    <h3>Ship Name:</h3>
+                    <input type="text" id="shipName">
+                </section>
+
                 <section class="horizontal">
                     <h3>Tonnage:</h3>
                     <select name="" id="tonnageTable"></select>
@@ -34,7 +36,7 @@
             </section>
 
             <section class="box">
-                <h3>Movement Points:</h3>
+                <h3>Movement Points</h3>
                 <section class="horizontal">
                     <h4>Cruising:</h4>
                     <p id="cpDisplay"></p>
@@ -52,7 +54,7 @@
             </section>
 
             <section class="box">
-                <h3>Hitpoints and Limits</h3>
+                <h3>Hitpoints</h3>
                 <section class="horizontal">
                     <h4>Bridge HP:</h4>
                     <p id="bridgeHP"></p>
@@ -93,6 +95,17 @@
                     <p id="rudderHP"></p>
                 </section>
 
+                <h3>Crow's Nest:</h3>
+                <section class="horizontal">
+                    <h4>Crow's Nest:</h4>
+                    <p id="cnDisplay"></p>
+                </section>
+
+                <section class="horizontal">
+                    <h4>Add Crow's Nest</h4>
+                    <button id="addArmorButton">Add</button>
+                </section>
+
                 
             </section>
             <section class="box">
@@ -117,6 +130,10 @@
                         <option value="7">Rudder</option>
                     </select>
                     <button id="addArmorButton">Add</button>
+                </section>
+
+                <section class="horizontal">
+                    <button onclick="armorReset()">Reset Armor</button>
                 </section>
 
                 <h3>Weaponry</h3>
@@ -164,34 +181,45 @@
                     </select>
                     <button id="addWeaponButtonS">Add</button>
                 </section>
+
+                <section class="horizontal">
+                    <button onclick="resetWeapons()">Reset All Weapons</button>
+                </section>
             </section>
         </article>
         <article>
-            <section class="box">
+            <section class="box" id="bigBox">
                 <h2>Weaponry added</h2>
-                <h3>Bow</h3>
-                <section id="bowWeaponTable"></section>
-
-                <h3>Port</h3>
-                <section id="portWeaponTable"></section>
-
-                <h3>Starboard</h3>
-                <section id="starboardWeaponTable"></section>
-
-                <h3>Ammo</h3>
-                <section class="horizontal" id="ammoTable">
-                    <h4>Round Shot:</h4>
-                    <p id="roundDisplay"></p>
-                </section>
-                
-                <section class="horizontal" id="ammoTable">
-                    <h4>Grapeshot:</h4>
-                    <p id="grapeDisplay"></p>
-                </section>
-                
-                <section class="horizontal" id="ammoTable">
-                    <h4>Chain Shot:</h4>
-                    <p id="chainDisplay"></p>
+                <section class="horizontal">
+                    <section class="box">
+                        <h3>Bow</h3>
+                        <section id="bowWeaponTable"></section>
+                    </section>
+                    <section class="box">
+                        <h3>Port</h3>
+                        <section id="portWeaponTable"></section>
+                    </section>
+                    <section class="box">
+                        <h3>Starboard</h3>
+                        <section id="starboardWeaponTable"></section>
+                    </section>
+                    <section class="box">
+                        <h3>Ammo</h3>
+                        <section class="horizontal" id="ammoTable">
+                            <h4>Round Shot:</h4>
+                            <p id="roundDisplay"></p>
+                        </section>
+                        
+                        <section class="horizontal" id="ammoTable">
+                            <h4>Grapeshot:</h4>
+                            <p id="grapeDisplay"></p>
+                        </section>
+                        
+                        <section class="horizontal" id="ammoTable">
+                            <h4>Chain Shot:</h4>
+                            <p id="chainDisplay"></p>
+                        </section>
+                    </section>
                 </section>
             </section>
         </article>
