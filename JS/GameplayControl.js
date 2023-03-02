@@ -19,6 +19,7 @@ function update(){
         // }
         
         teams[activeTeam].ships[activeBoat].selectColor();
+        repositionArrows()
         setPhase("move");
         setTeam(activeTeam);
         setBoat(activeBoat);
@@ -44,6 +45,7 @@ function nextBoatMove(){
         StartAttackPhase();
     }else{
         teams[activeTeam].ships[activeBoat].selectColor();
+        repositionArrows()
         setPhase("move");
         setTeam(activeTeam);
         setBoat(activeBoat);
@@ -59,6 +61,7 @@ function startMovePhase(){
     readyAll();
     teams[activeTeam].ships[activeBoat].selectColor();
     addProgress();
+    repositionArrows()
     setPhase("move");
     setTeam(activeTeam);
     setBoat(activeBoat);
