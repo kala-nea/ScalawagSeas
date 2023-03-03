@@ -181,6 +181,7 @@ let ships = []
 //let ship1 = new Ship(0,0,1,3)
 //let ship2 = new Ship(0,0,2,3)
 window.addEventListener('resize',adjustAll);
+window.addEventListener("scroll",adjustAll);
 setTimeout(adjustAll,100);
 
 function adjustAll(){
