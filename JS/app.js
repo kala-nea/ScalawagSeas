@@ -32,6 +32,8 @@ for (ton in statsByTon) {
     tonnageTable.appendChild(newRow);
 }
 
+// daniel says hi :>
+
 tonnageTable.addEventListener("change", setValues);
 tonnageTable.addEventListener("change", getArmorOptions);
 tonnageTable.addEventListener("change", getWeaponOptions);
@@ -487,7 +489,7 @@ function getWeaponSpecs () {
                 weaponLb.appendChild(newPound1);
                 weaponLb.appendChild(newPound2);
             }
-        } else if (weaponType.value == "LongNine") {
+        } else if (weaponType.value == "Long Nine") {
             if (weaponsRemaining[i] >= 3) {
                 weaponLb.appendChild(newPound1);
                 weaponLb.appendChild(newPound2);
@@ -536,7 +538,7 @@ function getWeaponSpecs () {
             weaponAmmo.appendChild(newAmmo1);
             weaponAmmo.appendChild(newAmmo2);
             weaponAmmo.appendChild(newAmmo3);
-        } else if (weaponType.value == "LongNine") {
+        } else if (weaponType.value == "Long Nine") {
             weaponAmmo.appendChild(newAmmo1);
             weaponAmmo.appendChild(newAmmo2);
         } else if (weaponType.value == "Carronade") {
@@ -568,29 +570,53 @@ let roundDisplay = document.getElementById("roundDisplay");
 let grapeDisplay = document.getElementById("grapeDisplay");
 let chainDisplay = document.getElementById("chainDisplay");
 
+let Poundages = ["6lb","8lb","9lb","12lb","18lb","24lb","32lb","36lb","42lb"]
+let PoundageCost = [0,1,2,3,4,5,6,7,8]
+
 function addWeapon (section) {
 
     let weaponType = document.getElementById(ids[section]);
     let weaponLb = document.getElementById(idsLb[section]);
 
-    console.log("works");
-    let DesiredWeapon = [weaponType.value,parseInt(weaponLb.value.split("lb")[0])];
-    let newWeapon = true;
-    for(let i = 0;i<weaponsArray[0].length&&newWeapon;i++){
-        if(weaponsArray[0][i][0] == DesiredWeapon[0]&&weaponsArray[0][i][1] == DesiredWeapon[1]){
-            let oldLine1 = document.getElementById(`Bow${weaponsArray[0][weaponsArray[0].length-1][1]}lb${weaponsArray[0][weaponsArray[0].length-1][0]}`);
-            weaponsArray[0][i][2]++;
-            newWeapon=false;
-            oldLine1.innerText =`${weaponsArray[0][weaponsArray[0].length-1][1]}lb ${weaponsArray[0][weaponsArray[0].length-1][0]} x${weaponsArray[0][weaponsArray[0].length-1][2]}`;
+    let PrevWeaponCount = weaponsRemaining[section];
+
+    
+
+    for(let i = 0;i<PoundageCost.length;i++){
+        if(weaponLb.value == Poundages[i]){
+            if(weaponType.value == "Long Nine"||weaponType.value == "Carronade"){
+                weaponsRemaining[section]-=PoundageCost[i]+1;
+            }else if(weaponType.value == "Paixhan"){
+                weaponsRemaining[section]-=PoundageCost[i]+2;
+            }else{
+                weaponsRemaining[section]-=Math.max(1,PoundageCost[i]);
+            }
         }
     }
-    if(newWeapon){
-        weaponsArray[0].push([DesiredWeapon[0],DesiredWeapon[1],1]);
-        let newLine1 = document.createElement("p");
-        newLine1.setAttribute("id",`Bow${weaponsArray[0][weaponsArray[0].length-1][1]}lb${weaponsArray[0][weaponsArray[0].length-1][0]}`);
-        newLine1.innerText = `${weaponsArray[0][weaponsArray[0].length-1][1]}lb ${weaponsArray[0][weaponsArray[0].length-1][0]} x${weaponsArray[0][weaponsArray[0].length-1][2]}`;
-        bowWeaponTable.appendChild(newLine1);
+
+    if(weaponsRemaining[section]<0){
+        weaponsRemaining[section] = PrevWeaponCount;
+    }else{
+        console.log("works");
+        let DesiredWeapon = [weaponType.value,parseInt(weaponLb.value.split("lb")[0])];
+        let newWeapon = true;
+        for(let i = 0;i<weaponsArray[0].length&&newWeapon;i++){
+            if(weaponsArray[0][i][0] == DesiredWeapon[0]&&weaponsArray[0][i][1] == DesiredWeapon[1]){
+                let oldLine1 = document.getElementById(`Bow${weaponsArray[0][weaponsArray[0].length-1][1]}lb${weaponsArray[0][weaponsArray[0].length-1][0]}`);
+                weaponsArray[0][i][2]++;
+                newWeapon=false;
+                oldLine1.innerText =`${weaponsArray[0][weaponsArray[0].length-1][1]}lb ${weaponsArray[0][weaponsArray[0].length-1][0]} x${weaponsArray[0][weaponsArray[0].length-1][2]}`;
+            }
+        }
+        if(newWeapon){
+            weaponsArray[0].push([DesiredWeapon[0],DesiredWeapon[1],1]);
+            let newLine1 = document.createElement("p");
+            newLine1.setAttribute("id",`Bow${weaponsArray[0][weaponsArray[0].length-1][1]}lb${weaponsArray[0][weaponsArray[0].length-1][0]}`);
+            newLine1.innerText = `${weaponsArray[0][weaponsArray[0].length-1][1]}lb ${weaponsArray[0][weaponsArray[0].length-1][0]} x${weaponsArray[0][weaponsArray[0].length-1][2]}`;
+            bowWeaponTable.appendChild(newLine1);
+        }
     }
+
     wlDisplays[section].textContent = weaponsRemaining[section];
 }
 
@@ -638,12 +664,12 @@ function armorReset () {
 }
 
 function resetWeapons () {
-    weaponsRemainingB = statsByTon[parseInt(tonnageTable.value)][11];
-    weaponsRemainingP = statsByTon[parseInt(tonnageTable.value)][12];
-    weaponsRemainingS = statsByTon[parseInt(tonnageTable.value)][13];
-    wlDisplayB.textContent = weaponsRemainingB;
-    wlDisplayP.textContent = weaponsRemainingP;
-    wlDisplayS.textContent = weaponsRemainingS;
+    weaponsRemaining[0] = statsByTon[parseInt(tonnageTable.value)][11];
+    weaponsRemaining[1] = statsByTon[parseInt(tonnageTable.value)][12];
+    weaponsRemaining[2] = statsByTon[parseInt(tonnageTable.value)][13];
+    wlDisplayB.textContent = weaponsRemaining[0];
+    wlDisplayP.textContent = weaponsRemaining[1];
+    wlDisplayS.textContent = weaponsRemaining[2];
     bowWeaponTable.replaceChildren('');
     portWeaponTable.replaceChildren('');
     starboardWeaponTable.replaceChildren('');
@@ -651,6 +677,35 @@ function resetWeapons () {
     roundDisplay.textContent = ammo[0];
     grapeDisplay.textContent = ammo[1];
     chainDisplay.textContent = ammo[2];
+}
+
+let cnDisplay = document.getElementById("cnDisplay");
+let CNPresent = false;
+
+function addCrowsNest () {
+    if (CNPresent == false && weaponsRemaining[1] >= 2 && weaponsRemaining[2] >= 2) {
+        CNPresent = true;
+        weaponsRemaining[1] = weaponsRemaining[1] - 2;
+        weaponsRemaining[2] = weaponsRemaining[2] - 2;
+        wlDisplayP.textContent = weaponsRemaining[1];
+        wlDisplayS.textContent = weaponsRemaining[2];
+        cnDisplay.textContent = "Present";
+    }
+}
+
+let addCNButton = document.getElementById("addCNButton");
+addCNButton.addEventListener("click", addCrowsNest);
+
+function CNReset () {
+    if (CNPresent == true) {
+        CNPresent = false;
+        weaponsRemaining[1] = weaponsRemaining[1] + 2;
+        weaponsRemaining[2] = weaponsRemaining[2] + 2;
+        wlDisplayP.textContent = weaponsRemaining[1];
+        wlDisplayS.textContent = weaponsRemaining[2];
+        cnDisplay.textContent = "Absent";
+    }
+    
 }
 
 let shipName = document.getElementById("shipName");
@@ -675,3 +730,45 @@ let ship = [
 
 ]
 
+let iconPreview = document.getElementById("iconPreview");
+let iconSelect = document.getElementById("iconSelect");
+let icon;
+
+function getIcon () {
+    switch (parseInt(iconSelect.value)) {
+        case 0:
+            iconPreview.setAttribute("src", "../IMG/Sampan.png");
+            icon = 1;
+            break;
+        case 1:
+            iconPreview.setAttribute("src", "../IMG/catboat.png");
+            icon = 2;
+            break;
+        case 2:
+            iconPreview.setAttribute("src", "../IMG/Lugger.png");
+            icon = 3;
+            break;
+        case 3:
+            iconPreview.setAttribute("src", "../IMG/cutter.png");
+            icon = 4;
+            break;
+        case 4:
+            iconPreview.setAttribute("src", "../IMG/galleon.png");
+            icon = 5;
+            break;
+        case 5:
+            iconPreview.setAttribute("src", "../IMG/schooner.png");
+            icon = 6;
+            break;
+        case 6:
+            iconPreview.setAttribute("src", "../IMG/brig.png");
+            icon = 7;
+            break;
+        case 7:
+            iconPreview.setAttribute("src", "../IMG/barque.png");
+            icon = 8;
+            break;
+    }
+}
+
+iconSelect.addEventListener("change", getIcon);

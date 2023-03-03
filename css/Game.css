@@ -5,9 +5,10 @@ body{
 .PlayArea{
     display: flex;
     flex-wrap: wrap;
-    background-image: url(../IMG/pexels-fwstudio-139306.jpg);
+    background-image: url(../IMG/wood.png);
+    background-size: 112px;
+    background-repeat: repeat;
     background-position: center;
-    background-size: cover;
 }
 
 .SideBar{
@@ -21,12 +22,14 @@ body{
 
 .Tiles{
     display: flex;
-    background-image: url(../IMG/waaaaa.png);
-    background-size: cover;
+    background-image: url("../IMG/image0.gif");
+    background-size: 160px;
+    background-repeat: repeat;
     background-position: center;
     overflow: visible;
     max-width: 100%;
     max-height: 100%;
+    border: rgb(253, 231, 111) solid 20px;
 }
 
 .TileColumn{
@@ -56,7 +59,7 @@ body{
 
 .Board{
     box-sizing: border-box;
-    padding: 20px;
+    /* border: rgb(253, 231, 111) solid 20px; */
     width: 80%;
     height: 100vh;
     max-height: 100vh;

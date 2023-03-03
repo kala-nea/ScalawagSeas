@@ -84,8 +84,9 @@ function MakeBoard(){
 function resizeBoard(){
     if(boardBuilt==true){
         MakeBoard()
+        redoShade();
     }
-    redoShade();
+    
 }
 
 function redoShade(){

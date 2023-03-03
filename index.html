@@ -11,28 +11,39 @@
     
     <header>
         <h1>Make Your Ship</h1>
-        <a href="Game.html">Play Game</a>
     </header>
 
     <main>
-        <h2>Stats</h2>
         
         <article>
             <section class="box">
                 <section class="horizontal">
-                    <h3>Ship Name:</h3>
+                    <h4>Ship Name:</h4>
                     <input type="text" id="shipName">
                 </section>
 
                 <section class="horizontal">
-                    <h3>Tonnage:</h3>
+                    <h4>Tonnage:</h4>
                     <select name="" id="tonnageTable"></select>
                 </section>
 
                 <section class="horizontal">
-                    <h3>Weight Class:</h3>
+                    <h4>Weight Class:</h4>
                     <p id="wcDisplay"></p>
                 </section>
+
+                <h4>Icon:</h4>
+                <img src="../IMG/Sampan.png" alt="Icon Preview" id="iconPreview">
+                <select name="" id="iconSelect">
+                    <option value="0">Sampan</option>
+                    <option value="1">Catboat</option>
+                    <option value="2">Lugger</option>
+                    <option value="3">Cutter</option>
+                    <option value="4">Galleon</option>
+                    <option value="5">Schooner</option>
+                    <option value="6">Brig</option>
+                    <option value="7">Barque</option>
+                </select>
             </section>
 
             <section class="box">
@@ -95,18 +106,20 @@
                     <p id="rudderHP"></p>
                 </section>
 
-                <h3>Crow's Nest:</h3>
+                <h3>Crow's Nest</h3>
                 <section class="horizontal">
                     <h4>Crow's Nest:</h4>
-                    <p id="cnDisplay"></p>
+                    <p id="cnDisplay">Absent</p>
                 </section>
 
                 <section class="horizontal">
                     <h4>Add Crow's Nest</h4>
-                    <button id="addArmorButton">Add</button>
+                    <button id="addCNButton">Add</button>
                 </section>
 
-                
+                <section class="horizontal">
+                    <button onclick="CNReset()">Remove Crow's Nest</button>
+                </section>
             </section>
             <section class="box">
                 <h3>Armory</h3>
@@ -223,6 +236,8 @@
                 </section>
             </section>
         </article>
+
+        <a href="Game.html">Play Game</a>
     </main>
 
     <script src="JS/app.js"></script>
