@@ -65,3 +65,20 @@ body{
 [class^="Ship"]{
     position: fixed;
 }
+
+.RightArrow{
+    transform: scaleX(-1);
+    position: absolute;
+}
+
+.RightArrow:hover{
+    filter: invert(0.65);
+}
+
+.LeftArrow{
+    position: absolute;
+}
+
+.LeftArrow:hover{
+    filter: invert(0.65);
+}
