@@ -7,8 +7,8 @@ let Hex;
 let HexColumn;
 let HexGrid;
 
-let boardWidth;
-let boardHeight;
+let boardWidth = null;
+let boardHeight= null;
 let boardBuilt = false;
 
 //BoardXIn.addEventListener('change',(e) => MakeBoard());
@@ -18,16 +18,28 @@ makeBoardButton = document.getElementById("makeBoard");
 window.addEventListener('resize',resizeBoard);
 
 function MakeBoard(){
-    try{
-        boardWidth = BoardXIn.value;
-    }catch{}
-    try{
-        boardHeight = BoardYIn.value;
-    }catch{}
+    if(boardHeight==null||boardWidth==null){
+        try{
+            if(parseInt(BoardXIn.value)!=(Math.min(Math.max(parseInt(BoardXIn.value),10),50))){
+                boardWidth = (Math.min(Math.max(parseInt(BoardXIn.value),10),50));
+                alert(`Width out of bounds, adjusted to ${boardWidth}`);
+            }else{
+                boardWidth = BoardXIn.value;
+            }
+        }catch{}
+        try{
+            if(parseInt(BoardYIn.value)!=(Math.min(Math.max(parseInt(BoardYIn.value),5),35))){
+                boardHeight = (Math.min(Math.max(parseInt(BoardYIn.value),5),35));
+                alert(`height out of bounds, adjusted to ${boardHeight}`);
+            }else{
+                boardHeight = BoardYIn.value;
+            }
+        }catch{}
+    }
     Board.innerHTML ="";
     HexGrid = document.createElement("section");
     HexGrid.setAttribute("class","Tiles");
-    HexGrid.style.aspectRatio = `${boardWidth}/${1.15470051*boardHeight}`
+    HexGrid.style.aspectRatio = `${boardWidth}/${1.16*boardHeight}`
     HexColumn = document.createElement("section");
     HexColumn.setAttribute("class","TileColumn");
     HexColumn.style.width = `${100/parseFloat(boardWidth)*5}%`

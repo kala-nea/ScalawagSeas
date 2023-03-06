@@ -6,7 +6,7 @@ function removeBoardMake(){
 
 function addBoatMake(){
     sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<input type="number" id="teams" placeholder="teams" value="2">\n                <input type="number" id="boatCountPer" placeholder="boats per team" value="3">\n                <input type="number" id="movePer" placeholder="move per boat" value="5">\n                <button id="makeBoard" onclick="makeBoats()">Build boats</button>\n`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<input type="number" id="teams" placeholder="teams" value="2">\n                <input type="number" id="boatCountPer" placeholder="boats per team" value="3">\n                         <button id="makeBoard" onclick="makeBoats()">Build boats</button>\n`);
 }
 
 function removeBoatMake(){

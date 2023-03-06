@@ -3,7 +3,7 @@
 let pieceStorage = document.getElementById("PieceStorage");
 let PieceInfo = document.getElementById("PieceInfo");
 class Ship{
-    constructor(x = 0,y = 0,team = 0, movePower = 5){
+    constructor(x = 0,y = 0,team = 0, movePower = 6){
         x=parseInt(x);
         y=parseInt(y);
         this.ship;
@@ -20,10 +20,19 @@ class Ship{
         this.exhausted = false;
         this.crowsNest = false;
         
-
-        this.name = "ship do dad";
-        this.tonnage = 10;
+        
+        this.name = this.id;
+        this.tonnage = 75;
         this.weightclass = "feather";
+        if(this.tonnage<40){
+            this.turnCost = 0;
+        }else if(this.tonnage<60){
+            this.turnCost = 1;
+        }else if(this.tonnage<80){
+            this.turnCost = 2;
+        }else {
+            this.turnCost = 3;
+        }
         //bow,port,starboard
         //type,weight,quantity,quantityLeft
         this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
@@ -97,17 +106,21 @@ class Ship{
     }
 
     rotate(rotationAmmount){
-        this.rotation += rotationAmmount;
-        while(this.rotation>5||this.rotation<0){
-            if(this.rotation>5){
-                this.rotation -=6
-            }else{
-                this.rotation +=6
+        if(this.moveLeft>=this.turnCost){
+            this.rotation += rotationAmmount;
+            while(this.rotation>5||this.rotation<0){
+                if(this.rotation>5){
+                    this.rotation -=6
+                }else{
+                    this.rotation +=6
+                }
             }
+            this.ship.style.transform = `rotate(${360/6*this.rotation}deg)`
+            this.moveLeft -=this.turnCost;
+            setMoveLeft(this.moveLeft);
+            moveShadent(this.shipx,this.shipy);
+            moveShade(this.shipx,this.shipy);
         }
-        this.ship.style.transform = `rotate(${360/6*this.rotation}deg)`
-        moveShadent(this.shipx,this.shipy);
-        moveShade(this.shipx,this.shipy);
     }
 
     selectColor(){
@@ -204,7 +217,7 @@ function makeBoats(){
     for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
         let teamPlaceHoler = new Team();
         for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
-            let shipPlaceHolder = new Ship(i*7,j*3,i,parseInt(document.getElementById("movePer").value));
+            let shipPlaceHolder = new Ship(i*7,j*3,i);
             teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
         }
     }
