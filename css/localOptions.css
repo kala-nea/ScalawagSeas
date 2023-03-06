@@ -1,0 +1,119 @@
+body {
+    background-image: url(../IMG/wood.png);
+    background-size: 112px;
+}
+
+@font-face {
+    font-family: blackChancery;
+    src: url(../css/blackchancery.regular.ttf);
+}
+
+* {
+    font-family: blackChancery;
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+a {
+    color: antiquewhite;
+}
+
+p,
+h4 {
+    font-size: 25px;
+}
+
+h3 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 40px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+h1,
+a {
+    margin: 0 auto;
+    font-size: 65px;
+    text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
+    text-align: center;
+    text-align: center;
+}
+
+a {
+    background-color: rgba(0, 0, 0, 0.375);
+    margin-bottom: 5px;
+    border-radius: 25px;
+    text-decoration: none;
+    width: 15%;
+    text-align: center;
+}
+
+a:hover {
+    color: rgb(187, 177, 164);
+    transition: all 150ms;
+}
+
+.bigBox {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.contentArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+input{
+    height: 22px;
+    margin-left: 5px;
+} 
+
+button,
+input {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: solid 1px black;
+    color: antiquewhite;
+}
+
+button {
+    width: 100px;
+    margin: 0 auto;
+    font-size: 32px;
+}
+
+@media screen and (max-width: 1290px) {
+    .footerArea {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 655px) {
+    .footerArea {
+        width: 100%;
+    }
+
+    .creditArea {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
