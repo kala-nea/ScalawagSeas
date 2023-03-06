@@ -25,14 +25,14 @@ class Ship{
         this.tonnage = 10;
         this.weightclass = "feather";
         //bow,port,starboard
-        //type,weight,quantity
-        this.Weapons= [[["Cannon",8,3]],[["Cannon",8,3]],[["Cannon",8,3]]];
+        //type,weight,quantity,quantityLeft
+        this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
         //[type,max,ammountLeft]
         this.ammo=[["Round Shot",100,50],["Grapeshot",20,10]];
         this.captanSkill = 4;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
-        //[max,ammountLeft]
-        this.hitpoints = [[10,5],[10,5],[10,5],[10,5],[10,5],[10,5],[10,5],[10,5]];
+        //[max,ammountLeft, incoming]
+        this.hitpoints = [[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0]];
 
         ships.push(this);
     }
