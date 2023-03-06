@@ -121,6 +121,11 @@ class Ship{
             moveShadent(this.shipx,this.shipy);
             moveShade(this.shipx,this.shipy);
         }
+        if(this.moveLeft==0){
+            moveShadent(this.shipx,this.shipy);
+        }else{
+            moveShade(this.shipx,this.shipy);
+        }
     }
 
     selectColor(){
@@ -150,7 +155,7 @@ class Ship{
         `;
         }
         for(let i=0;i<this.Weapons[0].length;i++){
-        PieceInfo.innerText+=`${this.Weapons[0][i][2]}x ${this.Weapons[0][i][1]}lb ${this.Weapons[0][i][0]}
+        PieceInfo.innerText+=`${this.Weapons[0][i][2]}x ${this.Weapons[0][i][1]}lb ${this.Weapons[0][i][0]}      ${this.Weapons[0][i][3]}/${this.Weapons[0][i][2]}
         `;
         }
         if(this.Weapons[1].length>0){
@@ -158,7 +163,7 @@ class Ship{
         `;
         }
         for(let i=0;i<this.Weapons[1].length;i++){
-        PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}
+        PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}      ${this.Weapons[0][i][3]}/${this.Weapons[0][i][2]}
         `;
         }
         if(this.Weapons[2].length>0){
@@ -166,7 +171,7 @@ class Ship{
         `;
         }
         for(let i=0;i<this.Weapons[2].length;i++){
-        PieceInfo.innerText+=`${this.Weapons[2][i][2]}x ${this.Weapons[2][i][1]}lb ${this.Weapons[2][i][0]}
+        PieceInfo.innerText+=`${this.Weapons[2][i][2]}x ${this.Weapons[2][i][1]}lb ${this.Weapons[2][i][0]}      ${this.Weapons[0][i][3]}/${this.Weapons[0][i][2]}
         `;
         }
         PieceInfo.innerText+=`
