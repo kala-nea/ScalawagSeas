@@ -24,7 +24,7 @@ function removeStart(){
 
 function addProgress(){
     sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   <section id="PieceInfo" class="PieceInfo"></section>`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" class="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   <section id="PieceInfo" class="PieceInfo"></section>`);
 }
 
 function clearSidebar(){
