@@ -93,6 +93,18 @@ function MakeBoard(){
     boardBuilt = true;
 }
 
+islandCount = 5;
+function islands(){
+    for(let i = 0;i<islandCount;i++){
+        
+    }
+    for(let i = 0;i<islandCount*2;i++){
+
+    }
+}
+
+
+
 function resizeBoard(){
     if(boardBuilt==true){
         MakeBoard()

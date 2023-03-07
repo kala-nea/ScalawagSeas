@@ -4,242 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make Your Ship - Scalawag Seas</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Welcome - Scalawag Seas</title>
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-    
     <header>
-        <h1>Make Your Ship</h1>
+        <h1>Scalawag Seas</h1>
     </header>
-
     <main>
+        <section class="contentArea">
+            <a href="rules.html">How to Play</a>
+            <a href="localOptions.html">Play Local</a>
+            <a href="">Play Online</a>
+            <a href="Shipmake.html">Your Shipyard</a>
+        </section>
         
-        <article>
-            <section class="box">
-                <section class="horizontal">
-                    <h4>Ship Name:</h4>
-                    <input type="text" id="shipName">
-                </section>
-
-                <section class="horizontal">
-                    <h4>Tonnage:</h4>
-                    <select name="" id="tonnageTable"></select>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Weight Class:</h4>
-                    <p id="wcDisplay"></p>
-                </section>
-
-                <h4>Icon:</h4>
-                <img src="../IMG/Sampan.png" alt="Icon Preview" id="iconPreview">
-                <select name="" id="iconSelect">
-                    <option value="0">Sampan</option>
-                    <option value="1">Catboat</option>
-                    <option value="2">Lugger</option>
-                    <option value="3">Cutter</option>
-                    <option value="4">Galleon</option>
-                    <option value="5">Schooner</option>
-                    <option value="6">Brig</option>
-                    <option value="7">Barque</option>
-                </select>
-            </section>
-
-            <section class="box">
-                <h3>Movement Points</h3>
-                <section class="horizontal">
-                    <h4>Cruising:</h4>
-                    <p id="cpDisplay"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Full Steam:</h4>
-                    <p id="fspDisplay"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Flanking:</h4>
-                    <p id="fpDisplay"></p>
-                </section>
-            </section>
-
-            <section class="box">
-                <h3>Hitpoints</h3>
-                <section class="horizontal">
-                    <h4>Bridge HP:</h4>
-                    <p id="bridgeHP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Bow HP:</h4>
-                    <p id="bowHP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Aft HP:</h4>
-                    <p id="aftHP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Port HP:</h4>
-                    <p id="portHP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Starboard HP:</h4>
-                    <p id="starboardHP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Bilge HP:</h4>
-                    <p id="bilgeHP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Mast HP:</h4>
-                    <p id="mastHP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Rudder HP:</h4>
-                    <p id="rudderHP"></p>
-                </section>
-
-                <h3>Crow's Nest</h3>
-                <section class="horizontal">
-                    <h4>Crow's Nest:</h4>
-                    <p id="cnDisplay">Absent</p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Add Crow's Nest</h4>
-                    <button id="addCNButton">Add</button>
-                </section>
-
-                <section class="horizontal">
-                    <button onclick="CNReset()">Remove Crow's Nest</button>
-                </section>
-            </section>
-            <section class="box">
-                <h3>Armory</h3>
-                <section class="horizontal">
-                    <h4>Armor Points:</h4>
-                    <p id="alDisplay"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Add</h4>
-                    <select name="" id="armorType"></select>
-                    <h4>to</h4>
-                    <select name="" id="armorArea">
-                        <option value="0">Bridge</option>
-                        <option value="1">Bow</option>
-                        <option value="2">Aft</option>
-                        <option value="3">Port</option>
-                        <option value="4">Starboard</option>
-                        <option value="5">Bilge</option>
-                        <option value="6">Mast</option>
-                        <option value="7">Rudder</option>
-                    </select>
-                    <button id="addArmorButton">Add</button>
-                </section>
-
-                <section class="horizontal">
-                    <button onclick="armorReset()">Reset Armor</button>
-                </section>
-
-                <h3>Weaponry</h3>
-                <section class="horizontal">
-                    <h4>Weaponry points (Bow):</h4>
-                    <p id="wlDisplayB"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Add</h4>
-                    <select name="" id="weaponLbB"></select>
-                    <select name="" id="weaponTypeB"></select>
-                    <h4>with</h4>
-                    <select name="" id="weaponAmmoB">
-                    </select>
-                    <button id="addWeaponButtonB">Add</button>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Weaponry Points (Port):</h4>
-                    <p id="wlDisplayP"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Add</h4>
-                    <select name="" id="weaponLbP"></select>
-                    <select name="" id="weaponTypeP"></select>
-                    <h4>with</h4>
-                    <select name="" id="weaponAmmoP">
-                    </select>
-                    <button id="addWeaponButtonP">Add</button>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Weaponry Points (Starboard):</h4>
-                    <p id="wlDisplayS"></p>
-                </section>
-
-                <section class="horizontal">
-                    <h4>Add</h4>
-                    <select name="" id="weaponLbS"></select>
-                    <select name="" id="weaponTypeS"></select>
-                    <h4>with</h4>
-                    <select name="" id="weaponAmmoS">
-                    </select>
-                    <button id="addWeaponButtonS">Add</button>
-                </section>
-
-                <section class="horizontal">
-                    <button onclick="resetWeapons()">Reset All Weapons</button>
-                </section>
-            </section>
-        </article>
-        <article>
-            <section class="box" id="bigBox">
-                <h2>Weaponry added</h2>
-                <section class="horizontal">
-                    <section class="box">
-                        <h3>Bow</h3>
-                        <section id="bowWeaponTable"></section>
-                    </section>
-                    <section class="box">
-                        <h3>Port</h3>
-                        <section id="portWeaponTable"></section>
-                    </section>
-                    <section class="box">
-                        <h3>Starboard</h3>
-                        <section id="starboardWeaponTable"></section>
-                    </section>
-                    <section class="box">
-                        <h3>Ammo</h3>
-                        <section class="horizontal" id="ammoTable">
-                            <h4>Round Shot:</h4>
-                            <p id="roundDisplay"></p>
-                        </section>
-                        
-                        <section class="horizontal" id="ammoTable">
-                            <h4>Grapeshot:</h4>
-                            <p id="grapeDisplay"></p>
-                        </section>
-                        
-                        <section class="horizontal" id="ammoTable">
-                            <h4>Chain Shot:</h4>
-                            <p id="chainDisplay"></p>
-                        </section>
-                    </section>
-                </section>
-            </section>
-        </article>
-
-        <a href="Game.html">Play Game</a>
     </main>
+    <footer>
+        <article class="footerArea">
+            <h2>Team</h2>
 
-    <script src="JS/app.js"></script>
+            <section class="creditArea">
+                <p>Production - Colby Olsen</p>
+                <p>Design - Colby Kirk</p>
+                <p>R & D - Justus Pettit</p>
+            </section>
+
+            <h2>Credits</h2>
+
+            <section class="creditArea">
+                <p>Black Chancery Font - Doug Miles</p>
+            </section>
+
+            <p>Based off of the tabletop game BattleTech by Catalyst Game Labs</p>
+        </article>
+    </footer>
 </body>
 </html>

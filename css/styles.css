@@ -5,7 +5,7 @@ body {
 
 @font-face {
     font-family: blackChancery;
-    src: url(../blackchancery.regular.ttf);
+    src: url(../css/blackchancery.regular.ttf);
 }
 
 * {
@@ -17,7 +17,8 @@ h1,
 h2,
 h3,
 h4,
-p {
+p,
+a {
     color: antiquewhite;
 }
 
@@ -42,10 +43,23 @@ header {
     justify-content: center;
 }
 
-h1 {
+h1,
+a {
     margin: 0 auto;
     font-size: 65px;
     text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
+}
+
+a {
+    display: block;
+    text-align: center;
+}
+
+select:hover,
+button:hover,
+a:hover {
+    color: rgb(187, 177, 164);
+    transition: all 150ms;
 }
 
 select,
