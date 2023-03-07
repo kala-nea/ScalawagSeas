@@ -74,6 +74,15 @@ img {
     margin-left: 25%;
 }
 
+.sSBT {
+    width: 50%;
+}
+
+.sAT {
+    width: 25%;
+    margin-left: 37.5%;
+}
+
 #backButton {
     display: block;
     position: fixed;
