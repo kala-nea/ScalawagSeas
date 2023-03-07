@@ -20,6 +20,13 @@ body{
     height: 100%;
 }
 
+button.nextBoat{
+    background-color: red;
+    color: white;
+    height: 2.5vh;
+    
+}
+
 .Tiles{
     display: flex;
     background-image: url("../IMG/image0.gif");

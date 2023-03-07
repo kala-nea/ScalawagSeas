@@ -74,6 +74,12 @@ option {
     background: rgba(0, 0, 0, 1);;
 }
 
+button.nextBoat{
+    background-color: red;
+    color: white;
+
+}
+
 .horizontal {
     display: flex;
     flex-direction: row;
