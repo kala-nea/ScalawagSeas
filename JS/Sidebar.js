@@ -15,7 +15,7 @@ function removeBoatMake(){
 
 function addStart(){
     sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">Begin Game</button>\n`);
 }
 
 function removeStart(){
@@ -24,7 +24,7 @@ function removeStart(){
 
 function addProgress(){
     sidebar = document.getElementById("SideBar");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" class="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   <section id="PieceInfo" class="PieceInfo"></section>`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left" class ="movementLeft">Movement Left:</p>\n  <button id="nextBoat" class="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   <section id="PieceInfo" class="PieceInfo"></section>`);
 }
 
 function clearSidebar(){
