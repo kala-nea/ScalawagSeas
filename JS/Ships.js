@@ -3,27 +3,28 @@
 let pieceStorage = document.getElementById("PieceStorage");
 let PieceInfo = document.getElementById("PieceInfo");
 class Ship{
-    constructor(x = 0,y = 0,team = 0, movePower = 6){
+    constructor(x = 0,y = 0,team = 0, movePower = 6,rotation = 0){
         x=parseInt(x);
         y=parseInt(y);
         this.ship;
         this.shipx = x;
         this.shipy = y;
         //0=top,1=topright 2=bottomright etc until 5
-        this.rotation = 0;
+        this.rotation = rotation;
         this.team = team 
         this.shipNum = ships.length;
         this.id = `Ship${ships.length}`
         this.makeShip();
         this.movePower = [movePower,movePower*1.5,movePower*2];
-        this.moveLeft = movePower;
+        this.moveLeft = 0;
+        this.moveType = "Cruse";
         this.exhausted = false;
         this.crowsNest = false;
         
         
         this.name = this.id;
-        this.tonnage = 75;
-        this.weightclass = "feather";
+        this.tonnage = 45;
+        this.weightclass;
         if(this.tonnage<40){
             this.turnCost = 0;
         }else if(this.tonnage<60){
@@ -32,6 +33,18 @@ class Ship{
             this.turnCost = 2;
         }else {
             this.turnCost = 3;
+        }
+
+        if(this.tonnage<40){
+            this.weightclass = "Corvette";
+        }else if(this.tonnage<60){
+            this.weightclass = "Cruiser";
+        }else if(this.tonnage<80){
+            this.weightclass = "Destroyer";
+        }else if(this.tonnage<100){
+            this.weightclass = "Dreadnought";
+        }else {
+            this.weightclass = "Super Dreadnought";
         }
         //bow,port,starboard
         //type,weight,quantity,quantityLeft
@@ -64,6 +77,7 @@ class Ship{
         this.ship.style.width = `${desiredHex.width}px`;
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
+        this.ship.style.transform = `rotate(${360/6*this.rotation}deg)`
         this.ship.style.zIndex = "5"
         this.identifier = document.createElement("p");
         this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
@@ -82,10 +96,29 @@ class Ship{
     moveShip(x,y){
         x=parseInt(x);
         y=parseInt(y);
-        if(this.moveLeft>0){
+        let desiredHex = document.getElementById(`col${x}row${y}`);
+        let moveCost;
+        if(desiredHex.getAttribute("Src") == "IMG/hex_island.png"){
+            if(this.tonnage<40){
+                moveCost = 3;
+            }else{
+                moveCost = 100000;
+            }
+        }else if(desiredHex.getAttribute("Src") == "IMG/hex_rocks.png"){
+            if(this.tonnage<40){
+                moveCost = 2;
+            }else if(this.tonnage<60){
+                moveCost = 3;
+            }else{
+                moveCost = 100000;
+            }
+        }else{
+            moveCost = 1;
+        }
+        if(this.moveLeft>=moveCost){
             this.shipx = x;
             this.shipy = y;
-            this.moveLeft--;
+            this.moveLeft-=moveCost;
             this.adjustShip();
         }
     }
@@ -219,13 +252,51 @@ function moveShip(x,y,shipNum){
 }
 
 function makeBoats(){
-    for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
-        let teamPlaceHoler = new Team();
-        for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
-            let shipPlaceHolder = new Ship(i*7,j*3,i);
-            teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
+    let x = 0;
+    let y = 0;
+    for(let i = 0;i<islandCount;i++){
+        let done = false;
+        while(!done){
+            x=Math.round(Math.random()*(boardWidth-1));
+            y=Math.round(Math.random()*(boardHeight-1));
+            Hex = document.getElementById(`col${x}row${y}`);
+            if(Hex.getAttribute("Src") == "IMG/Hex.png"){
+                Hex.setAttribute("Src","IMG/hex_island.png");
+                done = true
+            }
         }
     }
+    for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
+        let done = false;
+        let spaceAvailable = true;
+        let teamPlaceHoler = new Team();
+        for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
+            while(!done){
+                spaceAvailable = true;
+                x=Math.round(Math.random()*(boardWidth-1));
+                y=Math.round(Math.random()*(boardHeight-1));
+                if(Hex.getAttribute("Src") == "IMG/Hex.png"){
+                    for(let k = 0;k<ships.length;k++){
+                        if(ships[k].shipx==x&&ships[k].shipy==y){
+                            spaceAvailable = false;
+                        }
+                    }
+                    if(spaceAvailable){
+                        let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random*5));
+                        teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
+                        done = true
+                    }
+                }
+            }
+        }
+    }
+    // for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
+    //     let teamPlaceHoler = new Team();
+    //     for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
+    //         let shipPlaceHolder = new Ship(i*7,j*3,i);
+    //         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
+    //     }
+    // }
     removeBoatMake();
     addStart();
 }
