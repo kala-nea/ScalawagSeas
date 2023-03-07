@@ -5,25 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How To Play - Scalawag Seas</title>
+    <link rel="stylesheet" href="css/rules.css">
 </head>
 <body>
     <header>
         <h1>How to Play</h1>
+        <a href="index.html" id="backButton">Back</a>
+        <section>
+            <p>Welcome to the general rulebook for Scalawag Seas. This page will serve as a guide to everything a player needs to know about the game, including how the game is played, how statistics such as health and damage are determined, and much more.</p>
+            <p>In this rulebook, we will be using three fictional players named Timmy, Jimmy, and Jhonny to further explain the rules with examples.</p> 
+        </section>
+        
     </header>
 
     <main>
-        <h2>Phases</h2>
-        <p>A round of Scalawag Seas is split into three phases: Initiative, Movement, and Combat.These phases are always repeated each round, but players may skip their Movement or Combat phases if they so choose.</p>
-        <p>In this rulebook, we will be using three fictional players named Timmy, Jimmy, and Jhonny to further explain the rules with examples.</p>
+        <section>
+            <h2>Ships</h2>
+            <p>The entire game of Scalawag Seas in built on the construction of ships. The stats of each ship are determined by its tonnage, or weight in tons. These tonnages are placed into one of 5 weight classes; Corvette, Cruiser, Destroyer, Dreadnought, and Super-Dreadnought. Please refer to the table below for a rough list of statistics for each tonnage. Health and Limits will be explained later.</p>
+            <img src="IMG/shipStatsByTon.png" alt="Ship Stats By Tonnage">
+            <p>Jhonny has a ship with a tonnage of 45 tons. This means that he has a Corvette class ship.</p>
+        </section>
 
-        <h3>Initiative</h3>
-        <p>During the Initiative phase, each player will randomly be given a number between 2 and 12. This number decides the order of players in each subsequent phase. The player with the lowest number goes first, then the player with the next lowest, and so on. If there is a tie, the players in question will get neww numbers. This phase is repeated every round.</p>
-        <p>Timmy, Jimmy, and Jhonny are playing a game of Scalawag Seas. During their first Initiative phase, Jimmy gets an 8, and both Timmy and Jhonny get 7s. After getting new numbers, Timmy gets a 5 and Jhonny gets a 9. For this turn, Jhonny will go first in both the Movement and Combat phases, then Jimmy, then Timmy.</p>
+        <section>
+            <h3>Ship Anatomy</h3>
+            <p>Each ship is split into 8 areas; the Bridge, Bow, Aft, Port, Starboard, Bilge, Mast, and Rudder. Each of these areas has a set base health, as shown in the table above. This health is what determines how many hits a ship can take during a match, and a ship is sunk if its Bridge or Bilge is destroyed. Additionally, all weapons are mounted on the Bow, Port, and Starboard of the ship, a ship may not turn without its Rudder, and a ship may not Flank without its Mast.</p>
+            <p>Jhonny's ship, being a 45 ton boat, has health values of 19, 21, 25, 16, 19, and 3 for the Bridge, Bow and Aft, Port and Starboard, Bilge, Mast, and Rudder respectively. Keep in mind that the values respective to the Bow and Aft are not split between them, but are applied to each of them so that each the Bow and Aft has a health of 25, same with the Port and Starboard.</p>
+        </section>
 
-        <h3>Movement</h3>
-        <p>During the Movement phase, each player moves his or her ship according to the amount of movement points it has. Each ship has 3 options for movement; Cruising, Full Steam, and Flanking. Cruising is the slowest option, but it offers ships the ability to not only turn but go backward. Full Steam is the middle of the road when it comes to movement, being faster than Cruising and allowing turning but still slower than Flanking and disallowing backwards movement. Flanking is the fastest, but any ship that is Flanking may only go forward; no turning or going backwards while doing so. Each ship may decide to do one of these actions in its Movement phase. Additionally, each ship gets a turning penalty depending on its weight class. Those in the Corvette class have no penalty to turning, Cruiser class ships have a turning penalty of 1, Destroyers have 2, and Dreadnoughts and Super-Dreadnoughts have 3. Please refer to the table below for more information on movement options.</p>
-        <img src="IMG/shipMovementOptionsTable.png" alt="Ship Movement Options Table">
-        <p>Jhonny is using a 45 ton boat. Thus, he has 7 Cruising points, 11 Full Steam points, and 15 Flanking points. He decides that his ship will go Full Steam this turn. He moves his ship forward 5 tiles for 5 points, rotates counterclockwise twice for 0 points since his ship is a Corvette, and moves forward again 6 points. He has now used all 11 of his Full Steam points, and since he cannot move anymore, his turn is over.</p>
+        <section>
+            <h3>Ship Armory</h3>
+            <p>Each ship has a certain amount of armor that can be applied to it. This statistic is determined by the tonnage, as seen in the Armory Limit in the table above, and is universal, meaning that each area does not have its own value but placing or removing armor on one area affects the amount of armor that can be applied to all areas. There are 5 armor materials; Wood, Ceramic, Iron, Compund, and Synthetic. One application of an armor type to an area costs 1, 5, 10, 25, and 50 points respectively, so Wood armor costs 1 point, Ceramic costs 5 points, Iron costs 10, and so on. Each armor type adds a certain amount to the health of the area that it is applied to. Wood armor gives 1 points for every application, Ceramic gives 10, Iron gives 25, Compound gives 75, and Synthetic gives 175.</p>
+            <p></p>
+        </section>
+
+        <section>
+            <h3>Ship Weaponry</h3>
+            <p>Each ship has a certain number of weapons that it can hold. This statistic is determined by the tonnage, as seen in the Weaponry Limits in the table above. </p>
+        </section>
+
+        <section>
+            <h2>Phases</h2>
+            <p>A round of Scalawag Seas is split into three phases: Initiative, Movement, and Combat.These phases are always repeated each round, but players may skip their Movement or Combat phases if they so choose.</p>
+        </section>
+        
+        <section>
+            <h3>Initiative</h3>
+            <p>During the Initiative phase, each player will randomly be given a number between 2 and 12. This number decides the order of players in each subsequent phase. The player with the lowest number goes first, then the player with the next lowest, and so on. If there is a tie, the players in question will get new numbers. This phase is repeated every round.</p>
+            <p>Timmy, Jimmy, and Jhonny are playing a game of Scalawag Seas. During their first Initiative phase, Jimmy gets an 8, and both Timmy and Jhonny get 7s. After getting new numbers, Timmy gets a 5 and Jhonny gets a 9. For this turn, Jhonny will go first in both the Movement and Combat phases, then Jimmy, then Timmy.</p>
+        </section>
+        
+        <section>
+            <h3>Movement</h3>
+            <p>During the Movement phase, each player moves his or her ship according to the amount of movement points it has. Each ship has 3 options for movement; Cruising, Full Steam, and Flanking. Cruising is the slowest option, but it offers ships the ability to not only turn but go backward. Full Steam is the middle of the road when it comes to movement, being faster than Cruising and allowing turning but still slower than Flanking and disallowing backwards movement. Flanking is the fastest, but any ship that is Flanking may only go forward; no turning or going backwards while doing so. Each ship may decide to do one of these actions in its Movement phase. Additionally, each ship gets a turning penalty depending on its weight class. Those in the Corvette class have no penalty to turning, Cruiser class ships have a turning penalty of 1, Destroyers have 2, and Dreadnoughts and Super-Dreadnoughts have 3. Please refer to the table below for more information on movement options.</p>
+            <img src="IMG/shipMovementOptionsTable.png" alt="Ship Movement Options Table">
+            <p>Jhonny is using a 45 ton boat. Thus, he has 7 Cruising points, 11 Full Steam points, and 15 Flanking points. He decides that his ship will go Full Steam this turn. He moves his ship forward 5 tiles for 5 points, rotates counterclockwise twice for 0 points since his ship is a Corvette, and moves forward again 6 points. He has now used all 11 of his Full Steam points, and since he cannot move anymore, his turn is over.</p>
+        </section>
+        
     </main>
 </body>
 </html>
