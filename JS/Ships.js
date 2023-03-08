@@ -9,6 +9,8 @@ class Ship{
         this.ship;
         this.shipx = x;
         this.shipy = y;
+        this.prevX = x;
+        this.prevY = y;
         //0=top,1=topright 2=bottomright etc until 5
         this.rotation = rotation;
         this.team = team 
@@ -154,11 +156,6 @@ class Ship{
             moveShadent(this.shipx,this.shipy);
             moveShade(this.shipx,this.shipy);
         }
-        if(this.moveLeft==0){
-            moveShadent(this.shipx,this.shipy);
-        }else{
-            moveShade(this.shipx,this.shipy);
-        }
     }
 
     selectColor(){
@@ -244,6 +241,8 @@ function adjustAll(){
 function readyAll(){
     for(let ship of ships){
         ship.exhausted = false;
+        ship.prevX = ship.shipx;
+        ship.prevY = ship.shipxy;
     }
 }
 
@@ -254,35 +253,24 @@ function moveShip(x,y,shipNum){
 function makeBoats(){
     let x = 0;
     let y = 0;
-    for(let i = 0;i<islandCount;i++){
-        let done = false;
-        while(!done){
-            x=Math.round(Math.random()*(boardWidth-1));
-            y=Math.round(Math.random()*(boardHeight-1));
-            Hex = document.getElementById(`col${x}row${y}`);
-            if(Hex.getAttribute("Src") == "IMG/Hex.png"){
-                Hex.setAttribute("Src","IMG/hex_island.png");
-                done = true
-            }
-        }
-    }
     for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
-        let done = false;
         let spaceAvailable = true;
         let teamPlaceHoler = new Team();
         for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
+            let done = false;
             while(!done){
                 spaceAvailable = true;
                 x=Math.round(Math.random()*(boardWidth-1));
                 y=Math.round(Math.random()*(boardHeight-1));
-                if(Hex.getAttribute("Src") == "IMG/Hex.png"){
+                HexTest = document.getElementById(`col${x}row${y}`);
+                if(HexTest.getAttribute("Src") == "IMG/Hex.png"){
                     for(let k = 0;k<ships.length;k++){
                         if(ships[k].shipx==x&&ships[k].shipy==y){
                             spaceAvailable = false;
                         }
                     }
                     if(spaceAvailable){
-                        let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random*5));
+                        let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
                         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
                         done = true
                     }
@@ -299,6 +287,10 @@ function makeBoats(){
     // }
     removeBoatMake();
     addStart();
+}
+
+function shipFromShipyard(){
+    let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
 }
 
 function displayAShipsStats(shipsNum){

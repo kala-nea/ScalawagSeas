@@ -101,6 +101,27 @@ button {
     font-size: 32px;
 }
 
+#backButton {
+    display: block;
+    position: fixed;
+    width: auto;
+    right: 25px;
+    bottom: 25px;
+
+    background-color:rgba(0, 0, 0, 0.375);
+    border-radius: 25px;
+    padding: 10px;
+
+    text-decoration: none;
+    font-size: 30px;
+}
+
+#backButton:hover {
+    color: rgb(255, 250, 244);
+    background-color: rgba(35, 35, 35, 0.375);
+    transition: all 150ms;
+}
+
 @media screen and (max-width: 1290px) {
     .footerArea {
         width: 100%;

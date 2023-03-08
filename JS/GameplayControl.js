@@ -67,8 +67,9 @@ function setSpeed(speed){
         teams[activeTeam].ships[activeBoat].moveType = "Cruse";
     }
     teams[activeTeam].ships[activeBoat].moveLeft = teams[activeTeam].ships[activeBoat].movePower[speed];
-    clearGameControls()
-    updateMove()
+    moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    clearGameControls();
+    updateMove();
     repositionArrows();
 }
 
@@ -80,7 +81,7 @@ function startMovePhase(){
     readyAll();
     teams[activeTeam].ships[activeBoat].selectColor();
     teams[activeTeam].ships[activeBoat].moveLeft = 0;
-    addProgress();
+    addMoveProgress();
     setSpeedSelection();
     repositionArrows();
     setPhase("move");
@@ -91,13 +92,13 @@ function startMovePhase(){
 }
 
 function StartAttackPhase(){
-    startMovePhase();
-    /*clearSidebar();
+    //startMovePhase();
+    clearSidebar();
     activeTeam = 0;
     activeBoat = 0;
-    readyAll();
+    addAttackProgress();
     teams[activeTeam].ships[activeBoat].selectColor();
     setPhase("attack");
     setTeam(activeTeam);
-    setBoat(activeBoat);*/
+    setBoat(activeBoat);
 }

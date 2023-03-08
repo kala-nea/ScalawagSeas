@@ -22,9 +22,14 @@ function removeStart(){
     clearSidebar()
 }
 
-function addProgress(){
+function addMoveProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   <section id="PieceInfo" class="PieceInfo"></section>`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>`);
+}
+
+function addAttackProgress(){
+    sidebar = document.getElementById("SideBarContent");
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   `);
 }
 
 function clearSidebar(){
@@ -35,7 +40,7 @@ function clearSidebar(){
 
 function setSpeedSelection(){
     GameControls = document.getElementById("GameControls");
-    GameControls.innerHTML = GameControls.innerHTML.concat(`<button class="SpeedSet" id = "SpeedCruse" onClick="setSpeed(0)">Cruse</button>
+    GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruse" onClick="setSpeed(0)">Cruse</button>
     <button class="SpeedSet" id = "SpeedFullSteam" onClick="setSpeed(1)">Full Steam</button>
     <button class="SpeedSet" id = "SpeedFlank" onClick="setSpeed(2)">Flank</button>`);
 }
