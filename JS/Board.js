@@ -88,18 +88,64 @@ function MakeBoard(){
     if(!boardBuilt){
         clearSidebar();
         addBoatMake();
+        islands()
     }
     
     boardBuilt = true;
 }
 
-islandCount = 5;
+function AdjustBoard(){
+    
+    for(let i = 0; i<parseInt(boardWidth);i++){
+        SubmitCol = document.getElementById(`col${i}`);
+        for(let j = 0; j<parseInt(boardHeight);j++){
+            //{terrain}
+            SubmitHex = document.getElementById(`col${i}row${j}`);
+            if(i%2==0){
+                SubmitHex.style.top = `${100/boardHeight/2}%`;
+            }
+        }
+        if(i!=0){
+            SubmitCol.style.marginLeft = `${-100/(parseFloat(boardWidth)*2.85)}%`;  
+        }
+    }
+    setTimeout(spaceify,100);
+    function spaceify(){
+        HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
+        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+20}px`
+        Board.innerHTML ="";
+        Board.appendChild(HexGrid);
+    }
+    repositionArrows()
+}
+
+islandCount = 8;
 function islands(){
+    let x = 0;
+    let y = 0;
     for(let i = 0;i<islandCount;i++){
-        
+        let done = false;
+        while(!done){
+            x=Math.round(Math.random()*(boardWidth-1));
+            y=Math.round(Math.random()*(boardHeight-1));
+            Hex = document.getElementById(`col${x}row${y}`);
+            if(Hex.getAttribute("Src") == "IMG/Hex.png"){
+                Hex.setAttribute("Src","IMG/hex_island.png");
+                done = true
+            }
+        }
     }
     for(let i = 0;i<islandCount*2;i++){
-
+        let done = false;
+        while(!done){
+            x=Math.round(Math.random()*(boardWidth-1));
+            y=Math.round(Math.random()*(boardHeight-1));
+            Hex = document.getElementById(`col${x}row${y}`);
+            if(Hex.getAttribute("Src") == "IMG/Hex.png"){
+                Hex.setAttribute("Src","IMG/hex_rocks.png");
+                done = true
+            }
+        }
     }
 }
 
@@ -107,7 +153,7 @@ function islands(){
 
 function resizeBoard(){
     if(boardBuilt==true){
-        MakeBoard()
+        AdjustBoard()
         redoShade();
     }
     

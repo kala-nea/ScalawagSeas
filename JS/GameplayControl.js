@@ -7,7 +7,7 @@ function startGame(){
     startMovePhase();
 }
 
-function update(){
+function updateMove(){
     try{
         teams[activeTeam].ships[activeBoat].deselectColor();
         // if(teams[activeTeam].ships[activeBoat].moveLeft==0){
@@ -35,6 +35,8 @@ function update(){
 function nextBoatMove(){
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    clearPieceInfo();
+    clearGameControls();
     teams[activeTeam].ships[activeBoat].exhausted = true;
     activeBoat++;
     if(activeBoat>teams[activeTeam].ships.length-1){
@@ -44,7 +46,9 @@ function nextBoatMove(){
     if(activeTeam>=teams.length){
         StartAttackPhase();
     }else{
+        setSpeedSelection();
         teams[activeTeam].ships[activeBoat].selectColor();
+        teams[activeTeam].ships[activeBoat].moveLeft = 0;
         repositionArrows()
         setPhase("move");
         setTeam(activeTeam);
@@ -54,14 +58,31 @@ function nextBoatMove(){
     }
 }
 
+function setSpeed(speed){
+    if(speed == 1){
+        teams[activeTeam].ships[activeBoat].moveType = "Full";
+    }else if(speed == 2){
+        teams[activeTeam].ships[activeBoat].moveType = "Flank";
+    }else{
+        teams[activeTeam].ships[activeBoat].moveType = "Cruse";
+    }
+    teams[activeTeam].ships[activeBoat].moveLeft = teams[activeTeam].ships[activeBoat].movePower[speed];
+    clearGameControls()
+    updateMove()
+    repositionArrows();
+}
+
 function startMovePhase(){
     clearSidebar();
+    clearGameControls()
     activeTeam = 0;
     activeBoat = 0;
     readyAll();
     teams[activeTeam].ships[activeBoat].selectColor();
+    teams[activeTeam].ships[activeBoat].moveLeft = 0;
     addProgress();
-    repositionArrows()
+    setSpeedSelection();
+    repositionArrows();
     setPhase("move");
     setTeam(activeTeam);
     setBoat(activeBoat);

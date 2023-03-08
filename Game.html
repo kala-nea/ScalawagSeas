@@ -13,24 +13,16 @@
     <main>
         <section class="PlayArea" id="PlayArea">
             <section class="SideBar" id="SideBar">
-                <input type="number" id="BoardX" value="34">
-                <input type="number" id="BoardY" value="16">
-                <button id="makeBoard" onClick="MakeBoard()">Build board</button>
-                <!--<input type="number" name="team" id="team" placeholder="team">
-                <br>
-                <input type="number" id="teams" placeholder="teams">
-                <input type="number" id="boatCountPer" placeholder="boats per team">
-                <input type="number" id="movePer" placeholder="move per boat">
-                <button id="makeBoard" onClick="makeBoats()">Build boats</button>
-                <button id="makeBoard" onClick="startGame()">start</button>
-                <button id="nextBoat" onClick="nextBoat()">Next Boat</button>
-                <p id="phase">Phase:move</p>
-                <p id="activeTeam">Active Team:</p>
-                <p id="activeBoat">Active Boat:</p>
-                <p id="Movement left">Movement Left:</p>-->
+                <section class="SideBarContent" id="SideBarContent">
+                    <input type="number" id="BoardX" value="34">
+                    <input type="number" id="BoardY" value="16">
+                    <button id="makeBoard" onClick="MakeBoard()">Build board</button>
+                </section>
+                <section id="GameControls"></section>
             </section>
-            <section class="Board" id="Board" onClick="update()">
+            <section class="Board" id="Board" onClick="updateMove()">
             </section>
+            
             <section id="PieceStorage"></section>
         </section>
     </main>

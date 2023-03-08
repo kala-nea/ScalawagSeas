@@ -33,6 +33,16 @@ p.movementLeft{
     height: 100%;
 }
 
+.SideBarContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: grey;
+    width: 100%;
+    height: 100%;
+}
+
+
 /* -------------------------------Button styling starts here */
 
 button.nextBoat{
@@ -49,6 +59,7 @@ button#makeBoard{
 }
 
 /* --------------------------------Button styling ends here */
+
 
 .Tiles{
     display: flex;
