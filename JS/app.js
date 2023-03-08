@@ -730,6 +730,58 @@ let ship = [
 
 ]
 
+class Ship{
+    constructor(name,tonnage, movePower = 6,weaponsArray,ammo,captanSkill,health){
+        //0=top,1=topright 2=bottomright etc until 5
+        this.id = `Ship${ships.length}`
+        this.movePower = [movePower,movePower*1.5,movePower*2];
+        this.moveLeft = 0;
+        this.moveType = "Cruse";
+        this.exhausted = false;
+        this.crowsNest = false;
+        
+        
+        this.name = name;
+        this.tonnage = tonnage;
+        this.weightclass;
+        if(this.tonnage<40){
+            this.turnCost = 0;
+        }else if(this.tonnage<60){
+            this.turnCost = 1;
+        }else if(this.tonnage<80){
+            this.turnCost = 2;
+        }else {
+            this.turnCost = 3;
+        }
+
+        if(this.tonnage<40){
+            this.weightclass = "Corvette";
+        }else if(this.tonnage<60){
+            this.weightclass = "Cruiser";
+        }else if(this.tonnage<80){
+            this.weightclass = "Destroyer";
+        }else if(this.tonnage<100){
+            this.weightclass = "Dreadnought";
+        }else {
+            this.weightclass = "Super Dreadnought";
+        }
+        //bow,port,starboard
+        //type,weight,quantity,quantityLeft
+        this.Weapons= weaponsArray;
+        //[type,max,ammountLeft]
+        his.ammo=[];
+        ammo.push(["Round Shot",ammo[0],ammo[0]]);
+        ammo.push(["Grape Shot",ammo[1],ammo[1]]);
+        ammo.push(["Chain Shot",ammo[2],ammo[2]]);
+        this.captanSkill = captanSkill;
+        //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
+        //[max,ammountLeft, incoming]
+        this.hitpoints = [[health[0][0],health[0][1],0],[health[1][0],health[1][1],0],[health[2][0],health[2][1],0],[health[3][0],health[3][1],0],[health[4][0],health[4][1],0],[health[5][0],health[5][1],0],[health[6][0],health[6][1],0],[health[7][0],health[7][1],0]];
+
+        ships.push(this);
+    }
+}
+
 let iconPreview = document.getElementById("iconPreview");
 let iconSelect = document.getElementById("iconSelect");
 let icon;
