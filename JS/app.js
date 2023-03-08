@@ -731,14 +731,12 @@ let ship = [
 ]
 
 class Ship{
-    constructor(name,tonnage, movePower = 6,weaponsArray,ammo,captanSkill,health){
+    constructor(name,tonnage, cruse,full,flank,weaponsArray,ammo,captanSkill,health){
         //0=top,1=topright 2=bottomright etc until 5
-        this.id = `Ship${ships.length}`
-        this.movePower = [movePower,movePower*1.5,movePower*2];
+        this.movePower = [cruse,full,flank];
         this.moveLeft = 0;
         this.moveType = "Cruse";
-        this.exhausted = false;
-        this.crowsNest = false;
+        this.crowsNest = CNPresent;
         
         
         this.name = name;
@@ -769,17 +767,47 @@ class Ship{
         //type,weight,quantity,quantityLeft
         this.Weapons= weaponsArray;
         //[type,max,ammountLeft]
-        his.ammo=[];
-        ammo.push(["Round Shot",ammo[0],ammo[0]]);
-        ammo.push(["Grape Shot",ammo[1],ammo[1]]);
-        ammo.push(["Chain Shot",ammo[2],ammo[2]]);
+        this.ammo=[];
+        this.ammo.push(["Round Shot",ammo[0],ammo[0]]);
+        this.ammo.push(["Grape Shot",ammo[1],ammo[1]]);
+        this.ammo.push(["Chain Shot",ammo[2],ammo[2]]);
         this.captanSkill = captanSkill;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
         this.hitpoints = [[health[0][0],health[0][1],0],[health[1][0],health[1][1],0],[health[2][0],health[2][1],0],[health[3][0],health[3][1],0],[health[4][0],health[4][1],0],[health[5][0],health[5][1],0],[health[6][0],health[6][1],0],[health[7][0],health[7][1],0]];
 
-        ships.push(this);
     }
+}
+
+function saveBoatToLocal(){
+    if(window.localStorage.getItem('numberOfShips') == null){
+        numberOfShips = 0;
+    }else{
+        numberOfShips = window.localStorage.getItem('numberOfShips');
+    }
+    window.localStorage.setItem('numberOfShips', numberOfShips);
+    
+    
+    window.localStorage.setItem(`ship${numberOfShips}`, JSON.stringify(new Ship(shipName.value,
+        statsByTon[parseInt(tonnageTable.value)][0],
+        statsByTon[parseInt(tonnageTable.value)][12],
+        statsByTon[parseInt(tonnageTable.value)][13],
+        statsByTon[parseInt(tonnageTable.value)][14],
+        weaponsArray,
+        ammo,
+        Math.floor(Math.random() * 3) + 2,
+        [
+            [brHP, brHP],
+            [boHP, boHP],
+            [aHP, aHP],
+            [pHP, pHP],
+            [sHP, sHP],
+            [biHP, biHP],
+            [mHP, mHP],
+            [rHP, rHP],
+        ])));
+    numberOfShips++;
+    window.localStorage.setItem('numberOfShips', numberOfShips);
 }
 
 let iconPreview = document.getElementById("iconPreview");
