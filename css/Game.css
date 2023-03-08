@@ -7,12 +7,15 @@ body{
     src: url(../css/pfeffer-mediaeval.regular.otf);
 }
 
-p[id^="active"],
-p#phase,
-p.movementLeft{
+p {
+    box-sizing: border-box;
     font-family: pfefferMediaeval;
     font-size: 24px;
-    line-height: 5px;
+    line-height: 12px;
+}
+
+p.Identifier {
+    color: antiquewhite;
 }
 
 .PlayArea{
@@ -58,6 +61,11 @@ button#makeBoard{
     height: 2.5vh;
 }
 
+button {
+    
+    font-family: pfefferMediaeval;
+}
+
 /* --------------------------------Button styling ends here */
 
 
@@ -90,9 +98,9 @@ button#makeBoard{
     position: absolute;
     margin: 0;
     pointer-events: none;
-    background: rgba(80, 80, 80, 0.4);
+    background: rgba(80, 80, 80, 0.75);
     border-radius: 5px;
-    padding: 3px;
+    padding: 5px;
     font-size: 90%;
     text-align: center;
 }
@@ -128,4 +136,25 @@ button#makeBoard{
 .LeftArrow:hover{
     filter: invert(0.65);
     
+}
+
+#backButton {
+    display: block;
+    position: fixed;
+    width: auto;
+    right: 25px;
+    bottom: 25px;
+
+    background-color:rgba(0, 0, 0, 0.375);
+    border-radius: 25px;
+    padding: 10px;
+
+    text-decoration: none;
+    font-size: 30px;
+}
+
+#backButton:hover {
+    color: rgb(255, 250, 244);
+    background-color: rgba(35, 35, 35, 0.375);
+    transition: all 150ms;
 }
