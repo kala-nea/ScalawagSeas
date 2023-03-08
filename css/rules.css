@@ -1,0 +1,104 @@
+body {
+    background-image: url(../IMG/wood.png);
+    background-size: 112px;
+}
+
+@font-face {
+    font-family: blackChancery;
+    src: url(../css/blackchancery.regular.ttf);
+}
+
+@font-face {
+    font-family: pfefferMediaeval;
+    src: url(../css/pfeffer-mediaeval.regular.otf);
+}
+
+* {
+    font-family: blackChancery;
+    font-size: 24px;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+a {
+    color: antiquewhite;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0 auto;
+    text-align: center;
+}
+
+h3 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 64px;
+}
+
+h1 {
+    font-size: 128px;
+    text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
+}
+
+section {
+    width: 62.5%;
+    background-color: rgba(0, 0, 0, 0.375);
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    
+}
+
+p,
+a {
+    font-family: pfefferMediaeval;
+}
+
+img {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.sSBT {
+    width: 50%;
+}
+
+.sAT {
+    width: 25%;
+    margin-left: 37.5%;
+}
+
+#backButton {
+    display: block;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    background-color:rgba(0, 0, 0, 0.375);
+    border-radius: 25px;
+    padding: 10px;
+
+    text-decoration: none;
+    font-size: 30px;
+}
+
+#backButton:hover {
+    color: rgb(255, 250, 244);
+    background-color: rgba(35, 35, 35, 0.375);
+    transition: all 150ms;
+}
