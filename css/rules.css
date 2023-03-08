@@ -58,7 +58,7 @@ h1 {
 section {
     width: 62.5%;
     background-color: rgba(0, 0, 0, 0.375);
-    padding: 20px;
+    padding: 40px;
     margin: 0 auto;
     margin-bottom: 40px;
     
@@ -101,4 +101,21 @@ img {
     color: rgb(255, 250, 244);
     background-color: rgba(35, 35, 35, 0.375);
     transition: all 150ms;
+}
+
+.toc {
+    display:inherit;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    justify-self: center;
+}
+
+.toc:hover {
+    color: rgb(255, 250, 244);
+    transition: all 150ms;
+}
+
+.heading {
+    margin-top: 40px;
 }

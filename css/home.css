@@ -53,6 +53,7 @@ a {
 
 a {
     background-color: rgba(0, 0, 0, 0.375);
+    padding: 0 20px;
     margin-bottom: 5px;
     border-radius: 25px;
     text-decoration: none;
