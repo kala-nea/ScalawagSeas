@@ -120,6 +120,9 @@ function AdjustBoard(){
 }
 
 islandCount = 8;
+// TODO: make an input for the island
+
+
 function islands(){
     let x = 0;
     let y = 0;
