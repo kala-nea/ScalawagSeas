@@ -808,6 +808,7 @@ function saveBoatToLocal(){
         ])));
     numberOfShips++;
     window.localStorage.setItem('numberOfShips', numberOfShips);
+    alert("Your ship has been saved!");
 }
 
 let iconPreview = document.getElementById("iconPreview");
