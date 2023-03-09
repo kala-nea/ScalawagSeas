@@ -178,7 +178,7 @@ function addArmor () {
             break;
         case "0-1":
             armorRemaining = armorRemaining - 1;
-            boHP = boH + 1;
+            boHP = boHP + 1;
             break;
         case "0-2":
             armorRemaining = armorRemaining - 1;
