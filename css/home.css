@@ -50,6 +50,9 @@ a {
     text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
     text-align: center;
 }
+h1 {
+    font-size: 128px;
+}
 
 a {
     background-color: rgba(0, 0, 0, 0.375);
@@ -99,8 +102,8 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 6%;
-    margin-bottom: 6%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 @media screen and (max-width: 1290px) {

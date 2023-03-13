@@ -131,19 +131,19 @@ function getArmorOptions () {
 
     let newRow1 = document.createElement("option");
     newRow1.setAttribute("value", 0);
-    newRow1.textContent = "Wood";
+    newRow1.textContent = "Wood - 1pt";
     let newRow2 = document.createElement("option");
     newRow2.setAttribute("value", 1);
-    newRow2.textContent = "Ceramic";
+    newRow2.textContent = "Ceramic - 5pt";
     let newRow3 = document.createElement("option");
     newRow3.setAttribute("value", 2);
-    newRow3.textContent = "Iron";
+    newRow3.textContent = "Iron - 10pt";
     let newRow4 = document.createElement("option");
     newRow4.setAttribute("value", 3);
-    newRow4.textContent = "Compound";
+    newRow4.textContent = "Compound - 25pt";
     let newRow5 = document.createElement("option");
     newRow5.setAttribute("value", 4);
-    newRow5.textContent = "Synthetic";
+    newRow5.textContent = "Synthetic - 50pt";
 
     if (armorRemaining >= 50) {
         armorType.appendChild(newRow1);
@@ -797,9 +797,9 @@ function saveBoatToLocal(){
     
     window.localStorage.setItem(`ship${numberOfShips}`, JSON.stringify(new Ship(shipName.value,
         statsByTon[parseInt(tonnageTable.value)][0],
-        statsByTon[parseInt(tonnageTable.value)][12],
-        statsByTon[parseInt(tonnageTable.value)][13],
         statsByTon[parseInt(tonnageTable.value)][14],
+        statsByTon[parseInt(tonnageTable.value)][15],
+        statsByTon[parseInt(tonnageTable.value)][16],
         weaponsArray,
         ammo,
         Math.floor(Math.random() * 3) + 2,

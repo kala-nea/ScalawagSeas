@@ -131,3 +131,8 @@ li{
 .ShipyardListShip:hover{
     font-weight: bold;
 }
+
+#ShipInfo {
+    color: antiquewhite;
+    text-decoration: none;
+}
