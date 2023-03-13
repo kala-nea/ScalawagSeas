@@ -58,6 +58,29 @@ function nextBoatMove(){
     }
 }
 
+function nextBoatAttack(){
+    teams[activeTeam].ships[activeBoat].deselectColor();
+    moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    clearPieceInfo();
+    clearGameControls();
+    teams[activeTeam].ships[activeBoat].exhausted = true;
+    activeBoat++;
+    if(activeBoat>teams[activeTeam].ships.length-1){
+        activeTeam++;
+        activeBoat = 0;
+    }
+    if(activeTeam>=teams.length){
+        StartMovePhase();
+    }else{
+        setAttackButtons();
+        teams[activeTeam].ships[activeBoat].selectColor();
+        repositionArrows()
+        setPhase("attack");
+        setTeam(activeTeam);
+        setBoat(activeBoat);
+    }
+}
+
 function setSpeed(speed){
     if(speed == 1){
         teams[activeTeam].ships[activeBoat].moveType = "Full";
@@ -97,6 +120,7 @@ function StartAttackPhase(){
     activeTeam = 0;
     activeBoat = 0;
     addAttackProgress();
+    setAttackButtons();
     teams[activeTeam].ships[activeBoat].selectColor();
     setPhase("attack");
     setTeam(activeTeam);

@@ -162,7 +162,7 @@ class Ship{
         this.ship.style.filter = "brightness(150%)";
     }
     deselectColor(){
-        this.ship.style.filter = "brightness(100%)";
+        this.ship.style.filter = "brightness(1)";
     }
 
     displayStats(){

@@ -1,6 +1,8 @@
 
-let BoardXIn = document.getElementById("BoardX");
-let BoardYIn = document.getElementById("BoardY");
+// let BoardXIn = document.getElementById("BoardX");
+// let BoardYIn = document.getElementById("BoardY");
+let BoardXIn = window.localStorage.getItem('BoardX');
+let BoardYIn = window.localStorage.getItem('BoardY');
 let Board = document.getElementById("Board");
 
 let Hex;
@@ -11,28 +13,32 @@ let boardWidth = null;
 let boardHeight= null;
 let boardBuilt = false;
 
+let islandCount = window.localStorage.getItem('IslandCount');
+let rockCount =window.localStorage.getItem('RockCount');
 //BoardXIn.addEventListener('change',(e) => MakeBoard());
 //BoardYIn.addEventListener('change',(e) => MakeBoard());
 makeBoardButton = document.getElementById("makeBoard");
 
 window.addEventListener('resize',resizeBoard);
 
+setTimeout(MakeBoard,1);
+
 function MakeBoard(){
     if(boardHeight==null||boardWidth==null){
         try{
-            if(parseInt(BoardXIn.value)!=(Math.min(Math.max(parseInt(BoardXIn.value),10),50))){
-                boardWidth = (Math.min(Math.max(parseInt(BoardXIn.value),10),50));
+            if(parseInt(BoardXIn)!=(Math.min(Math.max(parseInt(BoardXIn),10),50))){
+                boardWidth = (Math.min(Math.max(parseInt(BoardXIn),10),50));
                 alert(`Width out of bounds, adjusted to ${boardWidth}`);
             }else{
-                boardWidth = BoardXIn.value;
+                boardWidth = BoardXIn;
             }
         }catch{}
         try{
-            if(parseInt(BoardYIn.value)!=(Math.min(Math.max(parseInt(BoardYIn.value),5),35))){
-                boardHeight = (Math.min(Math.max(parseInt(BoardYIn.value),5),35));
+            if(parseInt(BoardYIn)!=(Math.min(Math.max(parseInt(BoardYIn),5),35))){
+                boardHeight = (Math.min(Math.max(parseInt(BoardYIn),5),35));
                 alert(`height out of bounds, adjusted to ${boardHeight}`);
             }else{
-                boardHeight = BoardYIn.value;
+                boardHeight = BoardYIn;
             }
         }catch{}
     }
@@ -86,7 +92,7 @@ function MakeBoard(){
         Board.appendChild(HexGrid);
     }
     if(!boardBuilt){
-        clearSidebar();
+        // clearSidebar();
         addBoatMake();
         islands()
     }
@@ -119,7 +125,6 @@ function AdjustBoard(){
     repositionArrows()
 }
 
-islandCount = 8;
 // TODO: make an input for the island
 
 
@@ -138,7 +143,7 @@ function islands(){
             }
         }
     }
-    for(let i = 0;i<islandCount*2;i++){
+    for(let i = 0;i<rockCount*2;i++){
         let done = false;
         while(!done){
             x=Math.round(Math.random()*(boardWidth-1));
@@ -170,7 +175,7 @@ function redoShade(){
 function highlight(id){
     let hex = document.getElementById(id);
     if(hex.style.filter == "brightness(1)"){
-        hex.style.filter ="brightness(0.8)"
+        hex.style.filter ="brightness(1.8)"
         
     }/*else if(hex.style.filter == "brightness(50%)"){
         hex.style.filter ="brightness(65%)"
@@ -183,7 +188,7 @@ function highlight(id){
 
 function unhighlight(id){
     let hex = document.getElementById(id);
-    if(hex.style.filter == "brightness(0.8)"){
+    if(hex.style.filter == "brightness(1.8)"){
         hex.style.filter ="brightness(1)"
         
     }/*else if(hex.style.filter == "brightness(65%)"){
@@ -234,7 +239,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
         }catch{}
@@ -259,7 +264,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
         }catch{}
@@ -287,7 +292,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -314,7 +319,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -341,7 +346,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -368,7 +373,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -397,7 +402,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -424,7 +429,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -451,7 +456,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -478,7 +483,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="brightness(0.5)";
+                goal.style.filter ="brightness(2)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -487,46 +492,46 @@ function moveShade(col,row){
     /*
     try{
         goal = document.getElementById(`col${col}row${row+1}`);
-        goal.style.filter ="brightness(0.5)";
+        goal.style.filter ="brightness(2)";
         goal.style.zIndex = "1"
 
     }catch{}
     try{
         goal = document.getElementById(`col${col}row${row-1}`);
-        goal.style.filter ="brightness(0.5)";
+        goal.style.filter ="brightness(2)";
         goal.style.zIndex = "1"
     }catch{}
     try{
         goal = document.getElementById(`col${col+1}row${row}`);
-        goal.style.filter ="brightness(0.5)";
+        goal.style.filter ="brightness(2)";
         goal.style.zIndex = "1"
     }catch{}
     try{
         goal = document.getElementById(`col${col-1}row${row}`);
-        goal.style.filter ="brightness(0.5)";
+        goal.style.filter ="brightness(2)";
         goal.style.zIndex = "1"
     }catch{}
     if(col%2==0){
         try{
             goal = document.getElementById(`col${col+1}row${row+1}`);
-            goal.style.filter ="brightness(0.5)";
+            goal.style.filter ="brightness(2)";
             goal.style.zIndex = "1"
         }catch{}
         try{
             goal = document.getElementById(`col${col-1}row${row+1}`);
-            goal.style.filter ="brightness(0.5)";
+            goal.style.filter ="brightness(2)";
             goal.style.zIndex = "1"
         }catch{}
     }else{
         try{
             goal = document.getElementById(`col${col+1}row${row-1}`);
-            goal.style.filter ="brightness(0.5)";
+            goal.style.filter ="brightness(2)";
             goal.style.zIndex = "1"
         }catch{}
         try{
             goal = document.getElementById(`col${col-1}row${row-1}`);
             
-            goal.style.filter ="brightness(0.5)";
+            goal.style.filter ="brightness(2)";
             goal.style.zIndex = "1"
         }catch{}
     }*/
@@ -535,44 +540,44 @@ function moveShade(col,row){
 function moveShadent(col,row){
     try{
         let goal = document.getElementById(`col${col}row${row+1}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
     }catch{}
     try{
         goal = document.getElementById(`col${col}row${row-1}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
     }catch{}
     try{
         goal = document.getElementById(`col${col+1}row${row}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
     }catch{}
     try{
         goal = document.getElementById(`col${col-1}row${row}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
     }catch{}
     if(col%2==0){
         try{
             goal = document.getElementById(`col${col+1}row${row+1}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
         }catch{}
         try{
             goal = document.getElementById(`col${col-1}row${row+1}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
         }catch{}
     }else{
         try{
             goal = document.getElementById(`col${col+1}row${row-1}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
         }catch{}
         try{
             goal = document.getElementById(`col${col-1}row${row-1}`);
-        goal.style.filter ="brightness(100%)";
+        goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
         }catch{}
     }

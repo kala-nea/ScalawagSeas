@@ -20,7 +20,7 @@ pieceStorage.append(LeftArrow);
 
 
 function moveShipClick(id){
-    if(document.getElementById(id).style.filter == "brightness(0.5)"){
+    if(document.getElementById(id).style.filter == "brightness(2)"){
         let location = id.split("col").pop().split("row");
         unhighlight(id)
         moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
