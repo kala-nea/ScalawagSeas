@@ -578,3 +578,27 @@ function moveShadent(col,row){
     }
     
 }
+
+
+
+
+//  Music
+
+let music = document.getElementById("music");
+
+let audio = new Audio("css/music/back-when-we-were-young-piano-instrumental-hopeful-adventure-triumph-138353.mp3");
+let audio2 = new Audio("css/music/battle-ship-111902.mp3")
+let audio3 = new Audio("css/music/buccaneer-swashbuckler-pirate-instrumental-high-seas-adventure-132858.mp3");
+let audioList = [audio, audio2, audio3];
+
+function playlist () {
+    let songNum = Math.floor(Math.random() * 3);
+    switch (songNum) {
+        case 0:
+            music.src = audio;
+            break;
+        case 1:
+            music.src = audio;
+            break;
+    }
+}
