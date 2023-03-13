@@ -123,3 +123,11 @@ img {
 li{
     color: antiquewhite;
 }
+
+.ShipyardListShip{
+
+}
+
+.ShipyardListShip:hover{
+    font-weight: bold;
+}

@@ -352,6 +352,7 @@ function addArmor () {
 addArmorButton.addEventListener("click", addArmor);
 addArmorButton.addEventListener("click", getArmorOptions);
 
+let names = ["Bow","Port","Starboard"]
 let ids = ["weaponTypeB","weaponTypeP","weaponTypeS"];
 let idsLb = ["weaponLbB","weaponLbP","weaponLbS"];
 let idsAmmo = ["weaponAmmoB","weaponAmmoP","weaponAmmoS"];
@@ -564,6 +565,7 @@ let addWeaponButtonS = document.getElementById("addWeaponButtonS");
 let bowWeaponTable = document.getElementById("bowWeaponTable");
 let portWeaponTable = document.getElementById("portWeaponTable");
 let starboardWeaponTable = document.getElementById("starboardWeaponTable");
+let WeaponTables = [bowWeaponTable,portWeaponTable,starboardWeaponTable];
 
 let ammoTable = document.getElementById("ammoTable");
 let roundDisplay = document.getElementById("roundDisplay");
@@ -579,7 +581,7 @@ function addWeapon (section) {
     let weaponLb = document.getElementById(idsLb[section]);
 
     let PrevWeaponCount = weaponsRemaining[section];
-
+    console.log(`sectio: ${section}`);
     
 
     for(let i = 0;i<PoundageCost.length;i++){
@@ -597,23 +599,23 @@ function addWeapon (section) {
     if(weaponsRemaining[section]<0){
         weaponsRemaining[section] = PrevWeaponCount;
     }else{
-        console.log("works");
+        // console.log("works");
         let DesiredWeapon = [weaponType.value,parseInt(weaponLb.value.split("lb")[0])];
         let newWeapon = true;
-        for(let i = 0;i<weaponsArray[0].length&&newWeapon;i++){
-            if(weaponsArray[0][i][0] == DesiredWeapon[0]&&weaponsArray[0][i][1] == DesiredWeapon[1]){
-                let oldLine1 = document.getElementById(`Bow${weaponsArray[0][weaponsArray[0].length-1][1]}lb${weaponsArray[0][weaponsArray[0].length-1][0]}`);
-                weaponsArray[0][i][2]++;
+        for(let i = 0;i<weaponsArray[section].length&&newWeapon;i++){
+            if(weaponsArray[section][i][0] == DesiredWeapon[0]&&weaponsArray[section][i][1] == DesiredWeapon[1]){
+                let oldLine1 = document.getElementById(`${names[section]}${weaponsArray[section][weaponsArray[section].length-1][1]}lb${weaponsArray[section][weaponsArray[section].length-1][0]}`);
+                weaponsArray[section][i][2]++;
                 newWeapon=false;
-                oldLine1.innerText =`${weaponsArray[0][weaponsArray[0].length-1][1]}lb ${weaponsArray[0][weaponsArray[0].length-1][0]} x${weaponsArray[0][weaponsArray[0].length-1][2]}`;
+                oldLine1.innerText =`${weaponsArray[section][weaponsArray[section].length-1][1]}lb ${weaponsArray[section][weaponsArray[section].length-1][0]} x${weaponsArray[section][weaponsArray[section].length-1][2]}`;
             }
         }
         if(newWeapon){
-            weaponsArray[0].push([DesiredWeapon[0],DesiredWeapon[1],1]);
+            weaponsArray[section].push([DesiredWeapon[0],DesiredWeapon[1],1]);
             let newLine1 = document.createElement("p");
-            newLine1.setAttribute("id",`Bow${weaponsArray[0][weaponsArray[0].length-1][1]}lb${weaponsArray[0][weaponsArray[0].length-1][0]}`);
-            newLine1.innerText = `${weaponsArray[0][weaponsArray[0].length-1][1]}lb ${weaponsArray[0][weaponsArray[0].length-1][0]} x${weaponsArray[0][weaponsArray[0].length-1][2]}`;
-            bowWeaponTable.appendChild(newLine1);
+            newLine1.setAttribute("id",`${names[section]}${weaponsArray[section][weaponsArray[section].length-1][1]}lb${weaponsArray[section][weaponsArray[section].length-1][0]}`);
+            newLine1.innerText = `${weaponsArray[section][weaponsArray[section].length-1][1]}lb ${weaponsArray[section][weaponsArray[section].length-1][0]} x${weaponsArray[section][weaponsArray[section].length-1][2]}`;
+            WeaponTables[section].appendChild(newLine1);
         }
     }
 
@@ -621,7 +623,7 @@ function addWeapon (section) {
 }
 
 function getAmmo(section) {
-    console.log("works");
+    // console.log("works");
     switch (document.getElementById(idsAmmo[section]).value) {
         case "0":
             ammo[0] = ammo[0] + 5;
@@ -673,6 +675,11 @@ function resetWeapons () {
     bowWeaponTable.replaceChildren('');
     portWeaponTable.replaceChildren('');
     starboardWeaponTable.replaceChildren('');
+    weaponsArray = [
+        [],
+        [],
+        []
+    ];
     ammo = [0, 0, 0];
     roundDisplay.textContent = ammo[0];
     grapeDisplay.textContent = ammo[1];

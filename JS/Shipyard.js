@@ -10,7 +10,9 @@ for(let i =0;i<numberOfShips;i++){
     let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
     let shipItem = document.createElement("li");
     shipItem.setAttribute("id",`Ship${i}`);
+    shipItem.setAttribute("class","ShipyardListShip");
     shipItem.innerText = storedShip.name;
+    shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
     console.log(storedShip.name);
     ShipList.append(shipItem);
 }
@@ -39,7 +41,7 @@ function displayStats(id){
     `;
     }
     for(let i=0;i<storedShip.Weapons[0].length;i++){
-    PieceInfo.innerText+=`${storedShip.Weapons[0][i][2]}x ${storedShip.Weapons[0][i][1]}lb ${storedShip.Weapons[0][i][0]}      ${storedShip.Weapons[0][i][3]}/${storedShip.Weapons[0][i][2]}
+    PieceInfo.innerText+=`${storedShip.Weapons[0][i][2]}x ${storedShip.Weapons[0][i][1]}lb ${storedShip.Weapons[0][i][0]}
     `;
     }
     if(storedShip.Weapons[1].length>0){
@@ -47,7 +49,7 @@ function displayStats(id){
     `;
     }
     for(let i=0;i<storedShip.Weapons[1].length;i++){
-    PieceInfo.innerText+=`${storedShip.Weapons[1][i][2]}x ${storedShip.Weapons[1][i][1]}lb ${storedShip.Weapons[1][i][0]}      ${storedShip.Weapons[0][i][3]}/${storedShip.Weapons[0][i][2]}
+    PieceInfo.innerText+=`${storedShip.Weapons[1][i][2]}x ${storedShip.Weapons[1][i][1]}lb ${storedShip.Weapons[1][i][0]}
     `;
     }
     if(storedShip.Weapons[2].length>0){
@@ -55,7 +57,7 @@ function displayStats(id){
     `;
     }
     for(let i=0;i<storedShip.Weapons[2].length;i++){
-    PieceInfo.innerText+=`${storedShip.Weapons[2][i][2]}x ${storedShip.Weapons[2][i][1]}lb ${storedShip.Weapons[2][i][0]}      ${storedShip.Weapons[0][i][3]}/${storedShip.Weapons[0][i][2]}
+    PieceInfo.innerText+=`${storedShip.Weapons[2][i][2]}x ${storedShip.Weapons[2][i][1]}lb ${storedShip.Weapons[2][i][0]}
     `;
     }
     PieceInfo.innerText+=`
