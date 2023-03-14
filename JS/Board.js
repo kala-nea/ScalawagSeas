@@ -592,22 +592,37 @@ function moveShadent(col,row){
 //  Music
 
 let music = document.getElementById("music");
-
-let audio = new Audio("css/music/back-when-we-were-young-piano-instrumental-hopeful-adventure-triumph-138353.mp3");
-let audio2 = new Audio("css/music/battle-ship-111902.mp3")
-let audio3 = new Audio("css/music/buccaneer-swashbuckler-pirate-instrumental-high-seas-adventure-132858.mp3");
-let audioList = [audio, audio2, audio3];
 let songNum = Math.floor(Math.random() * 3);
+let pastSongNum = songNum;
+let pastDone = 0;
+let done = 1;
 
-document.addEventListener("DOMContentLoaded", ()=>{playlist(null)});
+document.addEventListener("click", (e)=>playlist(pastSongNum));
+music.addEventListener("ended", check);
 
 function playlist (x) {
-    songNum = Math.floor(Math.random() * 3);
-    while (songNum == x) {
+    
+    if (done > pastDone) {
         songNum = Math.floor(Math.random() * 3);
+        while (songNum == x) {
+            songNum = Math.floor(Math.random() * 3);
+        }
+        switch (songNum) {
+            case 0:
+                music.src = "css/music/back-when-we-were-young-piano-instrumental-hopeful-adventure-triumph-138353.mp3";
+                break;
+            case 1:
+                music.src = "css/music/battle-ship-111902.mp3";
+                break;
+            case 2:
+                music.src = "css/music/buccaneer-swashbuckler-pirate-instrumental-high-seas-adventure-132858.mp3";
+                break;
+        }
+        pastDone = done;
+        music.play();
     }
-    music.src = audioList[songNum];
-    music.play();
 }
 
-music.addEventListener("ended", ()=>{playlist(songNum)});
+function check () {
+    done += 1;
+}
