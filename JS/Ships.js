@@ -85,7 +85,7 @@ class Ship{
         this.identifier = document.createElement("p");
         this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
         this.identifier.setAttribute("class",`Identifier`);
-        this.identifier.innerText = `Team${this.team+1} Boat ${teams[this.team].ships.length}`;
+        this.identifier.innerText = `Player ${this.team+1} Boat ${teams[this.team].ships.length}`;
         this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
         //this.identifier.style.height = `${desiredHex.height}px`;

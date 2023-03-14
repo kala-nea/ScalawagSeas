@@ -593,16 +593,38 @@ function moveShadent(col,row){
 //  Music
 
 let music = document.getElementById("music");
+let songNum = Math.floor(Math.random() * 3);
+let pastSongNum = songNum;
+let pastDone = 0;
+let done = 1;
 
-let audio = new Audio("css/music/back-when-we-were-young-piano-instrumental-hopeful-adventure-triumph-138353.mp3");
-let audio2 = new Audio("css/music/battle-ship-111902.mp3")
-let audio3 = new Audio("css/music/buccaneer-swashbuckler-pirate-instrumental-high-seas-adventure-132858.mp3");
-let audioList = [audio, audio2, audio3];
+document.addEventListener("click", (e)=>playlist(pastSongNum));
+music.addEventListener("ended", check);
 
-function playlist(){
-    let songNum = Math.floor(Math.random() * 2.99);
-    music.play(audioList[songNum]);
+function playlist (x) {
+    
+    if (done > pastDone) {
+        while (songNum == x) {
+            songNum = Math.floor(Math.random() * 3);
+        }
+        switch (songNum) {
+            case 0:
+                music.src = "css/music/back-when-we-were-young-piano-instrumental-hopeful-adventure-triumph-138353.mp3";
+                break;
+            case 1:
+                music.src = "css/music/battle-ship-111902.mp3";
+                break;
+            case 2:
+                music.src = "css/music/buccaneer-swashbuckler-pirate-instrumental-high-seas-adventure-132858.mp3";
+                break;
+        }
+        pastDone = done;
+        music.play();
+        pastSongNum = songNum;
+    }
 }
 
-document.addEventListener("DOMContentLoaded", playlist);
-music.addEventListener("ended", playlist);
+function check () {
+    done += 1;
+    playlist(pastSongNum);
+}
