@@ -24,6 +24,7 @@ window.addEventListener('resize',resizeBoard);
 setTimeout(MakeBoard,1);
 setTimeout((e) =>makeBoats(),200);
 setTimeout((e) => adjustAll(),300)
+setTimeout((e) => adjustAll(),3000)
 
 function MakeBoard(){
     if(boardHeight==null||boardWidth==null){
@@ -117,10 +118,10 @@ function AdjustBoard(){
             SubmitCol.style.marginLeft = `${-100/(parseFloat(boardWidth)*2.85)}%`;  
         }
     }
-    setTimeout(spaceify,2);
+    setTimeout(spaceify,50);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
-        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+20}px`
+        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+40}px`
         Board.innerHTML ="";
         Board.appendChild(HexGrid);
     }
@@ -598,8 +599,8 @@ let audio2 = new Audio("css/music/battle-ship-111902.mp3")
 let audio3 = new Audio("css/music/buccaneer-swashbuckler-pirate-instrumental-high-seas-adventure-132858.mp3");
 let audioList = [audio, audio2, audio3];
 
-function playlist () {
-    let songNum = Math.floor(Math.random() * 3);
+function playlist(){
+    let songNum = Math.floor(Math.random() * 2.99);
     music.play(audioList[songNum]);
 }
 

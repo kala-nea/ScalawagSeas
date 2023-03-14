@@ -158,3 +158,10 @@ button {
     background-color: rgba(35, 35, 35, 0.375);
     transition: all 150ms;
 }
+
+#angler{
+    position: fixed;
+    pointer-events: none;
+    width: 2500px;
+    visibility: hidden;
+}

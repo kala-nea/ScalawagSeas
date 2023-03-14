@@ -73,6 +73,7 @@ function setAttackButtons(){
     GameControls.innerHTML+=`<br>Ammo:<br>`;
     for(let i=0;i<teams[activeTeam].ships[activeBoat].ammo.length;i++){
         GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}<br>`;
+        GameControls.innerHTML+=`<button id="SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}" onclick="selectAmmo(${teams[activeTeam].ships[activeBoat].ammo[i][0]})">Select</button><br>`;
     }
     let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
     GameControls.innerHTML+=`<br>Hitpoints:<br>`;

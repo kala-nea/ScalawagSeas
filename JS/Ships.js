@@ -49,7 +49,7 @@ class Ship{
             this.weightclass = "Super Dreadnought";
         }
         //bow,port,starboard
-        //type,weight,quantity,quantityLeft
+        //type,weight,quantity,quantityLeft,damage[round,grape,chain]
         this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
         //[type,max,ammountLeft]
         this.ammo=[["Round Shot",100,50],["Grapeshot",20,10]];
@@ -72,7 +72,8 @@ class Ship{
         shipmake.setAttribute("id",this.id);
         pieceStorage.append(shipmake);
         this.ship = document.getElementById(this.id);
-        this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
+        // this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
+        this.ship.addEventListener("click",(e) => this.clicked());
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
         this.ship.style.height = `${desiredHex.height}px`;
@@ -163,6 +164,14 @@ class Ship{
     }
     deselectColor(){
         this.ship.style.filter = "brightness(1)";
+    }
+
+    clicked(){
+        if(fireing&&this.id!=teams[activeTeam].ships[activeBoat].id){
+            AttackThis(teams[activeTeam].ships[activeBoat], this)
+        }else{
+            this.displayStats();
+        }
     }
 
     displayStats(){

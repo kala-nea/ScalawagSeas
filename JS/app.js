@@ -788,7 +788,7 @@ class Ship{
 }
 
 function saveBoatToLocal(){
-    if(window.localStorage.getItem('numberOfShips') == null){
+    if(window.localStorage.getItem('numberOfShips') == null||window.localStorage.getItem('numberOfShips') == NaN){
         numberOfShips = 0;
     }else{
         numberOfShips = window.localStorage.getItem('numberOfShips');
@@ -858,6 +858,14 @@ function getIcon () {
             icon = 8;
             break;
     }
+}
+
+
+function clearAllShipsForcefully(){
+    for(let i = 0;i<100;i++){
+        window.localStorage.setItem(`ship${i}`,null)
+    }
+    window.localStorage.setItem('numberOfShips',0)
 }
 
 iconSelect.addEventListener("change", getIcon);

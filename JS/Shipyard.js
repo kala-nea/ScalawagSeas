@@ -13,7 +13,7 @@ for(let i =0;i<numberOfShips;i++){
     shipItem.setAttribute("class","ShipyardListShip");
     shipItem.innerText = storedShip.name;
     shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
-    console.log(storedShip.name);
+    // console.log(storedShip.name);
     ShipList.append(shipItem);
 }
 
@@ -75,4 +75,11 @@ function displayStats(id){
         PieceInfo.innerText+=`${shipParts[i]}: ${storedShip.hitpoints[i][1]}/${storedShip.hitpoints[i][0]}
         `;
     }
+}
+
+function clearAllShipsForcefully(){
+    for(let i = 0;i<100;i++){
+        window.localStorage.setItem(`ship${i}`,null)
+    }
+    window.localStorage.setItem('numberOfShips',0)
 }
