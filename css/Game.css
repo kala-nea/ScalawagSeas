@@ -145,6 +145,8 @@ button {
     right: 25px;
     bottom: 25px;
 
+    font-family: pfefferMediaeval;
+    color: antiquewhite;
     background-color:rgba(0, 0, 0, 0.375);
     border-radius: 25px;
     padding: 10px;

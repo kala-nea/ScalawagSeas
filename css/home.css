@@ -122,7 +122,3 @@ footer {
         justify-content: space-around;
     }
 }
-
-h1::selection {
-    background-image: url(IMG/lorenz-sea-of-thieves.gif);
-}
