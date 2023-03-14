@@ -29,7 +29,7 @@ function addMoveProgress(){
 
 function addAttackProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>   `);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                  <button id="nextBoat" onClick="nextBoatAttack()">Finish Turn</button>   `);
 }
 
 function clearSidebar(){
@@ -47,47 +47,38 @@ function setSpeedSelection(){
 
 function setAttackButtons(){
     GameControls = document.getElementById("GameControls");
-    GameControls.innerHTML = GameControls.innerHTML=`
-    Weapons:
-          `;
+    GameControls.innerHTML = GameControls.innerHTML=`<br>Weapons:<br>`;
         if(teams[activeTeam].ships[activeBoat].Weapons[0].length>0){
-            GameControls.innerText+=`Bow:
-            `;
+            GameControls.innerHTML+=`Bow:<br>`;
         }
         for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[0].length;i++){
-        GameControls.innerText+=`${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[0][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[0][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}
-        `;
+        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[0][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[0][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}`;
+        GameControls.innerHTML+=`<button id="FireSide0Weapon${i}" onclick="FireWeapon(0,${i})">Fire</button><br>`;
+        
     }
     if(teams[activeTeam].ships[activeBoat].Weapons[1].length>0){
-        GameControls.innerText+=`Port:
-        `;
+        GameControls.innerHTML+=`Port:<br>`;
     }
     for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[1].length;i++){
-        GameControls.innerText+=`${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[1][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[1][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}
-        `;
+        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[1][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[1][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[1][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}`;
+        GameControls.innerHTML+=`<button id="FireSide1Weapon${i}" onclick="FireWeapon(1,${i})">Fire</button><br>`;
     }
     if(teams[activeTeam].ships[activeBoat].Weapons[2].length>0){
-        GameControls.innerText+=`Starboard:
-        `;
+        GameControls.innerHTML+=`Starboard:<br>`;
     }
     for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[2].length;i++){
-        GameControls.innerText+=`${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[2][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[2][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}
-        `;
+        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[2][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[2][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[2][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}`;
+        GameControls.innerHTML+=`<button id="FireSide2Weapon${i}" onclick="FireWeapon(2,${i})">Fire</button><br>`;
     }
-    GameControls.innerText+=`
-    Ammo:
-    `;
+    GameControls.innerHTML+=`<br>Ammo:<br>`;
     for(let i=0;i<teams[activeTeam].ships[activeBoat].ammo.length;i++){
-        GameControls.innerText+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}
-        `;
+        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}<br>`;
     }
     let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
-    GameControls.innerText+=`
-    Hitpoints:
-    `;
+    GameControls.innerHTML+=`
+    Hitpoints:<br>`;
     for(let i=0;i<teams[activeTeam].ships[activeBoat].hitpoints.length;i++){
-        GameControls.innerText+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}
-        `;
+        GameControls.innerHTML+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}<br>`;
     }
 }
     

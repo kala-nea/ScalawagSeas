@@ -250,13 +250,52 @@ function moveShip(x,y,shipNum){
     ships[shipNum].moveShip(x,y);
 }
 
+// function makeBoats(){
+//     let x = 0;
+//     let y = 0;
+//     for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
+//         let spaceAvailable = true;
+//         let teamPlaceHoler = new Team();
+//         for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
+//             let done = false;
+//             while(!done){
+//                 spaceAvailable = true;
+//                 x=Math.round(Math.random()*(boardWidth-1));
+//                 y=Math.round(Math.random()*(boardHeight-1));
+//                 HexTest = document.getElementById(`col${x}row${y}`);
+//                 if(HexTest.getAttribute("Src") == "IMG/Hex.png"){
+//                     for(let k = 0;k<ships.length;k++){
+//                         if(ships[k].shipx==x&&ships[k].shipy==y){
+//                             spaceAvailable = false;
+//                         }
+//                     }
+//                     if(spaceAvailable){
+//                         let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
+//                         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
+//                         done = true
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     // for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
+//     //     let teamPlaceHoler = new Team();
+//     //     for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
+//     //         let shipPlaceHolder = new Ship(i*7,j*3,i);
+//     //         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
+//     //     }
+//     // }
+//     removeBoatMake();
+//     addStart();
+// }
+
 function makeBoats(){
     let x = 0;
     let y = 0;
-    for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
+    for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         let spaceAvailable = true;
         let teamPlaceHoler = new Team();
-        for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
+        for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
             let done = false;
             while(!done){
                 spaceAvailable = true;
@@ -278,14 +317,6 @@ function makeBoats(){
             }
         }
     }
-    // for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
-    //     let teamPlaceHoler = new Team();
-    //     for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
-    //         let shipPlaceHolder = new Ship(i*7,j*3,i);
-    //         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
-    //     }
-    // }
-    removeBoatMake();
     addStart();
 }
 

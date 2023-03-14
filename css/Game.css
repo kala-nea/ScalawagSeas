@@ -78,7 +78,7 @@ button {
     overflow: visible;
     max-width: 100%;
     max-height: 100%;
-    border: rgb(255, 215, 0) solid 10px;
+    border: rgb(255, 215, 0) solid 20px;
 }
 
 .TileColumn{
