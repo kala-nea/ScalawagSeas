@@ -597,11 +597,17 @@ let audio = new Audio("css/music/back-when-we-were-young-piano-instrumental-hope
 let audio2 = new Audio("css/music/battle-ship-111902.mp3")
 let audio3 = new Audio("css/music/buccaneer-swashbuckler-pirate-instrumental-high-seas-adventure-132858.mp3");
 let audioList = [audio, audio2, audio3];
+let songNum = Math.floor(Math.random() * 3);
 
-function playlist () {
-    let songNum = Math.floor(Math.random() * 3);
-    music.play(audioList[songNum]);
+document.addEventListener("DOMContentLoaded", ()=>{playlist(null)});
+
+function playlist (x) {
+    songNum = Math.floor(Math.random() * 3);
+    while (songNum == x) {
+        songNum = Math.floor(Math.random() * 3);
+    }
+    music.src = audioList[songNum];
+    music.play();
 }
 
-document.addEventListener("DOMContentLoaded", playlist);
-music.addEventListener("ended", playlist);
+music.addEventListener("ended", ()=>{playlist(songNum)});
