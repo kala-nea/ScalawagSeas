@@ -603,7 +603,6 @@ music.addEventListener("ended", check);
 function playlist (x) {
     
     if (done > pastDone) {
-        songNum = Math.floor(Math.random() * 3);
         while (songNum == x) {
             songNum = Math.floor(Math.random() * 3);
         }
@@ -620,9 +619,11 @@ function playlist (x) {
         }
         pastDone = done;
         music.play();
+        pastSongNum = songNum;
     }
 }
 
 function check () {
     done += 1;
+    playlist(pastSongNum);
 }
