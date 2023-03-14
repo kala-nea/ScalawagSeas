@@ -599,6 +599,7 @@ function addWeapon (section) {
     if(weaponsRemaining[section]<0){
         weaponsRemaining[section] = PrevWeaponCount;
     }else{
+        getAmmo(section)
         // console.log("works");
         let DesiredWeapon = [weaponType.value,parseInt(weaponLb.value.split("lb")[0])];
         let newWeapon = true;
@@ -640,9 +641,9 @@ function getAmmo(section) {
     chainDisplay.textContent = ammo[2];
 }
 
-document.getElementById(idsAdd[0]).addEventListener("click", (e) => getAmmo(0));
-document.getElementById(idsAdd[1]).addEventListener("click", (e) => getAmmo(1));
-document.getElementById(idsAdd[2]).addEventListener("click", (e) => getAmmo(2));
+// document.getElementById(idsAdd[0]).addEventListener("click", (e) => getAmmo(0));
+// document.getElementById(idsAdd[1]).addEventListener("click", (e) => getAmmo(1));
+// document.getElementById(idsAdd[2]).addEventListener("click", (e) => getAmmo(2));
 
 
 function armorReset () {
