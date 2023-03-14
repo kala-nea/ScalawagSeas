@@ -1,5 +1,5 @@
-let activeTeam;
-let activeBoat
+let activeTeam = 0;
+let activeBoat=0;
 
 
 function startGame(){

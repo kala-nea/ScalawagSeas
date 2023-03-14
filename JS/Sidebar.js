@@ -75,8 +75,7 @@ function setAttackButtons(){
         GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}<br>`;
     }
     let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
-    GameControls.innerHTML+=`
-    Hitpoints:<br>`;
+    GameControls.innerHTML+=`<br>Hitpoints:<br>`;
     for(let i=0;i<teams[activeTeam].ships[activeBoat].hitpoints.length;i++){
         GameControls.innerHTML+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}<br>`;
     }

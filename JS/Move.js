@@ -20,7 +20,7 @@ pieceStorage.append(LeftArrow);
 
 
 function moveShipClick(id){
-    if(document.getElementById(id).style.filter == "brightness(2.5)"){
+    if(document.getElementById(id).style.filter == "hue-rotate(90deg)"){
         let location = id.split("col").pop().split("row");
         unhighlight(id)
         moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -29,7 +29,10 @@ function moveShipClick(id){
 }
 
 function repositionArrows(){
-    if(teams[activeTeam].ships[activeBoat].moveType != "Flank"){
+    if(teams[activeTeam].ships[activeBoat].moveLeft<teams[activeTeam].ships[activeBoat].turnCost){
+        LeftArrow.style.visibility = "hidden";
+        RightArrow.style.visibility = "hidden";
+    }else if(teams[activeTeam].ships[activeBoat].moveType != "Flank"){
         LeftArrow.style.visibility = "visible";
         RightArrow.style.visibility = "visible";
         let selectedBoat = document.getElementById(`col${teams[activeTeam].ships[activeBoat].shipx}row${teams[activeTeam].ships[activeBoat].shipy}`);

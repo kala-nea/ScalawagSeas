@@ -95,7 +95,7 @@ button {
 
 .Identifier{
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     margin: 0;
     pointer-events: none;
     background: rgba(80, 80, 80, 0.75);
