@@ -600,12 +600,8 @@ let audioList = [audio, audio2, audio3];
 
 function playlist () {
     let songNum = Math.floor(Math.random() * 3);
-    switch (songNum) {
-        case 0:
-            music.src = audio;
-            break;
-        case 1:
-            music.src = audio;
-            break;
-    }
+    music.play(audioList[songNum]);
 }
+
+document.addEventListener("DOMContentLoaded", playlist);
+music.addEventListener("ended", playlist);
