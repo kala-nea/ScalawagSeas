@@ -1,5 +1,12 @@
 let sidebar = document.getElementById("SideBarContent");
 
+if(window.localStorage.getItem('numberOfShips') == null){
+    numberOfShips = 0;
+}else{
+    numberOfShips = window.localStorage.getItem('numberOfShips');
+}
+window.localStorage.setItem('numberOfShips', numberOfShips);
+
 function removeBoardMake(){
     clearSidebar()
 }
@@ -15,11 +22,30 @@ function removeBoatMake(){
 
 function addStart(){
     sidebar = document.getElementById("SideBarContent");
+    for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
+        for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+            sidebar.innerHTML+=`<input list="ShipList" name="Player${i}ShipSelect${j}" id="Player${i}ShipSelect${j}" placeholder=""Player${i} Ship${j}">`;
+        }
+        sidebar.innerHTML+=`<br>`;
+    }
+    sidebar.innerHTML+=`<datalist id="ShipList">
+                    </datalist>`;
     sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
+    ShipList = document.getElementById("ShipList");
+    for(let i = 0;i<window.localStorage.getItem('numberOfShips');i++){
+        let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
+        let shipItem = document.createElement("option");
+        shipItem.setAttribute("id",`Ship${i}`);
+        shipItem.setAttribute("class","GameListShip");
+        shipItem.innerText = storedShip.name;
+        shipItem.value = storedShip
+        ShipList.append(shipItem);
+    }
+
 }
 
 function removeStart(){
-    clearSidebar()
+    clearGameControls()
 }
 
 function addMoveProgress(){
