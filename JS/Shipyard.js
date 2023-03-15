@@ -84,3 +84,6 @@ function clearAllShipsForcefully(){
     window.localStorage.setItem('numberOfShips',0)
     numberOfShips=0;
 }
+
+let deleteButton = document.getElementById("delBut");
+deleteButton.addEventListener("click", clearAllShipsForcefully);
