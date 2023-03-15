@@ -19,7 +19,11 @@ let offsety
 let offset
 let angle 
 
-
+let weaponDamages=[[5,10,15,20,25,30,35,40,45],[10,20,30,0,0,0,0,0,0],[0,0,0,25,30,35,0,0,0],[0,0,0,0,0,0,50,55,60]];
+let weaponTypes=["Cannon","Long Nine","Carronade","Paixhan"];
+let ammoRanges=[[[9,18,27],[8,16,24],[7,14,21],[6,12,18],[5,10,15],[4,8,12],[3,6,9],[2,4,6],[1,2,3]],[[9,18,36],[8,16,32],[7,14,28],[6,12,24],[5,10,20],[4,8,16],[3,6,12],[2,4,8],[1,2,4]],[[9,11,13],[8,10,12],[7,9,11],[6,8,10],[5,7,9],[4,6,8],[3,5,7],[2,4,6],[1,3,5]]]
+let ammoTypes = ["Round Shot","Grape Shot","Chain Shot"];
+let poundages = [6,8,9,12,18,24,32,36,42];
 
 function FireWeapon(side,weapon){
     if(firingSide==side&&firing == true){
@@ -96,15 +100,25 @@ function AttackThis(attacker, defender){
 
     if(InView(attacker, defender)){
         let ammoRemains = false;
+        let damage
         for(ammo of attacker.ammo){
             if(ammo[2]>0&&ammo[0]==selectedAmmo){
                 ammoRemains = true;
                 ammo[2]--;
             }
         }
-        if(ammoRemains){
+        if(ammoRemains&&willItHit()){
             console.log("bang");
-            Hit(1,10000,defender);
+            for(let i=0;i<weaponTypes.length;i++){
+                if(weaponTypes[i]==attacker.Weapons[firingSide][firingWeapon][0]){
+                    for(let j=0;j<poundages.length;j++){
+                        if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
+                            damage = weaponDamages[i][j]
+                        }
+                    }
+                }
+            }
+            Hit(damage,10000,defender);
             teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]--;
             setAttackButtons();
         }
@@ -147,6 +161,10 @@ function InView(attacker, defender){
         }
     }
     return canHit;
+}
+
+function willItHit(){
+    return true
 }
 
 function Hit(damage,clusterSize,target){

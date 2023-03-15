@@ -82,4 +82,5 @@ function clearAllShipsForcefully(){
         window.localStorage.setItem(`ship${i}`,null)
     }
     window.localStorage.setItem('numberOfShips',0)
+    numberOfShips=0;
 }

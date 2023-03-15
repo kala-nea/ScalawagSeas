@@ -368,6 +368,10 @@ function getWeaponOptions() {
         weaponType.replaceChildren('');
 
         let addWeaponButton = document.getElementById(idsAdd[i]);
+        try{
+            addWeaponButton.removeEventListener();
+        }catch{}
+
         addWeaponButton.addEventListener("click", (e) => addWeapon(i));
 
         let newRow1 = document.createElement("option");
@@ -718,27 +722,27 @@ function CNReset () {
 
 let shipName = document.getElementById("shipName");
 
-let ship = [
-    shipName.value,
-    statsByTon[parseInt(tonnageTable.value)][0],
-    statsByTon[parseInt(tonnageTable.value)][1],
-    weaponsArray,
-    ammo,
-    Math.floor(Math.random() * 3) + 2,
-    [
-        [brHP, brHP],
-        [boHP, boHP],
-        [aHP, aHP],
-        [pHP, pHP],
-        [sHP, sHP],
-        [biHP, biHP],
-        [mHP, mHP],
-        [rHP, rHP],
-    ],
+// let ship = [
+//     shipName.value,
+//     statsByTon[parseInt(tonnageTable.value)][0],
+//     statsByTon[parseInt(tonnageTable.value)][1],
+//     weaponsArray,
+//     ammo,
+//     Math.floor(Math.random() * 3) + 2,
+//     [
+//         [brHP, brHP],
+//         [boHP, boHP],
+//         [aHP, aHP],
+//         [pHP, pHP],
+//         [sHP, sHP],
+//         [biHP, biHP],
+//         [mHP, mHP],
+//         [rHP, rHP],
+//     ],
 
-]
+// ]
 
-class Ship{
+class ShipStats{
     constructor(name,tonnage, cruse,full,flank,weaponsArray,ammo,captanSkill,health){
         //0=top,1=topright 2=bottomright etc until 5
         this.movePower = [cruse,full,flank];
@@ -796,7 +800,7 @@ function saveBoatToLocal(){
     window.localStorage.setItem('numberOfShips', numberOfShips);
     
     
-    window.localStorage.setItem(`ship${numberOfShips}`, JSON.stringify(new Ship(shipName.value,
+    window.localStorage.setItem(`ship${numberOfShips}`, JSON.stringify(new ShipStats(shipName.value,
         statsByTon[parseInt(tonnageTable.value)][0],
         statsByTon[parseInt(tonnageTable.value)][14],
         statsByTon[parseInt(tonnageTable.value)][15],

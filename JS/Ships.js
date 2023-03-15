@@ -3,7 +3,7 @@
 let pieceStorage = document.getElementById("PieceStorage");
 let PieceInfo = document.getElementById("PieceInfo");
 class Ship{
-    constructor(x = 0,y = 0,team = 0, movePower = 6,rotation = 0){
+    constructor(x = 0,y = 0,team = 0,rotation = 0, movePower = 6){
         x=parseInt(x);
         y=parseInt(y);
         this.ship;
@@ -52,11 +52,11 @@ class Ship{
         //type,weight,quantity,quantityLeft,damage[round,grape,chain]
         this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
         //[type,max,ammountLeft]
-        this.ammo=[["Round Shot",100,50],["Grapeshot",20,1]];
+        this.ammo=[["Round Shot",100,50],["Grape Shot",20,1]];
         this.captanSkill = 4;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
-        this.hitpoints = [[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0]];
+        this.hitpoints = [[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0]];
 
         ships.push(this);
     }
@@ -225,9 +225,10 @@ class Ship{
         Hitpoints:
         `;
         for(let i=0;i<this.hitpoints.length;i++){
-            PieceInfo.innerText+=`${shipParts[i]}: ${this.hitpoints[i][1]}/${this.hitpoints[i][0]}
+            PieceInfo.innerText+=`${shipParts[i]}: ${this.hitpoints[i][1]-this.hitpoints[i][2]}/${this.hitpoints[i][0]}
             `;
         }
+        setTimeout((e) => adjustAll(),100)
     }
 }
 
@@ -240,6 +241,7 @@ let ships = []
 window.addEventListener('resize',adjustAll);
 window.addEventListener("scroll",adjustAll);
 setTimeout(adjustAll,100);
+
 
 function adjustAll(){
     for(let ship of ships){
@@ -334,7 +336,7 @@ function makeBoats(){
                         }
                     }
                     if(spaceAvailable){
-                        let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
+                        let shipPlaceHolder = new Ship(x,y,i,Math.round(Math.random()*5),6);
                         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
                         done = true
                     }
@@ -346,7 +348,7 @@ function makeBoats(){
 }
 
 function shipFromShipyard(){
-    let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
+    let shipPlaceHolder = new Ship(x,y,i,Math.round(Math.random()*5),6);
 }
 
 function displayAShipsStats(shipsNum){

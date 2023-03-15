@@ -43,6 +43,7 @@ function setSpeedSelection(){
     GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruse" onClick="setSpeed(0)">Cruse</button>
     <button class="SpeedSet" id = "SpeedFullSteam" onClick="setSpeed(1)">Full Steam</button>
     <button class="SpeedSet" id = "SpeedFlank" onClick="setSpeed(2)">Flank</button>`);
+    setTimeout((e) => adjustAll(),100)
 }
 
 function setAttackButtons(){
@@ -80,16 +81,19 @@ function setAttackButtons(){
     for(let i=0;i<teams[activeTeam].ships[activeBoat].hitpoints.length;i++){
         GameControls.innerHTML+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}<br>`;
     }
+    setTimeout((e) => adjustAll(),100)
 }
     
 function clearGameControls(){
     GameControls = document.getElementById("GameControls")
     GameControls.innerHTML = "";
+    setTimeout((e) => adjustAll(),100)
 }
 
 function clearPieceInfo(){
     PieceInfo = document.getElementById("PieceInfo")
     PieceInfo.innerHTML = "";
+    setTimeout((e) => adjustAll(),100)
 }
 
 function setPhase(input){

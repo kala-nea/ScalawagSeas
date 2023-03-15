@@ -125,6 +125,7 @@ function AdjustBoard(){
         Board.innerHTML ="";
         Board.appendChild(HexGrid);
     }
+    setTimeout((e) => adjustAll(),100)
     setTimeout(repositionArrows,1);
 }
 
