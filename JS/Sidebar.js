@@ -37,8 +37,8 @@ function addStart(){
         let shipItem = document.createElement("option");
         shipItem.setAttribute("id",`Ship${i}`);
         shipItem.setAttribute("class","GameListShip");
-        shipItem.innerText = storedShip.name;
-        shipItem.value = storedShip
+        // shipItem.innerText = storedShip.name;
+        shipItem.value = storedShip.name;
         ShipList.append(shipItem);
     }
 

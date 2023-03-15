@@ -368,9 +368,7 @@ function getWeaponOptions() {
         weaponType.replaceChildren('');
 
         let addWeaponButton = document.getElementById(idsAdd[i]);
-        try{
-            addWeaponButton.removeEventListener();
-        }catch{}
+        addWeaponButton.removeEventListener("click",(e));
 
         addWeaponButton.addEventListener("click", (e) => addWeapon(i));
 
