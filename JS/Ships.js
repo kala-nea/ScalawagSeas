@@ -52,7 +52,7 @@ class Ship{
         //type,weight,quantity,quantityLeft,damage[round,grape,chain]
         this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
         //[type,max,ammountLeft]
-        this.ammo=[["Round Shot",100,50],["Grapeshot",20,10]];
+        this.ammo=[["Round Shot",100,50],["Grapeshot",20,1]];
         this.captanSkill = 4;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
@@ -167,7 +167,7 @@ class Ship{
     }
 
     clicked(){
-        if(fireing&&this.id!=teams[activeTeam].ships[activeBoat].id){
+        if(firing&&this.id!=teams[activeTeam].ships[activeBoat].id){
             AttackThis(teams[activeTeam].ships[activeBoat], this)
         }else{
             this.displayStats();
@@ -252,6 +252,22 @@ function readyAll(){
         ship.exhausted = false;
         ship.prevX = ship.shipx;
         ship.prevY = ship.shipxy;
+        for(side of ship.Weapons){
+            for(weapon of side){
+                weapon[3]=weapon[2];
+            }
+        }
+    }
+}
+
+function damageAll(){
+    for(let ship of ships){
+        for(let part of ship.hitpoints){
+            console.log(part)
+            console.log(part[2])
+            part[1]-=part[2];
+            part[2] = 0;
+        }
     }
 }
 

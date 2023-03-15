@@ -34,6 +34,7 @@ p.Identifier {
     background: grey;
     width: 20%;
     height: 100%;
+    z-index: 100;
 }
 
 .SideBarContent{
@@ -166,4 +167,5 @@ button {
     pointer-events: none;
     width: 2500px;
     visibility: hidden;
+    opacity: 30%;
 }

@@ -62,6 +62,7 @@ function nextBoatAttack(){
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
     clearPieceInfo();
+    stopFiring();
     teams[activeTeam].ships[activeBoat].exhausted = true;
     activeBoat++;
     if(activeBoat>teams[activeTeam].ships.length-1){
@@ -97,6 +98,7 @@ function setSpeed(speed){
 function startMovePhase(){
     clearSidebar();
     clearGameControls()
+    damageAll()
     activeTeam = 0;
     activeBoat = 0;
     readyAll();
@@ -114,7 +116,12 @@ function startMovePhase(){
 
 function StartAttackPhase(){
     //startMovePhase();
+    firing = false;
+    firingWeapon = "";
+    firingSide="";
+    selectedAmmo="";
     clearSidebar();
+    // readyAll()
     activeTeam = 0;
     activeBoat = 0;
     addAttackProgress();
