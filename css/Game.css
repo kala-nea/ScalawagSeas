@@ -25,6 +25,7 @@ p.Identifier {
     background-size: 112px;
     background-repeat: repeat;
     background-position: center;
+    min-height: 100vh;
 }
 
 .SideBar{
@@ -76,10 +77,14 @@ button {
     background-size: 160px;
     background-repeat: repeat;
     background-position: center;
-    overflow: visible;
+    overflow:visible;
     max-width: 100%;
     max-height: 100%;
-    border: rgb(255, 215, 0) solid 20px;
+    /* max-height: inherit;
+    max-width: inherit; */
+    /* border: transparent solid 20px;
+    border-image: url("../IMG/borderImage.png") 10 round;
+    border-image-width: 20px; */
 }
 
 .TileColumn{
@@ -110,9 +115,14 @@ button {
 .Board{
     box-sizing: border-box;
     /* border: rgb(253, 231, 111) solid 20px; */
-    width: 80%;
-    height: 100vh;
+    max-width: 80%;
+    height: fit-content;
+    width: fit-content;
+    object-fit: scale-down;
     max-height: 100vh;
+    border: transparent solid 20px;
+    border-image: url("../IMG/borderImage.png") 10 round;
+    border-image-width: 20px;
 }
 
 [class^="Ship"]{

@@ -23,6 +23,7 @@ window.addEventListener('resize',resizeBoard);
 
 setTimeout(MakeBoard,1);
 setTimeout((e) =>makeBoats(),200);
+setTimeout((e) =>AdjustBoard(),200);
 setTimeout((e) => adjustAll(),300)
 setTimeout((e) => adjustAll(),3000)
 
@@ -90,7 +91,10 @@ function MakeBoard(){
     setTimeout(spaceify,50);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
-        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+40}px`
+        HexGrid.style.maxHeight = `${Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0])}px`
+        // Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
+        Board.style.paddingBlockEnd =`${(HexGrid.clientHeight)-(Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0]))}px`
+        // Board.style.marginBlockEnd =`40px`
         Board.innerHTML ="";
         Board.appendChild(HexGrid);
     }
@@ -121,7 +125,11 @@ function AdjustBoard(){
     setTimeout(spaceify,50);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
-        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+40}px`
+        HexGrid.style.maxHeight = `${Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0])}px`
+        // Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
+        Board.style.paddingBlockEnd =`${(HexGrid.clientHeight)-(Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0]))}px`
+
+        // Board.style.marginBlockEnd =`40px`
         Board.innerHTML ="";
         Board.appendChild(HexGrid);
     }

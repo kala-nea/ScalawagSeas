@@ -34,6 +34,8 @@ for (ton in statsByTon) {
 
 // daniel says hi :>
 
+
+
 tonnageTable.addEventListener("change", setValues);
 tonnageTable.addEventListener("change", getArmorOptions);
 tonnageTable.addEventListener("change", getWeaponOptions);
@@ -79,6 +81,11 @@ let sHP;
 let biHP;
 let mHP;
 let rHP;
+
+setTimeout(setValues,1)
+setTimeout(getArmorOptions,1)
+setTimeout(getWeaponOptions,1)
+setTimeout(getWeaponSpecs,1)
 
 function setValues () {
     wc = statsByTon[parseInt(tonnageTable.value)][1];
@@ -753,6 +760,10 @@ class ShipStats{
         
         this.name = name;
         this.tonnage = tonnage;
+        if (tonnage == 0 || tonnage == null) {
+            this.tonnage = 20;
+            setValues();
+        }
         this.weightclass;
         if(this.tonnage<40){
             this.turnCost = 0;
@@ -798,9 +809,18 @@ function saveBoatToLocal(){
         numberOfShips = window.localStorage.getItem('numberOfShips');
     }
     window.localStorage.setItem('numberOfShips', numberOfShips);
-    
-    
-    window.localStorage.setItem(`ship${numberOfShips}`, JSON.stringify(new ShipStats(shipName.value,
+    let preixisting = false;
+    for(let i =0;i<numberOfShips;i++){
+        if(JSON.parse(window.localStorage.getItem(`ship${i}`)).name==shipName.value){
+            preixisting=true;
+        }
+    }
+    if (shipName.value == null || shipName.value == "") {
+        alert("Cannot save an unnamed ship");
+    } else if (preixisting) {
+        alert("Cannot save a ship with a prexisting name");
+    } else {
+        window.localStorage.setItem(`ship${numberOfShips}`, JSON.stringify(new ShipStats(shipName.value,
         statsByTon[parseInt(tonnageTable.value)][0],
         statsByTon[parseInt(tonnageTable.value)][14],
         statsByTon[parseInt(tonnageTable.value)][15],
@@ -818,9 +838,11 @@ function saveBoatToLocal(){
             [mHP, mHP],
             [rHP, rHP],
         ])));
-    numberOfShips++;
-    window.localStorage.setItem('numberOfShips', numberOfShips);
-    alert("Your ship has been saved!");
+        numberOfShips++;
+        window.localStorage.setItem('numberOfShips', numberOfShips);
+        alert("Your ship has been saved!");
+    }
+    
 }
 
 let iconPreview = document.getElementById("iconPreview");
