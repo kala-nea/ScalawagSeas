@@ -24,6 +24,7 @@ window.addEventListener('resize',resizeBoard);
 setTimeout(MakeBoard,1);
 setTimeout((e) =>makeBoats(),200);
 setTimeout((e) => adjustAll(),300)
+setTimeout((e) => adjustAll(),3000)
 
 function MakeBoard(){
     if(boardHeight==null||boardWidth==null){
@@ -117,13 +118,14 @@ function AdjustBoard(){
             SubmitCol.style.marginLeft = `${-100/(parseFloat(boardWidth)*2.85)}%`;  
         }
     }
-    setTimeout(spaceify,2);
+    setTimeout(spaceify,50);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
-        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+20}px`
+        Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2+40}px`
         Board.innerHTML ="";
         Board.appendChild(HexGrid);
     }
+    setTimeout((e) => adjustAll(),100)
     setTimeout(repositionArrows,1);
 }
 
@@ -603,7 +605,6 @@ music.addEventListener("ended", check);
 function playlist (x) {
     
     if (done > pastDone) {
-        songNum = Math.floor(Math.random() * 3);
         while (songNum == x) {
             songNum = Math.floor(Math.random() * 3);
         }
@@ -620,9 +621,11 @@ function playlist (x) {
         }
         pastDone = done;
         music.play();
+        pastSongNum = songNum;
     }
 }
 
 function check () {
     done += 1;
+    playlist(pastSongNum);
 }

@@ -3,7 +3,7 @@
 let pieceStorage = document.getElementById("PieceStorage");
 let PieceInfo = document.getElementById("PieceInfo");
 class Ship{
-    constructor(x = 0,y = 0,team = 0, movePower = 6,rotation = 0){
+    constructor(x = 0,y = 0,team = 0,rotation = 0, movePower = 6){
         x=parseInt(x);
         y=parseInt(y);
         this.ship;
@@ -49,14 +49,14 @@ class Ship{
             this.weightclass = "Super Dreadnought";
         }
         //bow,port,starboard
-        //type,weight,quantity,quantityLeft
+        //type,weight,quantity,quantityLeft,damage[round,grape,chain]
         this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
         //[type,max,ammountLeft]
-        this.ammo=[["Round Shot",100,50],["Grapeshot",20,10]];
+        this.ammo=[["Round Shot",100,50],["Grape Shot",20,1]];
         this.captanSkill = 4;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
-        this.hitpoints = [[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0],[10,5,0]];
+        this.hitpoints = [[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0]];
 
         ships.push(this);
     }
@@ -72,7 +72,8 @@ class Ship{
         shipmake.setAttribute("id",this.id);
         pieceStorage.append(shipmake);
         this.ship = document.getElementById(this.id);
-        this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
+        // this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
+        this.ship.addEventListener("click",(e) => this.clicked());
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
         this.ship.style.height = `${desiredHex.height}px`;
@@ -84,7 +85,7 @@ class Ship{
         this.identifier = document.createElement("p");
         this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
         this.identifier.setAttribute("class",`Identifier`);
-        this.identifier.innerText = `Team${this.team+1} Boat ${teams[this.team].ships.length}`;
+        this.identifier.innerText = `Player ${this.team+1} Boat ${teams[this.team].ships.length}`;
         this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
         //this.identifier.style.height = `${desiredHex.height}px`;
@@ -165,6 +166,14 @@ class Ship{
         this.ship.style.filter = "brightness(1)";
     }
 
+    clicked(){
+        if(firing&&this.id!=teams[activeTeam].ships[activeBoat].id){
+            AttackThis(teams[activeTeam].ships[activeBoat], this)
+        }else{
+            this.displayStats();
+        }
+    }
+
     displayStats(){
         PieceInfo = document.getElementById("PieceInfo");
         PieceInfo.innerText=`
@@ -216,9 +225,10 @@ class Ship{
         Hitpoints:
         `;
         for(let i=0;i<this.hitpoints.length;i++){
-            PieceInfo.innerText+=`${shipParts[i]}: ${this.hitpoints[i][1]}/${this.hitpoints[i][0]}
+            PieceInfo.innerText+=`${shipParts[i]}: ${this.hitpoints[i][1]-this.hitpoints[i][2]}/${this.hitpoints[i][0]}
             `;
         }
+        setTimeout((e) => adjustAll(),100)
     }
 }
 
@@ -232,6 +242,7 @@ window.addEventListener('resize',adjustAll);
 window.addEventListener("scroll",adjustAll);
 setTimeout(adjustAll,100);
 
+
 function adjustAll(){
     for(let ship of ships){
         ship.adjustShip();
@@ -243,6 +254,22 @@ function readyAll(){
         ship.exhausted = false;
         ship.prevX = ship.shipx;
         ship.prevY = ship.shipxy;
+        for(side of ship.Weapons){
+            for(weapon of side){
+                weapon[3]=weapon[2];
+            }
+        }
+    }
+}
+
+function damageAll(){
+    for(let ship of ships){
+        for(let part of ship.hitpoints){
+            console.log(part)
+            console.log(part[2])
+            part[1]-=part[2];
+            part[2] = 0;
+        }
     }
 }
 
@@ -309,7 +336,7 @@ function makeBoats(){
                         }
                     }
                     if(spaceAvailable){
-                        let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
+                        let shipPlaceHolder = new Ship(x,y,i,Math.round(Math.random()*5),6);
                         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
                         done = true
                     }
@@ -321,7 +348,7 @@ function makeBoats(){
 }
 
 function shipFromShipyard(){
-    let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
+    let shipPlaceHolder = new Ship(x,y,i,Math.round(Math.random()*5),6);
 }
 
 function displayAShipsStats(shipsNum){

@@ -1,6 +1,0 @@
-
-class Weapon {
-    constructor(){
-
-    }
-}

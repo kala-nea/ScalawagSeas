@@ -1,5 +1,12 @@
 let sidebar = document.getElementById("SideBarContent");
 
+if(window.localStorage.getItem('numberOfShips') == null){
+    numberOfShips = 0;
+}else{
+    numberOfShips = window.localStorage.getItem('numberOfShips');
+}
+window.localStorage.setItem('numberOfShips', numberOfShips);
+
 function removeBoardMake(){
     clearSidebar()
 }
@@ -15,11 +22,30 @@ function removeBoatMake(){
 
 function addStart(){
     sidebar = document.getElementById("SideBarContent");
+    for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
+        for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+            sidebar.innerHTML+=`<input list="ShipList" name="Player${i}ShipSelect${j}" id="Player${i}ShipSelect${j}" placeholder=""Player${i} Ship${j}">`;
+        }
+        sidebar.innerHTML+=`<br>`;
+    }
+    sidebar.innerHTML+=`<datalist id="ShipList">
+                    </datalist>`;
     sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
+    ShipList = document.getElementById("ShipList");
+    for(let i = 0;i<window.localStorage.getItem('numberOfShips');i++){
+        let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
+        let shipItem = document.createElement("option");
+        shipItem.setAttribute("id",`Ship${i}`);
+        shipItem.setAttribute("class","GameListShip");
+        shipItem.innerText = storedShip.name;
+        shipItem.value = storedShip
+        ShipList.append(shipItem);
+    }
+
 }
 
 function removeStart(){
-    clearSidebar()
+    clearGameControls()
 }
 
 function addMoveProgress(){
@@ -29,7 +55,7 @@ function addMoveProgress(){
 
 function addAttackProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                  <button id="nextBoat" onClick="nextBoatAttack()">Finish Turn</button>   `);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n       <p id="firingWeapon">Firing:</p>\n    <p id="firingAmmo">With:</p>\n         <button id="nextBoat" onClick="nextBoatAttack()">Finish Turn</button>   `);
 }
 
 function clearSidebar(){
@@ -43,6 +69,7 @@ function setSpeedSelection(){
     GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruse" onClick="setSpeed(0)">Cruse</button>
     <button class="SpeedSet" id = "SpeedFullSteam" onClick="setSpeed(1)">Full Steam</button>
     <button class="SpeedSet" id = "SpeedFlank" onClick="setSpeed(2)">Flank</button>`);
+    setTimeout((e) => adjustAll(),100)
 }
 
 function setAttackButtons(){
@@ -72,23 +99,27 @@ function setAttackButtons(){
     }
     GameControls.innerHTML+=`<br>Ammo:<br>`;
     for(let i=0;i<teams[activeTeam].ships[activeBoat].ammo.length;i++){
-        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}<br>`;
+        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}`;
+        GameControls.innerHTML+=`<button id="SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}" onclick="selectAmmo('${teams[activeTeam].ships[activeBoat].ammo[i][0]}')">Select</button><br>`;
     }
     let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
     GameControls.innerHTML+=`<br>Hitpoints:<br>`;
     for(let i=0;i<teams[activeTeam].ships[activeBoat].hitpoints.length;i++){
         GameControls.innerHTML+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}<br>`;
     }
+    setTimeout((e) => adjustAll(),100)
 }
     
 function clearGameControls(){
     GameControls = document.getElementById("GameControls")
     GameControls.innerHTML = "";
+    setTimeout((e) => adjustAll(),100)
 }
 
 function clearPieceInfo(){
     PieceInfo = document.getElementById("PieceInfo")
     PieceInfo.innerHTML = "";
+    setTimeout((e) => adjustAll(),100)
 }
 
 function setPhase(input){
@@ -105,4 +136,18 @@ function setBoat(input){
 
 function setMoveLeft(input){
     document.getElementById("Movement left").innerText = `Movement Left:${input}`;
+}
+
+let sides = ["Bow","Port","Starboard"]
+
+function setFiringWeapon(input,input2){
+    document.getElementById("firingWeapon").innerText = `Firing:${teams[activeTeam].ships[activeBoat].Weapons[input2][input][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[input2][input][0]} on ${sides[input2]}`;
+}
+
+function setFiringWeaponRaw(input){
+    document.getElementById("firingWeapon").innerText = `Firing:${input}`;
+}
+
+function setFiringAmmo(input){
+    document.getElementById("firingAmmo").innerText = `With:${input}`;
 }
