@@ -375,9 +375,7 @@ function getWeaponOptions() {
         weaponType.replaceChildren('');
 
         let addWeaponButton = document.getElementById(idsAdd[i]);
-        try{
-            addWeaponButton.removeEventListener();
-        }catch{}
+        addWeaponButton.removeEventListener("click",(e));
 
         addWeaponButton.addEventListener("click", (e) => addWeapon(i));
 
@@ -750,11 +748,11 @@ let shipName = document.getElementById("shipName");
 // ]
 
 class ShipStats{
-    constructor(name,tonnage, cruse,full,flank,weaponsArray,ammo,captanSkill,health){
+    constructor(name,tonnage, cruise,full,flank,weaponsArray,ammo,captanSkill,health){
         //0=top,1=topright 2=bottomright etc until 5
-        this.movePower = [cruse,full,flank];
+        this.movePower = [cruise,full,flank];
         this.moveLeft = 0;
-        this.moveType = "Cruse";
+        this.moveType = "Cruise";
         this.crowsNest = CNPresent;
         
         

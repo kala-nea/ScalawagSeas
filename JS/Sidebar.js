@@ -37,8 +37,8 @@ function addStart(){
         let shipItem = document.createElement("option");
         shipItem.setAttribute("id",`Ship${i}`);
         shipItem.setAttribute("class","GameListShip");
-        shipItem.innerText = storedShip.name;
-        shipItem.value = storedShip
+        // shipItem.innerText = storedShip.name;
+        shipItem.value = storedShip.name;
         ShipList.append(shipItem);
     }
 
@@ -66,7 +66,7 @@ function clearSidebar(){
 
 function setSpeedSelection(){
     GameControls = document.getElementById("GameControls");
-    GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruse" onClick="setSpeed(0)">Cruse</button>
+    GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" onClick="setSpeed(0)">Cruise</button>
     <button class="SpeedSet" id = "SpeedFullSteam" onClick="setSpeed(1)">Full Steam</button>
     <button class="SpeedSet" id = "SpeedFlank" onClick="setSpeed(2)">Flank</button>`);
     setTimeout((e) => adjustAll(),100)

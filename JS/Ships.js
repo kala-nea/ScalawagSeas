@@ -19,7 +19,7 @@ class Ship{
         this.makeShip();
         this.movePower = [movePower,movePower*1.5,movePower*2];
         this.moveLeft = 0;
-        this.moveType = "Cruse";
+        this.moveType = "Cruise";
         this.exhausted = false;
         this.crowsNest = false;
         
@@ -85,7 +85,7 @@ class Ship{
         this.identifier = document.createElement("p");
         this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
         this.identifier.setAttribute("class",`Identifier`);
-        this.identifier.innerText = `Player ${this.team+1} Boat ${teams[this.team].ships.length}`;
+        this.identifier.innerText = `Player ${this.team+1} Boat ${teams[this.team].ships.length+1}`;
         this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
         //this.identifier.style.height = `${desiredHex.height}px`;
@@ -93,6 +93,10 @@ class Ship{
         this.identifier.style.zIndex = "7"
         pieceStorage.append(this.identifier);
         this.identifier.style.top = `${desiredPos.top-desiredHex.height/1.8-this.identifier.getBoundingClientRect().height/2}px`;   //dooo the off set for 20x40
+    }
+
+    setStats(){
+
     }
     
     
@@ -183,7 +187,7 @@ class Ship{
         Captain Skill:${this.captanSkill}
       
         Movement Points:
-            Crusing:${this.movePower[0]}
+            Cruising:${this.movePower[0]}
             Full Steam:${this.movePower[1]}
             Flanking:${this.movePower[2]}
 
@@ -340,6 +344,19 @@ function makeBoats(){
                         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
                         done = true
                     }
+                }
+            }
+        }
+    }
+    addStart();
+}
+
+function setAllStats(){
+    for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
+        for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+            for(let k = 0;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
+                if(JSON.parse(window.localStorage.getItem(`ship${i}`))){
+                    teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${i}`)))
                 }
             }
         }
