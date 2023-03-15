@@ -30,7 +30,7 @@ function displayStats(id){
     Captain Skill:${storedShip.captanSkill}
   
     Movement Points:
-        Crusing:${storedShip.movePower[0]}
+        Cruising:${storedShip.movePower[0]}
         Full Steam:${storedShip.movePower[1]}
         Flanking:${storedShip.movePower[2]}
 

@@ -86,7 +86,7 @@ function setSpeed(speed){
     }else if(speed == 2){
         teams[activeTeam].ships[activeBoat].moveType = "Flank";
     }else{
-        teams[activeTeam].ships[activeBoat].moveType = "Cruse";
+        teams[activeTeam].ships[activeBoat].moveType = "Cruise";
     }
     teams[activeTeam].ships[activeBoat].moveLeft = teams[activeTeam].ships[activeBoat].movePower[speed];
     moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);

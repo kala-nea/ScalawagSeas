@@ -19,7 +19,7 @@ class Ship{
         this.makeShip();
         this.movePower = [movePower,movePower*1.5,movePower*2];
         this.moveLeft = 0;
-        this.moveType = "Cruse";
+        this.moveType = "Cruise";
         this.exhausted = false;
         this.crowsNest = false;
         
@@ -183,7 +183,7 @@ class Ship{
         Captain Skill:${this.captanSkill}
       
         Movement Points:
-            Crusing:${this.movePower[0]}
+            Cruising:${this.movePower[0]}
             Full Steam:${this.movePower[1]}
             Flanking:${this.movePower[2]}
 
