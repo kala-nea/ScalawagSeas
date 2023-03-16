@@ -49,7 +49,7 @@ class Ship{
             this.weightclass = "Super Dreadnought";
         }
         //bow,port,starboard
-        //type,weight,quantity,quantityLeft,damage[round,grape,chain]
+        //type,weight,quantity,quantityLeft
         this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
         //[type,max,ammountLeft]
         this.ammo=[["Round Shot",100,50],["Grape Shot",20,1]];
@@ -103,7 +103,7 @@ class Ship{
         this.weightclass =shipTemplate.weightclass;
         this.turnCost = shipTemplate.turnCost;
         //bow,port,starboard
-        //type,weight,quantity,quantityLeft,damage[round,grape,chain]
+        //type,weight,quantity,quantityLeft
         this.Weapons= shipTemplate.Weapons;
         //[type,max,ammountLeft]
         this.ammo=shipTemplate.ammo;
@@ -135,6 +135,9 @@ class Ship{
             }
         }else{
             moveCost = 1;
+        }
+        if(desiredHex.getAttribute("Src") == "IMG/hex_suply.png"){
+            this.resuply();
         }
         if(this.moveLeft>=moveCost){
             this.shipx = x;
@@ -189,6 +192,12 @@ class Ship{
             AttackThis(teams[activeTeam].ships[activeBoat], this)
         }else{
             this.displayStats();
+        }
+    }
+
+    resuply(){
+        for(let ammo of this.ammo){
+            ammo[3]=ammo[2];
         }
     }
 
