@@ -369,8 +369,8 @@ function setAllStats(){
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
             for(let k = 0;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
-                if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${i}`)).name){
-                    teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${i}`)))
+                if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
+                    teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${k}`)))
                 }
             }
         }
