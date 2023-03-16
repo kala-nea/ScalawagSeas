@@ -246,6 +246,10 @@ class Ship{
             PieceInfo.innerText+=`${shipParts[i]}: ${this.hitpoints[i][1]-this.hitpoints[i][2]}/${this.hitpoints[i][0]}
             `;
         }
+        let backButton = document.createElement("button");
+        backButton.innerText = "Close"
+        backButton.setAttribute("onClick", "clearPieceInfo()")
+        PieceInfo.append(backButton);
         setTimeout((e) => adjustAll(),100)
     }
 }
@@ -283,8 +287,8 @@ function readyAll(){
 function damageAll(){
     for(let ship of ships){
         for(let part of ship.hitpoints){
-            console.log(part)
-            console.log(part[2])
+            // console.log(part)
+            // console.log(part[2])
             part[1]-=part[2];
             part[2] = 0;
         }

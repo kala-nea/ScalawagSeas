@@ -123,6 +123,8 @@ button {
     border: transparent solid 20px;
     border-image: url("../IMG/borderImage.png") 10 round;
     border-image-width: 20px;
+    position: relative;
+    overflow: hidden;
 }
 
 [class^="Ship"]{
