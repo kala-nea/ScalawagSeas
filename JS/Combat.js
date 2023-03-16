@@ -118,7 +118,13 @@ function AttackThis(attacker, defender){
                     }
                 }
             }
-            Hit(damage,10000,defender);
+            if(selectedAmmo==ammoTypes[1]){
+                Hit(damage,5,defender);
+            }else if(selectedAmmo==ammoTypes[2]){
+                Hit(damage,Math.round(damage/2),defender);
+            }else{
+                Hit(damage,10000,defender);
+            }
             teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]--;
             setAttackButtons();
         }

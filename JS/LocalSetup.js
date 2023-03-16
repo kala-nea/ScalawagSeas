@@ -68,3 +68,19 @@ function setIs(){
 function setRk(){
     window.localStorage.setItem('RockCount',RocksIn.value);
 }
+
+
+let ResupplyIn = document.getElementById("ResupplyCount");
+
+if (window.localStorage.getItem('ResupplyCount') == ""||window.localStorage.getItem('ResupplyCount') == null) {
+    window.localStorage.setItem('ResupplyCount', 3);
+}
+
+
+ResupplyIn.value=window.localStorage.getItem('ResupplyCount');
+
+ResupplyIn.addEventListener("change",setRs);
+
+function setRs(){
+    window.localStorage.setItem('ResupplyCount',ResupplyIn.value);
+}
