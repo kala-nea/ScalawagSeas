@@ -3,6 +3,7 @@ let activeBoat=0;
 
 
 function startGame(){
+    setAllStats();
     removeStart();
     startMovePhase();
 }

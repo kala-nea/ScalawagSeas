@@ -95,8 +95,22 @@ class Ship{
         this.identifier.style.top = `${desiredPos.top-desiredHex.height/1.8-this.identifier.getBoundingClientRect().height/2}px`;   //dooo the off set for 20x40
     }
 
-    setStats(){
-
+    setStats(shipTemplate){
+        this.movePower = shipTemplate.movePower;
+        this.crowsNest = shipTemplate.crowsNest;
+        this.name = shipTemplate.name;
+        this.tonnage = shipTemplate.tonnage;
+        this.weightclass =shipTemplate.weightclass;
+        this.turnCost = shipTemplate.turnCost;
+        //bow,port,starboard
+        //type,weight,quantity,quantityLeft,damage[round,grape,chain]
+        this.Weapons= shipTemplate.Weapons;
+        //[type,max,ammountLeft]
+        this.ammo=shipTemplate.ammo;
+        this.captanSkill = shipTemplate.captanSkill;
+        //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
+        //[max,ammountLeft, incoming]
+        this.hitpoints = shipTemplate.hitpoints;
     }
     
     
@@ -355,7 +369,7 @@ function setAllStats(){
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
             for(let k = 0;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
-                if(JSON.parse(window.localStorage.getItem(`ship${i}`))){
+                if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${i}`)).name){
                     teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${i}`)))
                 }
             }
