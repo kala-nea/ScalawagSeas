@@ -15,7 +15,7 @@ let boardBuilt = false;
 
 let islandCount = window.localStorage.getItem('IslandCount');
 let rockCount =window.localStorage.getItem('RockCount');
-let resuplyCount =window.localStorage.getItem('ResuplyCount');
+let resupplyCount =window.localStorage.getItem('ResupplyCount');
 //BoardXIn.addEventListener('change',(e) => MakeBoard());
 //BoardYIn.addEventListener('change',(e) => MakeBoard());
 makeBoardButton = document.getElementById("makeBoard");
@@ -168,14 +168,16 @@ function islands(){
             }
         }
     }
-    for(let i = 0;i<resuplyCount*2;i++){
+    for(let i = 0;i<resupplyCount;i++){
         let done = false;
         while(!done){
             x=Math.round(Math.random()*(boardWidth-1));
             y=Math.round(Math.random()*(boardHeight-1));
             Hex = document.getElementById(`col${x}row${y}`);
+            console.log("trying")
             if(Hex.getAttribute("Src") == "IMG/Hex.png"){
-                Hex.setAttribute("Src","IMG/hex_suply.png");
+                console.log("succeding");
+                Hex.setAttribute("Src","IMG/hex_supply.png");
                 done = true
             }
         }

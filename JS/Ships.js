@@ -19,7 +19,7 @@ class Ship{
         this.makeShip();
         this.movePower = [movePower,movePower*1.5,movePower*2];
         this.moveLeft = 0;
-        this.moveType = "Cruise";
+        this.moveType = "Still";
         this.exhausted = false;
         this.crowsNest = false;
         
@@ -136,8 +136,8 @@ class Ship{
         }else{
             moveCost = 1;
         }
-        if(desiredHex.getAttribute("Src") == "IMG/hex_suply.png"){
-            this.resuply();
+        if(desiredHex.getAttribute("Src") == "IMG/hex_supply.png"){
+            this.resupply();
         }
         if(this.moveLeft>=moveCost){
             this.shipx = x;
@@ -195,9 +195,10 @@ class Ship{
         }
     }
 
-    resuply(){
+    resupply(){
         for(let ammo of this.ammo){
-            ammo[3]=ammo[2];
+            console.log(ammo[0]);
+            ammo[2]=ammo[1];
         }
     }
 
@@ -285,6 +286,7 @@ function adjustAll(){
 function readyAll(){
     for(let ship of ships){
         ship.exhausted = false;
+        ship.moveType = "Still";
         ship.prevX = ship.shipx;
         ship.prevY = ship.shipxy;
         for(side of ship.Weapons){

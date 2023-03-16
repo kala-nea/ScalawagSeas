@@ -177,11 +177,12 @@ function InView(attacker, defender){
 }
 
 function willItHit(){
+    let ToBeat = attacker.captainSkill;
     return true
 }
 
 function Hit(damage,clusterSize,target){
     for(let i =0;i<Math.ceil(damage/clusterSize);i++){
-        target.hitpoints[Math.floor(Math.random()*(target.hitpoints.length+1))][2] += damage-clusterSize*i;
+        target.hitpoints[Math.floor(Math.random()*(target.hitpoints.length))][2] += damage-clusterSize*i;
     }
 }
