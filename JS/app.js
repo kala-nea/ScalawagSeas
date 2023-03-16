@@ -367,17 +367,19 @@ let idsAdd = ["addWeaponButtonB","addWeaponButtonP","addWeaponButtonS"]
 let wlDisplays = [wlDisplayB,wlDisplayP,wlDisplayS];
 let weaponsRemaining = [weaponsRemainingB,weaponsRemainingP,weaponsRemainingS]
 
+function setupAddWeaponButtons(){
+    for(let i = 0;i<ids.length;i++){
+        let addWeaponButton = document.getElementById(idsAdd[i]);
+        addWeaponButton.addEventListener("click", (e) => addWeapon(i));
+    }
+}
+setupAddWeaponButtons();
 
 function getWeaponOptions() {
     for(let i = 0;i<ids.length;i++){
         let weaponType = document.getElementById(ids[i]);
         weaponType.addEventListener("change", getWeaponSpecs);
         weaponType.replaceChildren('');
-
-        let addWeaponButton = document.getElementById(idsAdd[i]);
-        addWeaponButton.removeEventListener("click",(e));
-
-        addWeaponButton.addEventListener("click", (e) => addWeapon(i));
 
         let newRow1 = document.createElement("option");
         newRow1.setAttribute("value", "Cannon");
