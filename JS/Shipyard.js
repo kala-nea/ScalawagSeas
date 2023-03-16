@@ -24,15 +24,15 @@ function displayStats(id){
     let shipNum = id.split("Ship").pop();
     let storedShip = JSON.parse(window.localStorage.getItem(`ship${shipNum}`));
     PieceInfo.innerText=`
-    Name:${storedShip.name}
-    Tonnage:${storedShip.tonnage}
-    Weight Class:${storedShip.weightclass}
-    Captain Skill:${storedShip.captanSkill}
+    Name: ${storedShip.name}
+    Tonnage: ${storedShip.tonnage}
+    Weight Class: ${storedShip.weightclass}
+    Captain Skill: ${storedShip.captanSkill}
   
     Movement Points:
-        Cruising:${storedShip.movePower[0]}
-        Full Steam:${storedShip.movePower[1]}
-        Flanking:${storedShip.movePower[2]}
+        Cruising: ${storedShip.movePower[0]}
+        Full Steam: ${storedShip.movePower[1]}
+        Flanking: ${storedShip.movePower[2]}
 
     Weapons:
       `;
