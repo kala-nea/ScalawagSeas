@@ -101,6 +101,15 @@ button {
     font-size: 32px;
 }
 
+.contentArea,
+h2 {
+    margin: 10px;
+}
+
+.contentArea > * {
+    margin: 0;
+}
+
 #backButton {
     display: block;
     position: fixed;
