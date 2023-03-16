@@ -32,21 +32,26 @@ p.Identifier {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background: grey;
-    width: 20%;
+    background:rgba(35, 35, 35, 0.375);
+    width: 19%;
     height: 100%;
     z-index: 100;
+    color: antiquewhite;
+    padding: 10px;
 }
 
 .SideBarContent{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background: grey;
     width: 100%;
     height: 100%;
+    color: antiquewhite;
 }
 
+#GameControls {
+    font-family: pfefferMediaeval;
+}
 
 /* -------------------------------Button styling starts here */
 

@@ -124,8 +124,8 @@ li{
     color: antiquewhite;
 }
 
-.ShipyardListShip{
-
+#ShipList{
+    text-decoration: none;
 }
 
 .ShipyardListShip:hover{
@@ -136,3 +136,4 @@ li{
     color: antiquewhite;
     text-decoration: none;
 }
+
