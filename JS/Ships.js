@@ -199,14 +199,14 @@ class Ship{
         Tonnage:${this.tonnage}
         Weight Class:${this.weightclass}
         Captain Skill:${this.captanSkill}
-      
+        
         Movement Points:
             Cruising:${this.movePower[0]}
             Full Steam:${this.movePower[1]}
             Flanking:${this.movePower[2]}
 
         Weapons:
-          `;
+        `;
         if(this.Weapons[0].length>0){
         PieceInfo.innerText+=`Bow:
         `;
@@ -220,7 +220,9 @@ class Ship{
         `;
         }
         for(let i=0;i<this.Weapons[1].length;i++){
-        PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}      ${this.Weapons[0][i][3]}/${this.Weapons[0][i][2]}
+            // console.log(i);
+            console.log(this.Weapons[1]);
+        PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}      ${this.Weapons[1][i][3]}/${this.Weapons[1][i][2]}
         `;
         }
         if(this.Weapons[2].length>0){
@@ -228,7 +230,7 @@ class Ship{
         `;
         }
         for(let i=0;i<this.Weapons[2].length;i++){
-        PieceInfo.innerText+=`${this.Weapons[2][i][2]}x ${this.Weapons[2][i][1]}lb ${this.Weapons[2][i][0]}      ${this.Weapons[0][i][3]}/${this.Weapons[0][i][2]}
+        PieceInfo.innerText+=`${this.Weapons[2][i][2]}x ${this.Weapons[2][i][1]}lb ${this.Weapons[2][i][0]}      ${this.Weapons[2][i][3]}/${this.Weapons[2][i][2]}
         `;
         }
         PieceInfo.innerText+=`
