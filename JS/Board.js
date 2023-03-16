@@ -220,7 +220,7 @@ function select(id){
         moveShadent(parseFloat(pastloc[0]),parseFloat(pastloc[1]));
     }
     let location = id.split("col").pop().split("row");
-    console.log(`row ${location[0]}  col ${location[1]}`)
+    // console.log(`row ${location[0]}  col ${location[1]}`)
     moveShade(parseFloat(location[0]),parseFloat(location[1]));
     pastid = id;
 }

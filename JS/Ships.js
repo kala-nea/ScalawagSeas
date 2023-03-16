@@ -220,6 +220,8 @@ class Ship{
         `;
         }
         for(let i=0;i<this.Weapons[1].length;i++){
+            // console.log(i);
+            console.log(this.Weapons[1]);
         PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}      ${this.Weapons[1][i][3]}/${this.Weapons[1][i][2]}
         `;
         }
@@ -246,6 +248,10 @@ class Ship{
             PieceInfo.innerText+=`${shipParts[i]}: ${this.hitpoints[i][1]-this.hitpoints[i][2]}/${this.hitpoints[i][0]}
             `;
         }
+        let backButton = document.createElement("button");
+        backButton.innerText = "Close"
+        backButton.setAttribute("onClick", "clearPieceInfo()")
+        PieceInfo.append(backButton);
         setTimeout((e) => adjustAll(),100)
     }
 }
@@ -283,8 +289,8 @@ function readyAll(){
 function damageAll(){
     for(let ship of ships){
         for(let part of ship.hitpoints){
-            console.log(part)
-            console.log(part[2])
+            // console.log(part)
+            // console.log(part[2])
             part[1]-=part[2];
             part[2] = 0;
         }
