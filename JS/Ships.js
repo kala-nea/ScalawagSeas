@@ -220,6 +220,8 @@ class Ship{
         `;
         }
         for(let i=0;i<this.Weapons[1].length;i++){
+            // console.log(i);
+            console.log(this.Weapons[1]);
         PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}      ${this.Weapons[1][i][3]}/${this.Weapons[1][i][2]}
         `;
         }
