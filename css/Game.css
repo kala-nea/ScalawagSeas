@@ -38,6 +38,7 @@ p.Identifier {
     z-index: 100;
     color: antiquewhite;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .SideBarContent{

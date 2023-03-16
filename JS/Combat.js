@@ -10,6 +10,8 @@ pieceStorage.append(angler)
 angler = document.getElementById("angler");
 angler.style.visibility ="hidden";
 
+window.addEventListener('resize',adjustAnglePNG);
+
 let sourcex
 let sourcey 
 let targetx 
@@ -33,13 +35,7 @@ function FireWeapon(side,weapon){
         firingSide = side;
         firing = true;
         attacker = teams[activeTeam].ships[activeBoat];
-        sourcex = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
-        // console.log("sourcex: ",sourcex);
-        sourcey = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
-
-        angler.style.left = `${sourcex-1250}px`
-        angler.style.top = `${sourcey-1250}px`
-        angler.style.rotate = `${attacker.rotation*60}deg`
+        adjustAnglePNG();
         anglerIfy();
         setFiringWeapon(firingWeapon,firingSide);
         // console.log("bang");
@@ -49,6 +45,17 @@ function FireWeapon(side,weapon){
         stopFiring();
     }
 }
+
+function adjustAnglePNG(){
+    attacker = teams[activeTeam].ships[activeBoat];
+    sourcex = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
+    sourcey = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
+
+    angler.style.left = `${sourcex-1250}px`
+    angler.style.top = `${sourcey-1250}px`
+    angler.style.rotate = `${attacker.rotation*60}deg`
+}
+
 
 function stopFiring(){
     firing = false;
