@@ -750,7 +750,7 @@ let shipName = document.getElementById("shipName");
 // ]
 
 class ShipStats{
-    constructor(name,tonnage, cruise,full,flank,weaponsArray,ammo,captanSkill,health){
+    constructor(name,tonnage, cruise,full,flank,weaponsArray,ammo,captainSkill,health){
         //0=top,1=topright 2=bottomright etc until 5
         this.movePower = [cruise,full,flank];
         this.crowsNest = CNPresent;
@@ -792,7 +792,7 @@ class ShipStats{
         this.ammo.push(["Round Shot",ammo[0],ammo[0]]);
         this.ammo.push(["Grape Shot",ammo[1],ammo[1]]);
         this.ammo.push(["Chain Shot",ammo[2],ammo[2]]);
-        this.captanSkill = captanSkill;
+        this.captainSkill = captainSkill;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
         this.hitpoints = [[health[0][0],health[0][1],0],[health[1][0],health[1][1],0],[health[2][0],health[2][1],0],[health[3][0],health[3][1],0],[health[4][0],health[4][1],0],[health[5][0],health[5][1],0],[health[6][0],health[6][1],0],[health[7][0],health[7][1],0]];

@@ -27,7 +27,7 @@ function displayStats(id){
     Name: ${storedShip.name}
     Tonnage: ${storedShip.tonnage}
     Weight Class: ${storedShip.weightclass}
-    Captain Skill: ${storedShip.captanSkill}
+    Captain Skill: ${storedShip.captainSkill}
   
     Movement Points:
         Cruising: ${storedShip.movePower[0]}

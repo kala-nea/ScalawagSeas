@@ -174,9 +174,9 @@ function islands(){
             x=Math.round(Math.random()*(boardWidth-1));
             y=Math.round(Math.random()*(boardHeight-1));
             Hex = document.getElementById(`col${x}row${y}`);
-            console.log("trying")
+            // console.log("trying")
             if(Hex.getAttribute("Src") == "IMG/Hex.png"){
-                console.log("succeding");
+                // console.log("succeding");
                 Hex.setAttribute("Src","IMG/hex_supply.png");
                 done = true
             }

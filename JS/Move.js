@@ -29,7 +29,7 @@ function moveShipClick(id){
 }
 
 function repositionArrows(){
-    if(teams[activeTeam].ships[activeBoat].moveLeft<teams[activeTeam].ships[activeBoat].turnCost){
+    if(teams[activeTeam].ships[activeBoat].moveLeft<teams[activeTeam].ships[activeBoat].turnCost||teams[activeTeam].ships[activeBoat].hitpoints[7][1]<0){
         LeftArrow.style.visibility = "hidden";
         RightArrow.style.visibility = "hidden";
     }else if(teams[activeTeam].ships[activeBoat].moveType != "Flank"){

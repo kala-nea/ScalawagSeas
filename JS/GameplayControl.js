@@ -69,15 +69,19 @@ function nextBoatMove(){
     if(activeTeam>=teams.length){
         StartAttackPhase();
     }else{
-        setSpeedSelection();
-        teams[activeTeam].ships[activeBoat].selectColor();
-        teams[activeTeam].ships[activeBoat].moveLeft = 0;
-        repositionArrows()
-        setPhase("move");
-        setTeam(activeTeam);
-        setBoat(activeBoat);
-        setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
-        moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+        if(teams[activeTeam].ships[activeBoat].alive==false){
+            nextBoatMove()
+        }else{
+            setSpeedSelection();
+            teams[activeTeam].ships[activeBoat].selectColor();
+            teams[activeTeam].ships[activeBoat].moveLeft = 0;
+            repositionArrows()
+            setPhase("move");
+            setTeam(activeTeam);
+            setBoat(activeBoat);
+            setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
+            moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+        }
     }
 }
 
@@ -95,12 +99,17 @@ function nextBoatAttack(){
     if(activeTeam>=teams.length){
         startMovePhase();
     }else{
-        setAttackButtons();
-        teams[activeTeam].ships[activeBoat].selectColor();
-        setPhase("attack");
-        setTeam(activeTeam);
-        setBoat(activeBoat);
+        if(teams[activeTeam].ships[activeBoat].alive==false){
+            nextBoatAttack()
+        }else{
+            setAttackButtons();
+            teams[activeTeam].ships[activeBoat].selectColor();
+            setPhase("attack");
+            setTeam(activeTeam);
+            setBoat(activeBoat);
+        }
     }
+
 }
 
 function setSpeed(speed){
@@ -125,16 +134,21 @@ function startMovePhase(){
     activeTeam = 0;
     activeBoat = 0;
     readyAll();
-    teams[activeTeam].ships[activeBoat].selectColor();
-    teams[activeTeam].ships[activeBoat].moveLeft = 0;
     addMoveProgress();
-    setSpeedSelection();
-    repositionArrows();
-    setPhase("move");
-    setTeam(activeTeam);
-    setBoat(activeBoat);
-    setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
-    moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    if(teams[activeTeam].ships[activeBoat].alive==false){
+        nextBoatMove()
+    }else{
+        setSpeedSelection();
+        teams[activeTeam].ships[activeBoat].selectColor();
+        teams[activeTeam].ships[activeBoat].moveLeft = 0;
+        repositionArrows()
+        setPhase("move");
+        setTeam(activeTeam);
+        setBoat(activeBoat);
+        setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
+        moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    }
+    
 }
 
 function StartAttackPhase(){
@@ -148,9 +162,13 @@ function StartAttackPhase(){
     activeTeam = 0;
     activeBoat = 0;
     addAttackProgress();
-    setAttackButtons();
-    teams[activeTeam].ships[activeBoat].selectColor();
-    setPhase("attack");
-    setTeam(activeTeam);
-    setBoat(activeBoat);
+    if(teams[activeTeam].ships[activeBoat].alive==false){
+        nextBoatAttack()
+    }else{
+        setAttackButtons();
+        teams[activeTeam].ships[activeBoat].selectColor();
+        setPhase("attack");
+        setTeam(activeTeam);
+        setBoat(activeBoat);
+    }
 }

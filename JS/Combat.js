@@ -3,6 +3,7 @@ let firing = false;
 let firingWeapon;
 let firingSide;
 let selectedAmmo;
+let attacker;
 let hexRef
 let angler= document.createElement("img")
 angler.setAttribute("id", "angler");
@@ -62,7 +63,7 @@ function adjustAnglePNG(){
             if(ammoTypes[i]==selectedAmmo){
                 for(let j=0;j<poundages.length;j++){
                     if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
-                        console.log(`set range: ${ammoRanges[i][j][2]}`)
+                        // console.log(`set range: ${ammoRanges[i][j][2]}`)
                         range = ammoRanges[i][j][2];
                     }
                 }
@@ -71,7 +72,7 @@ function adjustAnglePNG(){
         if(range==null){
             range=30;
         }
-        console.log(`range: ${range}`)
+        // console.log(`range: ${range}`)
         range = range*((hexRef.height*0.75));
         angler.style.width = `${range*2}px`
         angler.style.left = `${sourcex-range}px`
@@ -140,7 +141,7 @@ function AttackThis(attacker, defender){
                 ammo[2]--;
             }
         }
-        if(ammoRemains&&willItHit()){
+        if(ammoRemains&&willItHit(attacker,defender)){
             console.log("bang");
             for(let i=0;i<weaponTypes.length;i++){
                 if(weaponTypes[i]==attacker.Weapons[firingSide][firingWeapon][0]){
@@ -158,9 +159,9 @@ function AttackThis(attacker, defender){
             }else{
                 Hit(damage,10000,defender);
             }
-            teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]--;
-            setAttackButtons();
         }
+        teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]--;
+            setAttackButtons();
         if(teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]<=0){
             firing = false;
             angler.style.visibility ="hidden";
@@ -203,10 +204,10 @@ function InView(attacker, defender){
                 for(let j=0;j<poundages.length;j++){
                     if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
                         range = ammoRanges[i][j];
-                        console.log(`offset ${offset}`);
-                        console.log(`short ${range[0]*((hexRef.height*0.75))}`);
-                        console.log(`med ${range[1]*((hexRef.height*0.75))}`);
-                        console.log(`long ${range[2]*((hexRef.height*0.75))}`);
+                        // console.log(`offset ${offset}`);
+                        // console.log(`short ${range[0]*((hexRef.height*0.75))}`);
+                        // console.log(`med ${range[1]*((hexRef.height*0.75))}`);
+                        // console.log(`long ${range[2]*((hexRef.height*0.75))}`);
                     }
                 }
             }
@@ -221,34 +222,67 @@ function InView(attacker, defender){
     return canHit;
 }
 
-function willItHit(){
+function willItHit(attacker,defender){
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
+    // console.log(`team ${activeTeam}`);
+    // console.log(`boat ${activeBoat}`);
+    // console.log(teams[activeTeam].ships[activeBoat].captainSkill);
     let ToBeat = attacker.captainSkill;
-    try{
-        for(let i=0;i<ammoTypes.length;i++){
-            if(ammoTypes[i]==selectedAmmo){
-                for(let j=0;j<poundages.length;j++){
-                    if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
-                        range = ammoRanges[i][j];
-                        console.log(`short ${range[0]*((hexRef.height*0.75))}`);
-                        console.log(`med ${range[1]*((hexRef.height*0.75))}`);
-                        console.log(`long ${range[2]*((hexRef.height*0.75))}`);
-                        if(offset<range[0]*((hexRef.height*0.75))){
-                            ToBeat+=0;
-                        }else if(offset<range[1]*((hexRef.height*0.75))){
-                            ToBeat+=2;
-                        }else if(offset<range[2]*((hexRef.height*0.75))){
-                            ToBeat+=4;
-                        }else{
-                            ToBeat+=8;
-                        }
+    for(let i=0;i<ammoTypes.length;i++){
+        if(ammoTypes[i]==selectedAmmo){
+            for(let j=0;j<poundages.length;j++){
+                if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
+                    range = ammoRanges[i][j];
+                    // console.log(`short ${range[0]*((hexRef.height*0.75))}`);
+                    // console.log(`med ${range[1]*((hexRef.height*0.75))}`);
+                    // console.log(`long ${range[2]*((hexRef.height*0.75))}`);
+                    if(offset<range[0]*((hexRef.height*0.75))){
+                        ToBeat+=0;
+                    }else if(offset<range[1]*((hexRef.height*0.75))){
+                        ToBeat+=2;
+                    }else if(offset<range[2]*((hexRef.height*0.75))){
+                        ToBeat+=4;
+                    }else{
+                        ToBeat+=8;
                     }
                 }
             }
         }
-    }catch{}
+    }
+    if(attacker.moveType == "Flank"){
+        ToBeat+=3;
+    }else if(attacker.moveType =="Full"){
+        ToBeat+=2;
+    }else if(attacker.moveType =="Cruise"){
+        ToBeat+=1;
+    }
+    let traveledX = defender.shipx-defender.prevX
+    let traveledY = defender.shipy-defender.prevY
+    let distTraveled = Math.sqrt(traveledX*traveledX+traveledY*traveledY)
+    // console.log(distTraveled);
+    if(distTraveled>18){
+        ToBeat+=6;
+    }else if(distTraveled>15){
+        ToBeat+=5;
+    }else if(distTraveled>12){
+        ToBeat+=4;
+    }else if(distTraveled>9){
+        ToBeat+=3;
+    }else if(distTraveled>6){
+        ToBeat+=2;
+    }else if(distTraveled>3){
+        ToBeat+=1;
+    }
+
+
+    defhex = document.getElementById(`col${defender.shipx}row${defender.shipy}`);
+    if(defhex.getAttribute("Src") == "IMG/hex_island.png"){
+        ToBeat+=2;
+    }else if(defhex.getAttribute("Src") == "IMG/hex_rocks.png"){
+        ToBeat+=1;
+    }
     console.log(`Must beat: ${ToBeat}`);
-    return true
+    return ToBeat<Math.round(Math.random()*12);
 }
 
 function Hit(damage,clusterSize,target){

@@ -21,6 +21,7 @@ class Ship{
         this.moveLeft = 0;
         this.moveType = "Still";
         this.exhausted = false;
+        this.alive = true;
         this.crowsNest = false;
         
         
@@ -53,7 +54,7 @@ class Ship{
         this.Weapons= [[["Cannon",8,3,3]],[["Cannon",8,3,3]],[["Cannon",8,3,3]]];
         //[type,max,ammountLeft]
         this.ammo=[["Round Shot",100,50],["Grape Shot",20,1]];
-        this.captanSkill = 4;
+        this.captainSkill = 3;
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
         this.hitpoints = [[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0],[10,10,0]];
@@ -107,7 +108,10 @@ class Ship{
         this.Weapons= shipTemplate.Weapons;
         //[type,max,ammountLeft]
         this.ammo=shipTemplate.ammo;
-        this.captanSkill = shipTemplate.captanSkill;
+        // this.captainSkill = shipTemplate.captainSkill;
+        // if(this.captainSkill==null){
+        //     this.captainSkill =4
+        // }
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
         this.hitpoints = shipTemplate.hitpoints;
@@ -208,7 +212,7 @@ class Ship{
         Name:${this.name}
         Tonnage:${this.tonnage}
         Weight Class:${this.weightclass}
-        Captain Skill:${this.captanSkill}
+        Captain Skill:${this.captainSkill}
         
         Movement Points:
             Cruising:${this.movePower[0]}
@@ -231,7 +235,7 @@ class Ship{
         }
         for(let i=0;i<this.Weapons[1].length;i++){
             // console.log(i);
-            console.log(this.Weapons[1]);
+            // console.log(this.Weapons[1]);
         PieceInfo.innerText+=`${this.Weapons[1][i][2]}x ${this.Weapons[1][i][1]}lb ${this.Weapons[1][i][0]}      ${this.Weapons[1][i][3]}/${this.Weapons[1][i][2]}
         `;
         }
@@ -288,7 +292,7 @@ function readyAll(){
         ship.exhausted = false;
         ship.moveType = "Still";
         ship.prevX = ship.shipx;
-        ship.prevY = ship.shipxy;
+        ship.prevY = ship.shipy;
         for(side of ship.Weapons){
             for(weapon of side){
                 weapon[3]=weapon[2];
@@ -298,14 +302,43 @@ function readyAll(){
 }
 
 function damageAll(){
+    //damage feed bow>port>bilge<starboard<aft<rudder     mast>bridge
     for(let ship of ships){
-        for(let part of ship.hitpoints){
+        for(let i=0;i<ship.hitpoints.length;i++){
             // console.log(part)
             // console.log(part[2])
-            part[1]-=part[2];
-            part[2] = 0;
+            doDamageFeed(i,ship.shipNum)
         }
     }
+}
+
+let feedArray=[100,3,4,5,5,100,0,2];
+
+function doDamageFeed(i,shipNum,additionalDamage=0,destroyAbove=false){
+    ships[shipNum].hitpoints[i][1]-=ships[shipNum].hitpoints[i][2]+additionalDamage;
+    if(destroyAbove){
+        for(let j=0;j<feedArray;j++){
+            if(feedArray[j]==i){
+                doDamageFeed(feedArray[i],shipNum,-ships[shipNum].hitpoints[i][1],destroyAbove);
+                ships[shipNum].hitpoints[i][1] = 0;
+            }
+        }
+    }else if(ships[shipNum].hitpoints[i][1]<=0){
+        if(feedArray[i]==100){
+            ships[shipNum].alive=false;
+            ships[shipNum].ship.style.visibility = "hidden"
+            ships[shipNum].identifier.style.visibility = "hidden"
+        }else{
+            doDamageFeed(feedArray[i],shipNum,-ships[shipNum].hitpoints[i][1],destroyAbove);
+            ships[shipNum].hitpoints[i][1] = 0;
+            for(let j=0;j<feedArray;j++){
+                if(feedArray[j]==i){
+                    doDamageFeed(feedArray[i],shipNum,-ships[shipNum].hitpoints[i][1],destroyAbove);
+                }
+            }
+        }
+    }
+    ships[shipNum].hitpoints[i][2] = 0;
 }
 
 function moveShip(x,y,shipNum){
