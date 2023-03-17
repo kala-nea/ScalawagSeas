@@ -52,12 +52,14 @@ p.Identifier {
 
 #GameControls {
     font-family: pfefferMediaeval;
+    /* display: flex; */
+    flex-direction: column;
 }
 
 /* -------------------------------Button styling starts here */
 
-button.nextBoat{
-    background-color: red;
+button#nextBoat{
+    background-color: rgb(180, 0, 0);
     color: white;
     height: 2.5vh;
     
@@ -69,6 +71,22 @@ button#makeBoard{
     height: 2.5vh;
 }
 
+button#SpeedCruise{
+    background-color: #0065c3;
+}
+
+button#SpeedFullSteam{
+    background-color: orange;
+}
+
+button#SpeedFlank{
+    background-color: rgb(180, 0, 0);
+}
+
+button[id^="FireSide"]{
+    justify-self: right;
+}
+
 button {
     
     font-family: pfefferMediaeval;
@@ -76,6 +94,16 @@ button {
 
 /* --------------------------------Button styling ends here */
 
+
+hr{
+    color: antiquewhite;
+    width: 100%;
+}
+
+hr.smallDivider{
+    width: 50%;
+    margin-left: 0;
+}
 
 .Tiles{
     display: flex;
@@ -110,11 +138,12 @@ button {
     position: fixed;
     margin: 0;
     pointer-events: none;
-    background: rgba(80, 80, 80, 0.75);
+    /* background: rgba(80, 80, 80, 0.25); */
     border-radius: 5px;
     padding: 5px;
     font-size: 90%;
     text-align: center;
+    width: fit-content;
 }
 
 

@@ -74,7 +74,7 @@ class Ship{
         pieceStorage.append(shipmake);
         this.ship = document.getElementById(this.id);
         // this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
-        this.ship.addEventListener("click",(e) => this.clicked());
+        this.ship.addEventListener("click",(e) => setstatthis.clicked());
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
         this.ship.style.height = `${desiredHex.height}px`;
@@ -86,8 +86,10 @@ class Ship{
         this.identifier = document.createElement("p");
         this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
         this.identifier.setAttribute("class",`Identifier`);
-        this.identifier.innerText = `Player ${this.team+1} Boat ${teams[this.team].ships.length+1}`;
-        this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
+        this.identifier.innerText = `Player ${this.team+1} 
+        Boat ${teams[this.team].ships.length+1}`;
+        // this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
+        this.identifier.style.width = "fit-content"
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
         //this.identifier.style.height = `${desiredHex.height}px`;
         //this.identifier.style.width = `${desiredHex.width}px`;
@@ -115,6 +117,8 @@ class Ship{
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
         this.hitpoints = shipTemplate.hitpoints;
+        this.identifier.innerText = `Player ${this.team+1}
+        ${this.name}`;
     }
     
     
@@ -159,8 +163,9 @@ class Ship{
         this.ship.style.width = `${desiredHex.width}px`;
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
-        this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
-        this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
+        // this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
+        this.identifier.style.width = "fit-content";
+        this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-this.identifier.getBoundingClientRect().width/2}px`;
         this.identifier.style.top = `${desiredPos.top-desiredHex.height/1.8-this.identifier.getBoundingClientRect().height/2}px`;
         //this.identifier.style.height = `${desiredHex.height}px`;
         //this.identifier.style.width = `${desiredHex.width}px`;
