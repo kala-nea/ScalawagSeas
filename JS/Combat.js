@@ -3,6 +3,7 @@ let firing = false;
 let firingWeapon;
 let firingSide;
 let selectedAmmo;
+let hexRef
 let angler= document.createElement("img")
 angler.setAttribute("id", "angler");
 angler.setAttribute("src","../IMG/angler.png")
@@ -28,14 +29,13 @@ let ammoTypes = ["Round Shot","Grape Shot","Chain Shot"];
 let poundages = [6,8,9,12,18,24,32,36,42];
 
 function FireWeapon(side,weapon){
-    if(firingSide==side&&firing == true){
+    if(firingSide==side&&firingWeapon==weapon&&firing == true){
         stopFiring();
     }else if(teams[activeTeam].ships[activeBoat].Weapons[side][weapon][3]>0){
         firingWeapon = weapon;
         firingSide = side;
         firing = true;
         attacker = teams[activeTeam].ships[activeBoat];
-        adjustAnglePNG();
         anglerIfy();
         setFiringWeapon(firingWeapon,firingSide);
         // console.log("bang");
@@ -48,12 +48,35 @@ function FireWeapon(side,weapon){
 
 function adjustAnglePNG(){
     attacker = teams[activeTeam].ships[activeBoat];
+    hexRef = document.getElementById("col0row0").getBoundingClientRect();
     sourcex = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
     sourcey = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
+
+    let range;
 
     angler.style.left = `${sourcex-1250}px`
     angler.style.top = `${sourcey-1250}px`
     angler.style.rotate = `${attacker.rotation*60}deg`
+    // try{
+        for(let i=0;i<ammoTypes.length;i++){
+            if(ammoTypes[i]==selectedAmmo){
+                for(let j=0;j<poundages.length;j++){
+                    if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
+                        console.log(`set range: ${ammoRanges[i][j][2]}`)
+                        range = ammoRanges[i][j][2];
+                    }
+                }
+            }
+        }
+        if(range==null){
+            range=30;
+        }
+        console.log(`range: ${range}`)
+        range = range*((hexRef.height*0.75));
+        angler.style.width = `${range*2}px`
+        angler.style.left = `${sourcex-range}px`
+        angler.style.top = `${sourcey-range}px`
+    // }catch{}
 }
 
 
@@ -78,12 +101,14 @@ function anglerIfy(){
     }else{
         angler.style.transform = "scaleX(1)";
     }
+    adjustAnglePNG()
 }
 
 
 function selectAmmo(ammo){
     selectedAmmo = ammo;
     setFiringAmmo(ammo);
+    adjustAnglePNG()
 }
 
 let ratio =1.5
@@ -99,7 +124,8 @@ function AttackThis(attacker, defender){
     // console.log("offsetx: ",offsetx);
     offsety = targety-sourcey
     // console.log("offsety: ",offsety);
-    offset = Math.sqrt((offsetx^2)+(offsety^2))
+    offset = Math.sqrt((offsetx*offsetx)+(offsety*offsety))
+    // console.log("sqrtnt",(offsetx*offsetx)+(offsety*offsety))
     // console.log("offset: ",offset);
     angle = -Math.atan2(offsety,offsetx)/Math.PI*180;
     angle += teams[activeTeam].ships[activeBoat].rotation*60
@@ -143,8 +169,8 @@ function AttackThis(attacker, defender){
 }
 
 function InView(attacker, defender){
-    let canHit = false;
-
+    let canHit = true;
+    hexRef = document.getElementById("col0row0").getBoundingClientRect();
     if (angle>180){
         angle-=360;
     }
@@ -154,30 +180,74 @@ function InView(attacker, defender){
     // console.log("angle: ",angle);
     if(firingSide==2){
         if(-35<angle&&angle<35){
-            canHit=true;
         }else{
             canHit=false
         }
     }
     if(firingSide==1){
         if(145<angle||angle<-145){
-            canHit=true;
         }else{
             canHit=false
         }
     }
     if(firingSide==0){
         if(70<angle&&angle<110){
-            canHit=true;
         }else{
             canHit=false
         }
     }
+
+    try{
+        for(let i=0;i<ammoTypes.length;i++){
+            if(ammoTypes[i]==selectedAmmo){
+                for(let j=0;j<poundages.length;j++){
+                    if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
+                        range = ammoRanges[i][j];
+                        console.log(`offset ${offset}`);
+                        console.log(`short ${range[0]*((hexRef.height*0.75))}`);
+                        console.log(`med ${range[1]*((hexRef.height*0.75))}`);
+                        console.log(`long ${range[2]*((hexRef.height*0.75))}`);
+                    }
+                }
+            }
+        }
+        range = range[2]*((hexRef.height*0.75));
+    }catch{}
+    if(offset<range){
+    }else{
+        canHit=false
+    }
+
     return canHit;
 }
 
 function willItHit(){
+    hexRef = document.getElementById("col0row0").getBoundingClientRect();
     let ToBeat = attacker.captainSkill;
+    try{
+        for(let i=0;i<ammoTypes.length;i++){
+            if(ammoTypes[i]==selectedAmmo){
+                for(let j=0;j<poundages.length;j++){
+                    if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
+                        range = ammoRanges[i][j];
+                        console.log(`short ${range[0]*((hexRef.height*0.75))}`);
+                        console.log(`med ${range[1]*((hexRef.height*0.75))}`);
+                        console.log(`long ${range[2]*((hexRef.height*0.75))}`);
+                        if(offset<range[0]*((hexRef.height*0.75))){
+                            ToBeat+=0;
+                        }else if(offset<range[1]*((hexRef.height*0.75))){
+                            ToBeat+=2;
+                        }else if(offset<range[2]*((hexRef.height*0.75))){
+                            ToBeat+=4;
+                        }else{
+                            ToBeat+=8;
+                        }
+                    }
+                }
+            }
+        }
+    }catch{}
+    console.log(`Must beat: ${ToBeat}`);
     return true
 }
 
