@@ -74,7 +74,7 @@ class Ship{
         pieceStorage.append(shipmake);
         this.ship = document.getElementById(this.id);
         // this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
-        this.ship.addEventListener("click",(e) => setstatthis.clicked());
+        this.ship.addEventListener("click",(e) => this.clicked());
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
         this.ship.style.height = `${desiredHex.height}px`;
