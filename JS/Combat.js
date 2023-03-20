@@ -7,12 +7,28 @@ let attacker;
 let hexRef
 let angler= document.createElement("img")
 angler.setAttribute("id", "angler");
-angler.setAttribute("src","../IMG/angler.png")
+// angler.setAttribute("src","../IMG/angler.png")
 pieceStorage.append(angler)
+let fireAnim= document.createElement("img")
+fireAnim.setAttribute("id", "fireAnim");
+fireAnim.setAttribute("src","../IMG/cannonFlash.gif")
+pieceStorage.append(fireAnim)
+
+let hitAnim= document.createElement("img")
+hitAnim.setAttribute("id", "hitAnim");
+hitAnim.setAttribute("src","../IMG/explosion_impact.gif")
+pieceStorage.append(hitAnim)
+
 angler = document.getElementById("angler");
+fireAnim = document.getElementById("fireAnim");
+hitAnim = document.getElementById("hitAnim");
 angler.style.visibility ="hidden";
 
 window.addEventListener('resize',adjustAnglePNG);
+window.addEventListener('scroll',adjustAnglePNG);
+
+window.addEventListener('resize',adjustFirePNG);
+window.addEventListener('scroll',adjustFirePNG);
 
 let sourcex
 let sourcey 
@@ -58,7 +74,7 @@ function adjustAnglePNG(){
     angler.style.left = `${sourcex-1250}px`
     angler.style.top = `${sourcey-1250}px`
     angler.style.rotate = `${attacker.rotation*60}deg`
-    // try{
+    try{
         for(let i=0;i<ammoTypes.length;i++){
             if(ammoTypes[i]==selectedAmmo){
                 for(let j=0;j<poundages.length;j++){
@@ -77,7 +93,64 @@ function adjustAnglePNG(){
         angler.style.width = `${range*2}px`
         angler.style.left = `${sourcex-range}px`
         angler.style.top = `${sourcey-range}px`
-    // }catch{}
+    }catch{}
+}
+
+function adjustFirePNG(){
+    attacker = teams[activeTeam].ships[activeBoat];
+    hexRef = document.getElementById("col0row0").getBoundingClientRect();
+    sourcex = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
+    sourcey = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
+    let rotation = (attacker.rotation*60)/180*Math.PI;
+
+    // console.log(attacker.ship.width);
+    // fireAnim.style.left = `${sourcex-fireAnim.width/2}px`;
+    // fireAnim.style.top = `${sourcey-fireAnim.height/2}px`;
+    if(firingSide==1){
+        fireAnim.style.left = `${sourcex-fireAnim.width/2+Math.cos(rotation)*(-attacker.ship.width/1.2)+Math.sin(rotation)*(0)}px`
+        fireAnim.style.top = `${sourcey-fireAnim.height/2+Math.cos(rotation)*(0)+Math.sin(rotation)*(-attacker.ship.width/1.2)}px`
+        fireAnim.style.rotate = `${attacker.rotation*60}deg`
+        fireAnim.style.transform = "scaleX(-1)";
+    }else if(firingSide==0){
+        fireAnim.style.left = `${sourcex-fireAnim.width/2+Math.cos(-rotation)*(0)+Math.sin(-rotation)*(-hexRef.height)}px`
+        fireAnim.style.top = `${sourcey-fireAnim.height/2+Math.cos(-rotation)*(-hexRef.height)+Math.sin(-rotation)*(0)}px`
+        fireAnim.style.rotate = `${attacker.rotation*60-90}deg`
+        fireAnim.style.transform = "scaleX(1)";
+    }else{
+        fireAnim.style.left = `${sourcex-fireAnim.width/2+Math.cos(rotation)*(attacker.ship.width/1.2)+Math.sin(rotation)*(0)}px`
+        fireAnim.style.top = `${sourcey-fireAnim.height/2+Math.cos(rotation)*(0)+Math.sin(rotation)*(attacker.ship.width/1.2)}px`
+        fireAnim.style.rotate = `${attacker.rotation*60}deg`
+        fireAnim.style.transform = "scaleX(1)";
+    }
+}
+
+function adjustHitPNG(defender){
+    console.log("placing hit2");
+    attacker = teams[activeTeam].ships[activeBoat];
+    hexRef = document.getElementById("col0row0").getBoundingClientRect();
+    sourcex = defender.ship.getBoundingClientRect().left+defender.ship.getBoundingClientRect().width/2;
+    sourcey = defender.ship.getBoundingClientRect().top+defender.ship.getBoundingClientRect().height/2;
+
+    // console.log(attacker.ship.width);
+    hitAnim.style.left = `${sourcex-fireAnim.width/2}px`;
+    hitAnim.style.top = `${sourcey-fireAnim.height/2}px`;
+    hitAnim.style.rotate = `${angle+45}deg`
+    // if(firingSide==1){
+    //     fireAnim.style.left = `${sourcex-fireAnim.width/2+Math.cos(rotation)*(-attacker.ship.width/1.2)+Math.sin(rotation)*(0)}px`
+    //     fireAnim.style.top = `${sourcey-fireAnim.height/2+Math.cos(rotation)*(0)+Math.sin(rotation)*(-attacker.ship.width/1.2)}px`
+    //     fireAnim.style.rotate = `${attacker.rotation*60}deg`
+    //     fireAnim.style.transform = "scaleX(-1)";
+    // }else if(firingSide==0){
+    //     fireAnim.style.left = `${sourcex-fireAnim.width/2+Math.cos(-rotation)*(0)+Math.sin(-rotation)*(-hexRef.height)}px`
+    //     fireAnim.style.top = `${sourcey-fireAnim.height/2+Math.cos(-rotation)*(-hexRef.height)+Math.sin(-rotation)*(0)}px`
+    //     fireAnim.style.rotate = `${attacker.rotation*60-90}deg`
+    //     fireAnim.style.transform = "scaleX(1)";
+    // }else{
+    //     fireAnim.style.left = `${sourcex-fireAnim.width/2+Math.cos(rotation)*(attacker.ship.width/1.2)+Math.sin(rotation)*(0)}px`
+    //     fireAnim.style.top = `${sourcey-fireAnim.height/2+Math.cos(rotation)*(0)+Math.sin(rotation)*(attacker.ship.width/1.2)}px`
+    //     fireAnim.style.rotate = `${attacker.rotation*60}deg`
+    //     fireAnim.style.transform = "scaleX(1)";
+    // }
 }
 
 
@@ -103,6 +176,27 @@ function anglerIfy(){
         angler.style.transform = "scaleX(1)";
     }
     adjustAnglePNG()
+}
+
+function fireIfy(){
+    fireAnim.style.visibility ="visible";
+    fireAnim.setAttribute("src","../IMG/cannonFlash.gif")
+    adjustFirePNG()
+}
+
+function fireIfNt(){
+    fireAnim.style.visibility ="hidden";
+}
+
+function hitIfy(defender){
+    console.log("placing hit1");
+    hitAnim.style.visibility ="visible";
+    hitAnim.setAttribute("src","../IMG/explosion_impact.gif")
+    adjustHitPNG(defender)
+}
+
+function hitIfNt(){
+    hitAnim.style.visibility ="hidden";
 }
 
 
@@ -141,8 +235,13 @@ function AttackThis(attacker, defender){
                 ammo[2]--;
             }
         }
+        console.log("bang");
+        fireIfy();
+        setTimeout(fireIfNt,1000);
         if(ammoRemains&&willItHit(attacker,defender)){
-            console.log("bang");
+            console.log("placing hit0");
+            hitIfy(defender);
+            setTimeout(hitIfNt,1000);
             for(let i=0;i<weaponTypes.length;i++){
                 if(weaponTypes[i]==attacker.Weapons[firingSide][firingWeapon][0]){
                     for(let j=0;j<poundages.length;j++){
@@ -214,8 +313,12 @@ function InView(attacker, defender){
         }
         range = range[2]*((hexRef.height*0.75));
     }catch{}
-    if(offset<range){
-    }else{
+    try{
+        if(offset<range){
+        }else{
+            canHit=false
+        }
+    }catch{
         canHit=false
     }
 

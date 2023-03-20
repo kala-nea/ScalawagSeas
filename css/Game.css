@@ -217,3 +217,18 @@ hr.smallDivider{
     visibility: hidden;
     opacity: 30%;
 }
+#fireAnim{
+    position: fixed;
+    pointer-events: none;
+    width: 40px;
+    z-index: 7;
+    visibility: hidden;
+}
+
+#hitAnim{
+    position: fixed;
+    pointer-events: none;
+    width: 40px;
+    z-index: 7;
+    visibility: hidden;
+}

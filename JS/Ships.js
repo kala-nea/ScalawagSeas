@@ -399,8 +399,8 @@ function makeBoats(){
             let done = false;
             while(!done){
                 spaceAvailable = true;
-                x=Math.round(Math.random()*(boardWidth-1));
-                y=Math.round(Math.random()*(boardHeight-1));
+                x=Math.round(Math.random()*(boardWidth-2))+1;
+                y=Math.round(Math.random()*(boardHeight-2))+1;
                 HexTest = document.getElementById(`col${x}row${y}`);
                 if(HexTest.getAttribute("Src") == "IMG/Hex.png"){
                     for(let k = 0;k<ships.length;k++){
