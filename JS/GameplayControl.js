@@ -30,6 +30,7 @@ function shipsAreSelected(){
     return selectedAll;
 }
 
+//Updates the board during the move phase
 function updateMove(){
     try{
         teams[activeTeam].ships[activeBoat].deselectColor();
@@ -55,6 +56,7 @@ function updateMove(){
     }catch{}
 }
 
+// selects the next boat during the move phase
 function nextBoatMove(){
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -85,6 +87,7 @@ function nextBoatMove(){
     }
 }
 
+// selects the next boat during the attack phase
 function nextBoatAttack(){
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -112,6 +115,7 @@ function nextBoatAttack(){
 
 }
 
+// selects the speed of the boat during the move phase
 function setSpeed(speed){
     if(speed == 1){
         teams[activeTeam].ships[activeBoat].moveType = "Full";
@@ -127,6 +131,7 @@ function setSpeed(speed){
     repositionArrows();
 }
 
+// starts the movement phase
 function startMovePhase(){
     shuffleTeams();
     clearSidebar();
@@ -152,6 +157,7 @@ function startMovePhase(){
     
 }
 
+// starts the attack phase
 function StartAttackPhase(){
     //startMovePhase();
     firing = false;
