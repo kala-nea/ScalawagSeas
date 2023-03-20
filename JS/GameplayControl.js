@@ -1,7 +1,7 @@
 let activeTeam = 0;
 let activeBoat=0;
 
-
+//starts the game
 function startGame(){
     if(shipsAreSelected()){
         setAllStats();
@@ -12,6 +12,7 @@ function startGame(){
     }
 }
 
+// makes sure that the players select actual ships when selecting from their custom ships
 function shipsAreSelected(){
     let selectedAll = true;
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
