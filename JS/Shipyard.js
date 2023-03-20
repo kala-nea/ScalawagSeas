@@ -8,13 +8,19 @@ window.localStorage.setItem('numberOfShips', numberOfShips);
 ShipList = document.getElementById("ShipList");
 for(let i =0;i<numberOfShips;i++){
     let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
+    let shipLi = document.createElement("div");
     let shipItem = document.createElement("li");
     shipItem.setAttribute("id",`Ship${i}`);
     shipItem.setAttribute("class","ShipyardListShip");
     shipItem.innerText = storedShip.name;
     shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
+    let shipDelBut = document.createElement("button");
+    shipDelBut.innerText = "Delete This Ship";
+    shipDelBut.addEventListener("click", (e) =>deleteOneShip(`Ship${i}` - 1))
+    shipLi.append(shipItem);
+    shipLi.append(shipDelBut)
     // console.log(storedShip.name);
-    ShipList.append(shipItem);
+    ShipList.append(shipLi);
 }
 
 
@@ -87,3 +93,42 @@ function clearAllShipsForcefully(){
 
 let deleteButton = document.getElementById("delBut");
 deleteButton.addEventListener("click", clearAllShipsForcefully);
+
+function deleteOneShip (x) {
+    for (let i = x; i < numberOfShips - 1; i++) {
+        window.localStorage.setItem(`ship${i}`, window.localStorage.getItem(`ship${i+1}`));
+    }
+    window.localStorage.setItem('numberOfShips', numberOfShips-1);
+    recountShips()
+    redisplayShips();
+}
+
+function recountShips(){
+    if(window.localStorage.getItem('numberOfShips') == null){
+        numberOfShips = 0;
+    }else{
+        numberOfShips = window.localStorage.getItem('numberOfShips');
+    }
+    window.localStorage.setItem('numberOfShips', numberOfShips);
+}
+
+function redisplayShips(){
+    ShipList = document.getElementById("ShipList");
+    ShipList.innerHTML = "";
+    for(let i =0;i<numberOfShips;i++){
+        let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
+        let shipLi = document.createElement("div");
+        let shipItem = document.createElement("li");
+        shipItem.setAttribute("id",`Ship${i}`);
+        shipItem.setAttribute("class","ShipyardListShip");
+        shipItem.innerText = storedShip.name;
+        shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
+        let shipDelBut = document.createElement("button");
+        shipDelBut.innerText = "Delete This Ship";
+        shipDelBut.addEventListener("click", (e) =>deleteOneShip(`Ship${i}` - 1))
+        shipLi.append(shipItem);
+        shipLi.append(shipDelBut)
+        // console.log(storedShip.name);
+        ShipList.append(shipLi);
+    }
+}
