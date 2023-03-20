@@ -16,7 +16,7 @@ for(let i =0;i<numberOfShips;i++){
     shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
     let shipDelBut = document.createElement("button");
     shipDelBut.innerText = "Delete This Ship";
-    shipDelBut.addEventListener("click", (e) =>deleteOneShip(`Ship${i}` - 1))
+    shipDelBut.addEventListener("click", (e) =>deleteOneShip(i))
     shipLi.append(shipItem);
     shipLi.append(shipDelBut)
     // console.log(storedShip.name);
