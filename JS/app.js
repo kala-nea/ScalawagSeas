@@ -755,7 +755,8 @@ class ShipStats{
         this.movePower = [cruise,full,flank];
         this.crowsNest = CNPresent;
         
-        
+        this.sprite = document.getElementById("iconPreview").getAttribute("src").split("../")[1];
+
         this.name = name;
         this.tonnage = tonnage;
         if (tonnage == 0 || tonnage == null) {
@@ -825,7 +826,7 @@ function saveBoatToLocal(){
         statsByTon[parseInt(tonnageTable.value)][16],
         weaponsArray,
         ammo,
-        Math.floor(Math.random() * 3) + 2,
+        3,
         [
             [brHP, brHP],
             [boHP, boHP],
