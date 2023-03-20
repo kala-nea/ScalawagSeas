@@ -51,12 +51,12 @@ function removeStart(){
 
 function addMoveProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n         <img id="phaseIndicator" src="/IMG/indicator_phase_move.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>`);
 }
 
 function addAttackProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<p id="phase">Phase:move</p>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n       <p id="firingWeapon">Firing:</p>\n    <p id="firingAmmo">With:</p>\n         <button id="nextBoat" onClick="nextBoatAttack()">Finish Turn</button>   `);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n          <img id = "phaseIndicator" src="/IMG/indicator_phase_battle.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n       <p id="firingWeapon">Firing:</p>\n    <p id="firingAmmo">With:</p>\n         <button id="nextBoat" onClick="nextBoatAttack()">Finish Turn</button>   `);
 }
 
 function clearSidebar(){
@@ -94,7 +94,7 @@ function setAttackButtons(){
         GameControls.innerHTML+=`<button id="FireSide1Weapon${i}" onclick="FireWeapon(1,${i})">Select</button><br>`;
     }
     if(teams[activeTeam].ships[activeBoat].Weapons[2].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0){
-        GameControls.innerHTML+=`Starboard:<hr class ="smallDivider">`;
+        GameControls.innerHTML+=`<br>Starboard:<hr class ="smallDivider">`;
     }
     for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[2].length&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0;i++){
         GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[2][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[2][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[2][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}`;
@@ -128,19 +128,27 @@ function clearPieceInfo(){
 }
 
 function setPhase(input){
-    document.getElementById("phase").innerText = `Phase:${input}`;
+    document.getElementById("phase").innerText = `Phase: ${input}`;
+    switch(input){
+        case "Attack":
+            
+        break;
+        case "Move":
+
+        break;
+    }
 }
 
 function setTeam(input){
-    document.getElementById("activeTeam").innerText = `Active Team:${input+1}`;
+    document.getElementById("activeTeam").innerText = `Active Team: ${input+1}`;
 }
 
 function setBoat(input){
-    document.getElementById("activeBoat").innerText = `Active Boat:${input+1}`;
+    document.getElementById("activeBoat").innerText = `Active Boat: ${input+1}`;
 }
 
 function setMoveLeft(input){
-    document.getElementById("Movement left").innerText = `Movement Left:${input}`;
+    document.getElementById("Movement left").innerText = `Movement Left: ${input}`;
 }
 
 let sides = ["Bow","Port","Starboard"]

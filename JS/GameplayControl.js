@@ -43,7 +43,7 @@ function updateMove(){
         
         teams[activeTeam].ships[activeBoat].selectColor();
         repositionArrows()
-        setPhase("move");
+        setPhase("Move");
         setTeam(activeTeam);
         setBoat(activeBoat);
         setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
@@ -76,7 +76,7 @@ function nextBoatMove(){
             teams[activeTeam].ships[activeBoat].selectColor();
             teams[activeTeam].ships[activeBoat].moveLeft = 0;
             repositionArrows()
-            setPhase("move");
+            setPhase("Move");
             setTeam(activeTeam);
             setBoat(activeBoat);
             setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
@@ -104,7 +104,7 @@ function nextBoatAttack(){
         }else{
             setAttackButtons();
             teams[activeTeam].ships[activeBoat].selectColor();
-            setPhase("attack");
+            setPhase("Attack");
             setTeam(activeTeam);
             setBoat(activeBoat);
         }
@@ -142,7 +142,7 @@ function startMovePhase(){
         teams[activeTeam].ships[activeBoat].selectColor();
         teams[activeTeam].ships[activeBoat].moveLeft = 0;
         repositionArrows()
-        setPhase("move");
+        setPhase("Move");
         setTeam(activeTeam);
         setBoat(activeBoat);
         setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
@@ -167,7 +167,7 @@ function StartAttackPhase(){
     }else{
         setAttackButtons();
         teams[activeTeam].ships[activeBoat].selectColor();
-        setPhase("attack");
+        setPhase("Attack");
         setTeam(activeTeam);
         setBoat(activeBoat);
     }
