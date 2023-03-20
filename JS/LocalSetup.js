@@ -15,10 +15,10 @@ PlayerCountIn.addEventListener("change",setPlayers);
 BoatCountIn.addEventListener("change",setBoats);
 
 function setPlayers(){
-    window.localStorage.setItem('PlayerCount',PlayerCountIn.value);
+    window.localStorage.setItem('PlayerCount',Math.abs(PlayerCountIn.value));
 }
 function setBoats(){
-    window.localStorage.setItem('BoatCount',BoatCountIn.value);
+    window.localStorage.setItem('BoatCount',Math.abs(BoatCountIn.value));
 }
 
 
