@@ -72,15 +72,15 @@ button#makeBoard{
 }
 
 button#SpeedCruise{
-    background-color: #0065c3;
+    background-color: #00860d;
 }
 
 button#SpeedFullSteam{
-    background-color: orange;
+    background-color: rgb(225, 154, 0);
 }
 
 button#SpeedFlank{
-    background-color: rgb(180, 0, 0);
+    background-color: rgb(180, 54, 0);
 }
 
 button[id^="FireSide"]{
@@ -90,6 +90,30 @@ button[id^="FireSide"]{
 button {
     
     font-family: pfefferMediaeval;
+}
+
+#backButton {
+    display: block;
+    position: fixed;
+    width: auto;
+    left: 25px;
+    bottom: 25px;
+
+    font-family: pfefferMediaeval;
+    color: antiquewhite;
+    background-color:rgba(0, 0, 0, 0.375);
+    border-radius: 25px;
+    padding: 10px;
+
+    text-decoration: none;
+    font-size: 30px;
+    z-index: 101;
+}
+
+#backButton:hover {
+    color: rgb(255, 250, 244);
+    background-color: rgba(35, 35, 35, 0.375);
+    transition: all 150ms;
 }
 
 /* --------------------------------Button styling ends here */
@@ -186,28 +210,25 @@ hr.smallDivider{
     
 }
 
-#backButton {
-    display: block;
-    position: fixed;
-    width: auto;
-    left: 25px;
-    bottom: 25px;
-
-    font-family: pfefferMediaeval;
-    color: antiquewhite;
-    background-color:rgba(0, 0, 0, 0.375);
-    border-radius: 25px;
-    padding: 10px;
-
-    text-decoration: none;
-    font-size: 30px;
-    z-index: 101;
+img#phaseIndicator{
+    width: 15%;
+    image-rendering: pixelated;
+    align-self: center;
 }
 
-#backButton:hover {
-    color: rgb(255, 250, 244);
-    background-color: rgba(35, 35, 35, 0.375);
-    transition: all 150ms;
+div#phaseDiv{
+    display: flex;
+    align-items: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* p#phase{
+    align-self: center;
+} */
+
+p#activeTeam{
+    font-size: 2.5rem;
 }
 
 #angler{
