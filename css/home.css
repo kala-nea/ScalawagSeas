@@ -40,6 +40,7 @@ h2 {
 
 header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -52,6 +53,8 @@ a {
 }
 h1 {
     font-size: 128px;
+    position:absolute;
+    top: -200px;
 }
 
 a {
@@ -60,6 +63,12 @@ a {
     margin-bottom: 5px;
     border-radius: 25px;
     text-decoration: none;
+}
+
+img {
+    margin: 0 auto;
+    width: 40%;
+    
 }
 
 a:hover {
