@@ -755,14 +755,18 @@ class ShipStats{
         this.movePower = [cruise,full,flank];
         this.crowsNest = CNPresent;
         
+        // Add ship sprite
         this.sprite = document.getElementById("iconPreview").getAttribute("src").split("../")[1];
 
         this.name = name;
         this.tonnage = tonnage;
         if (tonnage == 0 || tonnage == null) {
+            // Set tonnage to 20 if null
             this.tonnage = 20;
             setValues();
         }
+
+        // Set turning cost
         this.weightclass;
         if(this.tonnage<40){
             this.turnCost = 0;
@@ -774,6 +778,7 @@ class ShipStats{
             this.turnCost = 3;
         }
 
+        // Determine weight class
         if(this.tonnage<40){
             this.weightclass = "Corvette";
         }else if(this.tonnage<60){
@@ -801,6 +806,7 @@ class ShipStats{
     }
 }
 
+// Saving the custom ship to a local JSON file
 function saveBoatToLocal(){
     if(window.localStorage.getItem('numberOfShips') == null||window.localStorage.getItem('numberOfShips') == NaN){
         numberOfShips = 0;
@@ -814,9 +820,12 @@ function saveBoatToLocal(){
             preixisting=true;
         }
     }
+
     if (shipName.value == null || shipName.value == "") {
+        // Add unnamed ship error
         alert("Cannot save an unnamed ship");
     } else if (preixisting) {
+        // Add pre-existing ship error
         alert("Cannot save a ship with a prexisting name");
     } else {
         window.localStorage.setItem(`ship${numberOfShips}`, JSON.stringify(new ShipStats(shipName.value,
@@ -848,6 +857,7 @@ let iconPreview = document.getElementById("iconPreview");
 let iconSelect = document.getElementById("iconSelect");
 let icon;
 
+// Ship sprites
 function getIcon () {
     switch (parseInt(iconSelect.value)) {
         case 0:
@@ -885,7 +895,7 @@ function getIcon () {
     }
 }
 
-
+// Deletes all ships
 function clearAllShipsForcefully(){
     for(let i = 0;i<100;i++){
         window.localStorage.setItem(`ship${i}`,null)
