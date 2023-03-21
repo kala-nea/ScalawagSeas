@@ -100,7 +100,8 @@ getMsg((message, peerId) => {
   appendMessage(message, peerId);
 });
 
-function sendViaForce(inp){
-  sendMsg(inp);
-  appendMessage(inp, selfId);
+getShipMove((x,y,shipNum,peerId) => {
+    
 }
+
+);
