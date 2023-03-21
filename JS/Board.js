@@ -28,6 +28,7 @@ setTimeout((e) =>AdjustBoard(),200);
 setTimeout((e) => adjustAll(),300)
 setTimeout((e) => adjustAll(),3000)
 
+//creates the 
 function MakeBoard(){
     if(boardHeight==null||boardWidth==null){
         try{

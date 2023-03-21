@@ -96,6 +96,7 @@ function nextBoatAttack(){
     stopFiring();
     teams[activeTeam].ships[activeBoat].exhausted = true;
     activeBoat++;
+    selectedAmmo = "";
     if(activeBoat>teams[activeTeam].ships.length-1){
         activeTeam++;
         activeBoat = 0;

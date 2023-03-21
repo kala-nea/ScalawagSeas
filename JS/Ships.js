@@ -330,7 +330,7 @@ function doDamageFeed(i,shipNum,additionalDamage=0,destroyAbove=false){
     if(destroyAbove){
         for(let j=0;j<feedArray;j++){
             if(feedArray[j]==i){
-                doDamageFeed(feedArray[i],shipNum,-ships[shipNum].hitpoints[i][1],destroyAbove);
+                doDamageFeed(feedArray[i],shipNum,0,destroyAbove);
                 ships[shipNum].hitpoints[i][1] = 0;
             }
         }
