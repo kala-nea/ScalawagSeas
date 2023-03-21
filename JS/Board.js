@@ -25,10 +25,11 @@ window.addEventListener('resize',resizeBoard);
 setTimeout(MakeBoard,1);
 setTimeout((e) =>makeBoats(),200);
 setTimeout((e) =>AdjustBoard(),200);
+setTimeout((e) =>AdjustBoard(),310);
 setTimeout((e) => adjustAll(),300)
 setTimeout((e) => adjustAll(),3000)
 
-//creates the 
+//creates the board
 function MakeBoard(){
     if(boardHeight==null||boardWidth==null){
         try{
@@ -109,6 +110,7 @@ function MakeBoard(){
     boardBuilt = true;
 }
 
+//adjusts the board in case of screen changes
 function AdjustBoard(){
     
     for(let i = 0; i<parseInt(boardWidth);i++){
@@ -141,7 +143,7 @@ function AdjustBoard(){
 
 // TODO: make an input for the island
 
-
+//creates the diferent types of islands
 function islands(){
     let x = 0;
     let y = 0;
@@ -186,7 +188,7 @@ function islands(){
 }
 
 
-
+//resizes the board and redoes the shading on the tiles
 function resizeBoard(){
     if(boardBuilt==true){
         AdjustBoard()
@@ -194,12 +196,13 @@ function resizeBoard(){
     }
     
 }
-
+//redoes the shading on the tiles
 function redoShade(){
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
     moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
 }
 
+//highlights the tiles you hover over
 function highlight(id){
     let hex = document.getElementById(id);
     if(hex.style.filter == "brightness(1)"){
@@ -214,6 +217,7 @@ function highlight(id){
     }
 }
 
+//unhighlights the tiles you hover over
 function unhighlight(id){
     let hex = document.getElementById(id);
     if(hex.style.filter == "brightness(1.8)"){
@@ -229,18 +233,20 @@ function unhighlight(id){
 }
 
 
-let pastid = "";
-function select(id){
-    if(pastid!=""){
-        let pastloc =pastid.split("col").pop().split("row");
-        moveShadent(parseFloat(pastloc[0]),parseFloat(pastloc[1]));
-    }
-    let location = id.split("col").pop().split("row");
-    // console.log(`row ${location[0]}  col ${location[1]}`)
-    moveShade(parseFloat(location[0]),parseFloat(location[1]));
-    pastid = id;
-}
+// let pastid = "";
+// function select(id){
+//     if(pastid!=""){
+//         let pastloc =pastid.split("col").pop().split("row");
+//         moveShadent(parseFloat(pastloc[0]),parseFloat(pastloc[1]));
+//     }
+//     let location = id.split("col").pop().split("row");
+//     // console.log(`row ${location[0]}  col ${location[1]}`)
+//     moveShade(parseFloat(location[0]),parseFloat(location[1]));
+//     pastid = id;
+// }
 
+
+//shades the hexes that the boat can move to
 function moveShade(col,row){
     
     let goal
@@ -267,7 +273,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
         }catch{}
@@ -292,7 +298,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
         }catch{}
@@ -320,7 +326,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -347,7 +353,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -374,7 +380,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -401,7 +407,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -430,7 +436,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -457,7 +463,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -484,7 +490,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -511,7 +517,7 @@ function moveShade(col,row){
                 moveCost = 1;
             }
             if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg)";
+                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
@@ -520,51 +526,53 @@ function moveShade(col,row){
     /*
     try{
         goal = document.getElementById(`col${col}row${row+1}`);
-        goal.style.filter ="hue-rotate(90deg)";
+        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
         goal.style.zIndex = "1"
 
     }catch{}
     try{
         goal = document.getElementById(`col${col}row${row-1}`);
-        goal.style.filter ="hue-rotate(90deg)";
+        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
         goal.style.zIndex = "1"
     }catch{}
     try{
         goal = document.getElementById(`col${col+1}row${row}`);
-        goal.style.filter ="hue-rotate(90deg)";
+        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
         goal.style.zIndex = "1"
     }catch{}
     try{
         goal = document.getElementById(`col${col-1}row${row}`);
-        goal.style.filter ="hue-rotate(90deg)";
+        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
         goal.style.zIndex = "1"
     }catch{}
     if(col%2==0){
         try{
             goal = document.getElementById(`col${col+1}row${row+1}`);
-            goal.style.filter ="hue-rotate(90deg)";
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
             goal.style.zIndex = "1"
         }catch{}
         try{
             goal = document.getElementById(`col${col-1}row${row+1}`);
-            goal.style.filter ="hue-rotate(90deg)";
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
             goal.style.zIndex = "1"
         }catch{}
     }else{
         try{
             goal = document.getElementById(`col${col+1}row${row-1}`);
-            goal.style.filter ="hue-rotate(90deg)";
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
             goal.style.zIndex = "1"
         }catch{}
         try{
             goal = document.getElementById(`col${col-1}row${row-1}`);
             
-            goal.style.filter ="hue-rotate(90deg)";
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
             goal.style.zIndex = "1"
         }catch{}
     }*/
     
 }
+
+//removes the shading from hexes that can no longer be moved on
 function moveShadent(col,row){
     try{
         let goal = document.getElementById(`col${col}row${row+1}`);
@@ -626,7 +634,7 @@ music.volume = 0.3;
 
 document.addEventListener("click", (e)=>playlist(pastSongNum));
 music.addEventListener("ended", check);
-
+//runs the music through a playlist
 function playlist (x) {
     
     if (done > pastDone) {

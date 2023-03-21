@@ -2,6 +2,7 @@
 
 let pieceStorage = document.getElementById("PieceStorage");
 let PieceInfo = document.getElementById("PieceInfo");
+//the ship object
 class Ship{
     constructor(x = 0,y = 0,team = 0,rotation = 0, movePower = 6){
         x=parseInt(x);
@@ -64,10 +65,12 @@ class Ship{
         ships.push(this);
     }
     
+    //pushes itself to the ships array
     pushThis(){
         ships.push(this);
     }
 
+    //creates the ship sprite and related sprites
     makeShip(){
         let shipmake = document.createElement("img");
         console.log(this.sprite);
@@ -101,6 +104,7 @@ class Ship{
         this.identifier.style.top = `${desiredPos.top-desiredHex.height/1.8-this.identifier.getBoundingClientRect().height/2}px`;   //dooo the off set for 20x40
     }
 
+    //set the stats of the ship from a preset
     setStats(shipTemplate){
         this.movePower = shipTemplate.movePower;
         this.crowsNest = shipTemplate.crowsNest;
@@ -127,7 +131,7 @@ class Ship{
         ${this.name}`;
     }
     
-    
+    //try and move the ship to the esired hex
     moveShip(x,y){
         x=parseInt(x);
         y=parseInt(y);
@@ -161,7 +165,7 @@ class Ship{
         }
     }
     
-    
+    //repositions the ship and its related sprites
     adjustShip(){
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = desiredHex.getBoundingClientRect();
@@ -176,7 +180,7 @@ class Ship{
         //this.identifier.style.height = `${desiredHex.height}px`;
         //this.identifier.style.width = `${desiredHex.width}px`;
     }
-
+    //rotates the ship
     rotate(rotationAmmount){
         if(this.moveLeft>=this.turnCost){
             this.rotation += rotationAmmount;
@@ -194,14 +198,15 @@ class Ship{
             moveShade(this.shipx,this.shipy);
         }
     }
-
+    //higlights the ship
     selectColor(){
         this.ship.style.filter = "brightness(150%)";
     }
+    //unhiglights the ship
     deselectColor(){
         this.ship.style.filter = "brightness(1)";
     }
-
+    //either shoots or displays the stats depending on whether or not another boat is attacking upon being clicked
     clicked(){
         if(firing&&this.id!=teams[activeTeam].ships[activeBoat].id){
             AttackThis(teams[activeTeam].ships[activeBoat], this)
@@ -209,14 +214,14 @@ class Ship{
             this.displayStats();
         }
     }
-
+    //refills the ammo
     resupply(){
         for(let ammo of this.ammo){
             console.log(ammo[0]);
             ammo[2]=ammo[1];
         }
     }
-
+    //shows the ships stats in the sidebar
     displayStats(){
         PieceInfo = document.getElementById("PieceInfo");
         PieceInfo.innerText=`
@@ -291,13 +296,14 @@ window.addEventListener('resize',adjustAll);
 window.addEventListener("scroll",adjustAll);
 setTimeout(adjustAll,100);
 
-
+//adjusts all ships
 function adjustAll(){
     for(let ship of ships){
         ship.adjustShip();
     }
 }
 
+//readys up all ships for the next round
 function readyAll(){
     for(let ship of ships){
         ship.exhausted = false;
@@ -312,6 +318,7 @@ function readyAll(){
     }
 }
 
+//applies the dammage that each ship has taken
 function damageAll(){
     //damage feed bow>port>bilge<starboard<aft<rudder     mast>bridge
     for(let ship of ships){
@@ -324,7 +331,7 @@ function damageAll(){
 }
 
 let feedArray=[100,3,4,5,5,100,0,2];
-
+//feeds damage between parts of the ship when one part is destroyed
 function doDamageFeed(i,shipNum,additionalDamage=0,destroyAbove=false){
     ships[shipNum].hitpoints[i][1]-=ships[shipNum].hitpoints[i][2]+additionalDamage;
     if(destroyAbove){
@@ -351,7 +358,7 @@ function doDamageFeed(i,shipNum,additionalDamage=0,destroyAbove=false){
     }
     ships[shipNum].hitpoints[i][2] = 0;
 }
-
+//moves a specific ship
 function moveShip(x,y,shipNum){
     ships[shipNum].moveShip(x,y);
 }
@@ -395,6 +402,7 @@ function moveShip(x,y,shipNum){
 //     addStart();
 // }
 
+//creates the ship objects oppon starting the game
 function makeBoats(){
     let x = 0;
     let y = 0;
@@ -426,6 +434,7 @@ function makeBoats(){
     addStart();
 }
 
+//sets the stats of all ships
 function setAllStats(){
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
@@ -439,10 +448,11 @@ function setAllStats(){
     addStart();
 }
 
-function shipFromShipyard(){
-    let shipPlaceHolder = new Ship(x,y,i,Math.round(Math.random()*5),6);
-}
+// function shipFromShipyard(){
+//     let shipPlaceHolder = new Ship(x,y,i,Math.round(Math.random()*5),6);
+// }
 
+//displays the stats of a ship
 function displayAShipsStats(shipsNum){
     ships[shipsNum].displayStats();
 }

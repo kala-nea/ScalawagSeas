@@ -1,6 +1,6 @@
 let teams = [];
 
-
+//object for a team
 class Team{
     constructor(ships = [],teamNum){
      this.ships = ships;
@@ -9,6 +9,7 @@ class Team{
     }
 }
 
+//shuffles the teams for random initative
 function shuffleTeams(){
     for (var i = teams.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));

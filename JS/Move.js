@@ -18,9 +18,9 @@ LeftArrow.addEventListener("click",(e) => rotateAShip(-1))
 pieceStorage.append(RightArrow);
 pieceStorage.append(LeftArrow);
 
-
+//move a ship to selected hex if the hex is valid
 function moveShipClick(id){
-    if(document.getElementById(id).style.filter == "hue-rotate(90deg)"){
+    if(document.getElementById(id).style.filter == "hue-rotate(90deg) brightness(1.5)"){
         let location = id.split("col").pop().split("row");
         unhighlight(id)
         moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -28,6 +28,7 @@ function moveShipClick(id){
     }
 }
 
+//postions the turning arrows
 function repositionArrows(){
     if(teams[activeTeam].ships[activeBoat].moveLeft<teams[activeTeam].ships[activeBoat].turnCost||teams[activeTeam].ships[activeBoat].hitpoints[7][1]<0){
         LeftArrow.style.visibility = "hidden";
@@ -54,6 +55,7 @@ function repositionArrows(){
     }
 }
 
+//calls to roatte a ship
 function rotateAShip(dir){
     teams[activeTeam].ships[activeBoat].rotate(dir);
     repositionArrows();

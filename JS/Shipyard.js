@@ -1,3 +1,4 @@
+// get the number of ships
 if(window.localStorage.getItem('numberOfShips') == null){
     numberOfShips = 0;
 }else{
@@ -5,26 +6,29 @@ if(window.localStorage.getItem('numberOfShips') == null){
 }
 window.localStorage.setItem('numberOfShips', numberOfShips);
 
-ShipList = document.getElementById("ShipList");
-for(let i =0;i<numberOfShips;i++){
-    let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
-    let shipLi = document.createElement("div");
-    let shipItem = document.createElement("li");
-    shipItem.setAttribute("id",`Ship${i}`);
-    shipItem.setAttribute("class","ShipyardListShip");
-    shipItem.innerText = storedShip.name;
-    shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
-    let shipDelBut = document.createElement("button");
-    shipDelBut.innerText = "Delete This Ship";
-    shipDelBut.addEventListener("click", (e) =>deleteOneShip(i))
-    shipLi.append(shipItem);
-    shipLi.append(shipDelBut)
-    // console.log(storedShip.name);
-    ShipList.append(shipLi);
+let ShipList = document.getElementById("ShipList");
+//create a list of all of the custom ships
+function listShips(){
+    for(let i =0;i<numberOfShips;i++){
+        let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
+        let shipLi = document.createElement("div");
+        let shipItem = document.createElement("li");
+        shipItem.setAttribute("id",`Ship${i}`);
+        shipItem.setAttribute("class","ShipyardListShip");
+        shipItem.innerText = storedShip.name;
+        shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
+        let shipDelBut = document.createElement("button");
+        shipDelBut.innerText = "Delete This Ship";
+        shipDelBut.addEventListener("click", (e) =>deleteOneShip(i))
+        shipLi.append(shipItem);
+        shipLi.append(shipDelBut)
+        // console.log(storedShip.name);
+        ShipList.append(shipLi);
+    }
 }
 
 
-
+//shows the stats of a ship that is clicked on
 function displayStats(id){
     let PieceInfo = document.getElementById("ShipInfo");
     let shipNum = id.split("Ship").pop();
@@ -83,6 +87,7 @@ function displayStats(id){
     }
 }
 
+//delete all custom ships
 function clearAllShipsForcefully(){
     for(let i = 0;i<100;i++){
         window.localStorage.setItem(`ship${i}`,null)
@@ -93,7 +98,7 @@ function clearAllShipsForcefully(){
 
 let deleteButton = document.getElementById("delBut");
 deleteButton.addEventListener("click", clearAllShipsForcefully);
-
+//deletes a single ship
 function deleteOneShip (x) {
     for (let i = x; i < numberOfShips - 1; i++) {
         window.localStorage.setItem(`ship${i}`, window.localStorage.getItem(`ship${i+1}`));
@@ -103,6 +108,7 @@ function deleteOneShip (x) {
     redisplayShips();
 }
 
+//recount the number of ships you have
 function recountShips(){
     if(window.localStorage.getItem('numberOfShips') == null){
         numberOfShips = 0;
@@ -112,23 +118,9 @@ function recountShips(){
     window.localStorage.setItem('numberOfShips', numberOfShips);
 }
 
+//re create the list of ships
 function redisplayShips(){
     ShipList = document.getElementById("ShipList");
     ShipList.innerHTML = "";
-    for(let i =0;i<numberOfShips;i++){
-        let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
-        let shipLi = document.createElement("div");
-        let shipItem = document.createElement("li");
-        shipItem.setAttribute("id",`Ship${i}`);
-        shipItem.setAttribute("class","ShipyardListShip");
-        shipItem.innerText = storedShip.name;
-        shipItem.addEventListener("click",(e) =>displayStats(`Ship${i}`));
-        let shipDelBut = document.createElement("button");
-        shipDelBut.innerText = "Delete This Ship";
-        shipDelBut.addEventListener("click", (e) =>deleteOneShip(`Ship${i}` - 1))
-        shipLi.append(shipItem);
-        shipLi.append(shipDelBut)
-        // console.log(storedShip.name);
-        ShipList.append(shipLi);
-    }
+    listShips();
 }
