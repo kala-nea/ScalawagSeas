@@ -1,24 +1,33 @@
 let PlayerCountIn = document.getElementById("PlayerCount");
-let BoatCountIn = document.getElementById("BoardCount");
+let BoatCountIn = document.getElementById("BoatCount");
 
-if (window.localStorage.getItem('PlayerCount') == null||window.localStorage.getItem('PlayerCount') == "") {
+if (window.localStorage.getItem('PlayerCount') == null||window.localStorage.getItem('PlayerCount') == ""||parseFloat(window.localStorage.getItem('PlayerCount'))<2) {
     window.localStorage.setItem('PlayerCount', 2);
 }
-if (window.localStorage.getItem('BoardCount') == null||window.localStorage.getItem('BoardCount') == "") {
-    window.localStorage.setItem('BoardCount', 1);
+if (window.localStorage.getItem('BoatCount') == null||window.localStorage.getItem('BoatCount') == ""||parseFloat(window.localStorage.getItem('BoatCount'))<1) {
+    window.localStorage.setItem('BoatCount', 1);
 }
 
 PlayerCountIn.value=window.localStorage.getItem('PlayerCount');
 BoatCountIn.value=window.localStorage.getItem('BoatCount');
+console.log(window.localStorage.getItem('BoatCount'));
 
 PlayerCountIn.addEventListener("change",setPlayers);
 BoatCountIn.addEventListener("change",setBoats);
 
 function setPlayers(){
-    window.localStorage.setItem('PlayerCount',Math.abs(PlayerCountIn.value));
+    // window.localStorage.setItem('PlayerCount',Math.abs(PlayerCountIn.value));
+    window.localStorage.setItem('PlayerCount',PlayerCountIn.value);
+    if (window.localStorage.getItem('PlayerCount') == null||window.localStorage.getItem('PlayerCount') == ""||parseFloat(window.localStorage.getItem('PlayerCount'))<2) {
+        window.localStorage.setItem('PlayerCount', 2);
+    }
 }
 function setBoats(){
-    window.localStorage.setItem('BoatCount',Math.abs(BoatCountIn.value));
+    // window.localStorage.setItem('BoatCount',Math.abs(BoatCountIn.value));
+    window.localStorage.setItem('BoatCount',BoatCountIn.value);
+    if (window.localStorage.getItem('BoatCount') == null||window.localStorage.getItem('BoatCount') == ""||parseFloat(window.localStorage.getItem('BoatCount'))<1) {
+        window.localStorage.setItem('BoatCount', 1);
+    }
 }
 
 
