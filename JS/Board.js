@@ -157,7 +157,7 @@ function islands(){
             }
         }
     }
-    for(let i = 0;i<rockCount*2;i++){
+    for(let i = 0;i<rockCount;i++){
         let done = false;
         while(!done){
             x=Math.round(Math.random()*(boardWidth-1));
