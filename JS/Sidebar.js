@@ -25,7 +25,7 @@ function addStart(){
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         sidebar.innerHTML+=`<h3>Player ${i+1} Ships</h3>`;
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
-            sidebar.innerHTML+=`<input list="ShipList" name="Player${i}ShipSelect${j}" id="Player${i}ShipSelect${j}" placeholder="Player ${i+1}: Ship ${j+1}">`;
+            sidebar.innerHTML+=`<input list="ShipList" name="Player${i}ShipSelect${j}" id="Player${i}ShipSelect${j}" placeholder="Player ${i+1}: Ship ${j+1}" autocomplete="off">`;
         }
         sidebar.innerHTML+=`<br>`;
     }
@@ -71,6 +71,8 @@ function setSpeedSelection(){
         GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" onClick="setSpeed(0)">Cruise</button>
         <button class="SpeedSet" id = "SpeedFullSteam" onClick="setSpeed(1)">Full Steam</button>
         <button class="SpeedSet" id = "SpeedFlank" onClick="setSpeed(2)">Flank</button>`);
+    }else{
+        GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" onClick="setSpeed(0)">Cruise</button>`);
     }
     setTimeout((e) => adjustAll(),100)
 }

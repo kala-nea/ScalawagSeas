@@ -1,7 +1,7 @@
 let activeTeam = 0;
 let activeBoat=0;
 
-
+//starts the game
 function startGame(){
     if(shipsAreSelected()){
         setAllStats();
@@ -12,6 +12,7 @@ function startGame(){
     }
 }
 
+// makes sure that the players select actual ships when selecting from their custom ships
 function shipsAreSelected(){
     let selectedAll = true;
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
@@ -30,6 +31,7 @@ function shipsAreSelected(){
     return selectedAll;
 }
 
+//Updates the board during the move phase
 function updateMove(){
     try{
         teams[activeTeam].ships[activeBoat].deselectColor();
@@ -44,7 +46,7 @@ function updateMove(){
         teams[activeTeam].ships[activeBoat].selectColor();
         repositionArrows()
         setPhase("Move");
-        setTeam(activeTeam);
+        setTeam(teams[activeTeam].teamNum);
         setBoat(activeBoat);
         setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
         if(teams[activeTeam].ships[activeBoat].moveLeft==0){
@@ -55,6 +57,7 @@ function updateMove(){
     }catch{}
 }
 
+// selects the next boat during the move phase
 function nextBoatMove(){
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -77,7 +80,7 @@ function nextBoatMove(){
             teams[activeTeam].ships[activeBoat].moveLeft = 0;
             repositionArrows()
             setPhase("Move");
-            setTeam(activeTeam);
+            setTeam(teams[activeTeam].teamNum);
             setBoat(activeBoat);
             setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
             moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -85,6 +88,7 @@ function nextBoatMove(){
     }
 }
 
+// selects the next boat during the attack phase
 function nextBoatAttack(){
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -105,13 +109,14 @@ function nextBoatAttack(){
             setAttackButtons();
             teams[activeTeam].ships[activeBoat].selectColor();
             setPhase("Attack");
-            setTeam(activeTeam);
+            setTeam(teams[activeTeam].teamNum);
             setBoat(activeBoat);
         }
     }
 
 }
 
+// selects the speed of the boat during the move phase
 function setSpeed(speed){
     if(speed == 1){
         teams[activeTeam].ships[activeBoat].moveType = "Full";
@@ -127,7 +132,9 @@ function setSpeed(speed){
     repositionArrows();
 }
 
+// starts the movement phase
 function startMovePhase(){
+    shuffleTeams();
     clearSidebar();
     clearGameControls()
     damageAll()
@@ -143,7 +150,7 @@ function startMovePhase(){
         teams[activeTeam].ships[activeBoat].moveLeft = 0;
         repositionArrows()
         setPhase("Move");
-        setTeam(activeTeam);
+        setTeam(teams[activeTeam].teamNum);
         setBoat(activeBoat);
         setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
         moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
@@ -151,6 +158,7 @@ function startMovePhase(){
     
 }
 
+// starts the attack phase
 function StartAttackPhase(){
     //startMovePhase();
     firing = false;
@@ -168,7 +176,7 @@ function StartAttackPhase(){
         setAttackButtons();
         teams[activeTeam].ships[activeBoat].selectColor();
         setPhase("Attack");
-        setTeam(activeTeam);
+        setTeam(teams[activeTeam].teamNum);
         setBoat(activeBoat);
     }
 }

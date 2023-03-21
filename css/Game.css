@@ -249,7 +249,7 @@ p#activeTeam{
 #hitAnim{
     position: fixed;
     pointer-events: none;
-    width: 40px;
+    width: 60px;
     z-index: 7;
     visibility: hidden;
 }

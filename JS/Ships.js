@@ -15,6 +15,7 @@ class Ship{
         this.rotation = rotation;
         this.team = team 
         this.shipNum = ships.length;
+        this.sprite = "IMG/basic-ship.png";
         this.id = `Ship${ships.length}`
         this.makeShip();
         this.movePower = [movePower,movePower*1.5,movePower*2];
@@ -23,6 +24,7 @@ class Ship{
         this.exhausted = false;
         this.alive = true;
         this.crowsNest = false;
+
         
         
         this.name = this.id;
@@ -68,7 +70,8 @@ class Ship{
 
     makeShip(){
         let shipmake = document.createElement("img");
-        shipmake.setAttribute("src","IMG/basic-ship.png");
+        console.log(this.sprite);
+        shipmake.setAttribute("src",this.sprite);
         shipmake.setAttribute("class","Ship");
         shipmake.setAttribute("id",this.id);
         pieceStorage.append(shipmake);
@@ -110,6 +113,9 @@ class Ship{
         this.Weapons= shipTemplate.Weapons;
         //[type,max,ammountLeft]
         this.ammo=shipTemplate.ammo;
+
+        this.sprite = ((shipTemplate.sprite == null) ? "IMG/basic-ship.png" : shipTemplate.sprite);
+        this.ship.setAttribute("src",this.sprite);
         // this.captainSkill = shipTemplate.captainSkill;
         // if(this.captainSkill==null){
         //     this.captainSkill =4
@@ -394,7 +400,7 @@ function makeBoats(){
     let y = 0;
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         let spaceAvailable = true;
-        let teamPlaceHoler = new Team();
+        let teamPlaceHoler = new Team([],i);
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
             let done = false;
             while(!done){
