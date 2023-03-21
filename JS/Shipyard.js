@@ -8,6 +8,7 @@ window.localStorage.setItem('numberOfShips', numberOfShips);
 
 let ShipList = document.getElementById("ShipList");
 //create a list of all of the custom ships
+listShips();
 function listShips(){
     for(let i =0;i<numberOfShips;i++){
         let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
