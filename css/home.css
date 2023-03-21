@@ -53,8 +53,8 @@ a {
 }
 h1 {
     font-size: 128px;
-    position:absolute;
-    top: -200px;
+    position: fixed;
+    top: -2000px;
 }
 
 a {
