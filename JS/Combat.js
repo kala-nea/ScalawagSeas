@@ -2,7 +2,7 @@ let firing = false;
 
 let firingWeapon;
 let firingSide;
-let selectedAmmo;
+let selectedAmmo = "";
 let attacker;
 let hexRef
 let angler= document.createElement("img")
@@ -39,7 +39,7 @@ let offsety
 let offset
 let angle 
 
-let weaponDamages=[[5,10,15,20,25,30,35,40,45],[10,20,30,0,0,0,0,0,0],[0,0,0,25,30,35,0,0,0],[0,0,0,0,0,0,50,55,60]];
+let weaponDamages=[[5,8,15,20,25,30,35,40,45],[8,15,20,0,0,0,0,0,0],[0,0,0,30,35,40,0,0,0],[0,0,0,0,0,0,60,65,70]];
 let weaponTypes=["Cannon","Long Nine","Carronade","Paixhan"];
 let ammoRanges=[[[9,18,27],[8,16,24],[7,14,21],[6,12,18],[5,10,15],[4,8,12],[3,6,9],[2,4,6],[1,2,3]],[[9,18,36],[8,16,32],[7,14,28],[6,12,24],[5,10,20],[4,8,16],[3,6,12],[2,4,8],[1,2,4]],[[9,11,13],[8,10,12],[7,9,11],[6,8,10],[5,7,9],[4,6,8],[3,5,7],[2,4,6],[1,3,5]]]
 let ammoTypes = ["Round Shot","Grape Shot","Chain Shot"];
@@ -47,6 +47,7 @@ let poundages = [6,8,9,12,18,24,32,36,42];
 
 let timeOutToStop;
 
+//select the weapon to fire
 function FireWeapon(side,weapon){
     if(firingSide==side&&firingWeapon==weapon&&firing == true){
         stopFiring();
@@ -95,12 +96,14 @@ function FireWeapon(side,weapon){
     }
 }
 
+//allows all ammo to be selected
 function activeAllAmmo(){
     document.getElementById("SelectAmmoRound Shot").style.visibility = "visible"
     document.getElementById("SelectAmmoGrape Shot").style.visibility = "visible"
     document.getElementById("SelectAmmoChain Shot").style.visibility = "visible"
 }
 
+//position and rotate the image that shows firing angles
 function adjustAnglePNG(){
     attacker = teams[activeTeam].ships[activeBoat];
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
@@ -134,6 +137,7 @@ function adjustAnglePNG(){
     }catch{}
 }
 
+//adjusts the cannon flash location and roatation
 function adjustFirePNG(){
     attacker = teams[activeTeam].ships[activeBoat];
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
@@ -162,6 +166,7 @@ function adjustFirePNG(){
     }
 }
 
+// positions and rotates the hit/miss marker for the ships
 function adjustHitPNG(defender){
     // console.log("placing hit2");
     attacker = teams[activeTeam].ships[activeBoat];
@@ -185,10 +190,14 @@ function adjustHitPNG(defender){
             rotationHit+=360;
         }
     }
-    console.log(`angle: ${rotationHit}`);
+    // console.log(`angle: ${rotationHit}`);
     hitAnim.style.left = `${sourcex-hitAnim.width/2}px`;
     hitAnim.style.top = `${sourcey-hitAnim.height/2}px`;
-    hitAnim.style.rotate = `${rotationHit}deg`
+    if(hitAnim.getAttribute("src")=="../IMG/explosion_impact.gif"){
+        hitAnim.style.rotate = `${rotationHit}deg`
+    }else{
+        hitAnim.style.rotate = `${0}deg`
+    }
     // if(firingSide==1){
     //     fireAnim.style.left = `${sourcex-fireAnim.width/2+Math.cos(rotation)*(-attacker.ship.width/1.2)+Math.sin(rotation)*(0)}px`
     //     fireAnim.style.top = `${sourcey-fireAnim.height/2+Math.cos(rotation)*(0)+Math.sin(rotation)*(-attacker.ship.width/1.2)}px`
@@ -207,7 +216,7 @@ function adjustHitPNG(defender){
     // }
 }
 
-
+// deselect all firing components
 function stopFiring(){
     firing = false;
     setFiringWeaponRaw("");
@@ -215,7 +224,7 @@ function stopFiring(){
     angler.style.visibility ="hidden";
 }
 
-
+//selects the sprite for the fireing angle image
 function anglerIfy(){
     angler.style.visibility ="visible";
     if(firingSide==0){
@@ -232,37 +241,37 @@ function anglerIfy(){
     adjustAnglePNG()
 }
 
+//display the firing animation
 function fireIfy(){
     fireAnim.style.visibility ="visible";
     fireAnim.setAttribute("src","../IMG/cannonFlash.gif")
     adjustFirePNG()
 }
 
+//hide the firing animation
 function fireIfNt(){
     fireAnim.style.visibility ="hidden";
 }
-
+//display the hit animation
 function hitIfy(defender){
     // console.log("placing hit1");
     hitAnim.style.visibility ="visible";
     hitAnim.setAttribute("src","../IMG/indicator_miss.png")
     adjustHitPNG(defender)
 }
-
+//hide the hit animation
 function hitIfNt(){
     hitAnim.style.visibility ="hidden";
 }
 
-
+//selects an ammo to fire with
 function selectAmmo(ammo){
     selectedAmmo = ammo;
     setFiringAmmo(ammo);
     adjustAnglePNG()
 }
 
-let ratio =1.5
-
-
+//runs the attack calculations
 function AttackThis(attacker, defender){
 
     targetx = defender.ship.getBoundingClientRect().left+defender.ship.getBoundingClientRect().width/2;
@@ -281,56 +290,59 @@ function AttackThis(attacker, defender){
     // console.log("offset: ",offset);
     angle = -Math.atan2(offsety,offsetx)/Math.PI*180;
     angle += teams[activeTeam].ships[activeBoat].rotation*60
-    console.log(`*: ${angle}`);
+    // console.log(`*: ${angle}`);
 
 
     if(InView(attacker, defender)){
-        console.log("clicked");
+        // console.log("clicked");
         let ammoRemains = false;
         let damage
-        for(ammo of attacker.ammo){
-            if(ammo[2]>0&&ammo[0]==selectedAmmo){
-                ammoRemains = true;
-                ammo[2]--;
+        if(selectedAmmo!=""){
+            for(ammo of attacker.ammo){
+                if(ammo[2]>0&&ammo[0]==selectedAmmo){
+                    ammoRemains = true;
+                    ammo[2]--;
+                }
             }
-        }
-        console.log("bang");
-        clearTimeout(timeOutToStop);
-        fireIfy();
-        setTimeout(fireIfNt,1000);
-        hitIfy(defender);
-        timeOutToStop = setTimeout(hitIfNt,1500);
-        if(ammoRemains&&willItHit(attacker,defender)){
-            // console.log("placing hit0");
-            hitAnim.setAttribute("src","../IMG/explosion_impact.gif")
-            for(let i=0;i<weaponTypes.length;i++){
-                if(weaponTypes[i]==attacker.Weapons[firingSide][firingWeapon][0]){
-                    for(let j=0;j<poundages.length;j++){
-                        if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
-                            damage = weaponDamages[i][j]
+            console.log("bang");
+            clearTimeout(timeOutToStop);
+            fireIfy();
+            setTimeout(fireIfNt,1000);
+            hitIfy(defender);
+            timeOutToStop = setTimeout(hitIfNt,1500);
+            if(ammoRemains&&willItHit(attacker,defender)){
+                // console.log("placing hit0");
+                hitAnim.setAttribute("src","../IMG/explosion_impact.gif")
+                for(let i=0;i<weaponTypes.length;i++){
+                    if(weaponTypes[i]==attacker.Weapons[firingSide][firingWeapon][0]){
+                        for(let j=0;j<poundages.length;j++){
+                            if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
+                                damage = weaponDamages[i][j]
+                            }
                         }
                     }
                 }
+                if(selectedAmmo==ammoTypes[1]){
+                    Hit(damage,5,defender);
+                }else if(selectedAmmo==ammoTypes[2]){
+                    Hit(damage,Math.round(damage/2),defender);
+                }else{
+                    Hit(damage,10000,defender);
+                }
             }
-            if(selectedAmmo==ammoTypes[1]){
-                Hit(damage,5,defender);
-            }else if(selectedAmmo==ammoTypes[2]){
-                Hit(damage,Math.round(damage/2),defender);
-            }else{
-                Hit(damage,10000,defender);
+            adjustHitPNG(defender)
+            teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]--;
+                setAttackButtons();
+            if(teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]<=0){
+                firing = false;
+                angler.style.visibility ="hidden";
             }
-        }
-        teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]--;
-            setAttackButtons();
-        if(teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]<=0){
-            firing = false;
-            angler.style.visibility ="hidden";
         }
     }
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------You lost The Game
-
+// checks if the opponet is in the angle and range of the selected weapon
 function InView(attacker, defender){
     let canHit = true;
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
@@ -388,6 +400,7 @@ function InView(attacker, defender){
     return canHit;
 }
 
+//calcualtes the chance to hit and then rolls to see if it will
 function willItHit(attacker,defender){
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
     // console.log(`team ${activeTeam}`);
@@ -402,7 +415,7 @@ function willItHit(attacker,defender){
                     // console.log(`short ${range[0]*((hexRef.height*0.75))}`);
                     // console.log(`med ${range[1]*((hexRef.height*0.75))}`);
                     // console.log(`long ${range[2]*((hexRef.height*0.75))}`);
-                    console.log(`dist: ${offset}`)
+                    // console.log(`dist: ${offset}`)
                     if(offset<range[0]*((hexRef.height*0.75))){
                         ToBeat+=0;
                     }else if(offset<range[1]*((hexRef.height*0.75))){
@@ -416,7 +429,7 @@ function willItHit(attacker,defender){
             }
         }
     }
-    console.log(`move type: ${attacker.moveType}`)
+    // console.log(`move type: ${attacker.moveType}`)
     if(attacker.moveType == "Flank"){
         ToBeat+=3;
     }else if(attacker.moveType =="Full"){
@@ -427,7 +440,7 @@ function willItHit(attacker,defender){
     let traveledX = defender.shipx-defender.prevX
     let traveledY = defender.shipy-defender.prevY
     let distTraveled = Math.sqrt(traveledX*traveledX+traveledY*traveledY)
-    console.log(`dist traveled: ${distTraveled}`)
+    // console.log(`dist traveled: ${distTraveled}`)
     // console.log(distTraveled);
     if(distTraveled>18){
         ToBeat+=6;
@@ -450,17 +463,19 @@ function willItHit(attacker,defender){
     }else if(defhex.getAttribute("Src") == "IMG/hex_rocks.png"){
         ToBeat+=1;
     }
-    console.log(`Must beat: ${ToBeat}`);
+    // console.log(`Must beat: ${ToBeat}`);
     return ToBeat<Math.round(Math.random()*12);
 }
 
+//applies damage to the target
 function Hit(damage,clusterSize,target){
     for(let i =0;i<Math.ceil(damage/clusterSize);i++){
         let location = Math.floor(Math.random()*(target.hitpoints.length))
         if(location==6&&selectedAmmo=="Chain Shot"){
-            target.hitpoints[location][2] += (damage-clusterSize*i)*2.5;
+            target.hitpoints[location][2] += Math.min(clusterSize,(damage-clusterSize*i)*2.5);
         }else{
-            target.hitpoints[location][2] += damage-clusterSize*i;
+            target.hitpoints[location][2] += Math.min(clusterSize,(damage-clusterSize*i));
+            console.log(`doing ${Math.min(clusterSize,(damage-clusterSize*i))} to ${location}`)
         }
     }
 }
