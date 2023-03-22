@@ -23,7 +23,8 @@ h2,
 h3,
 h4,
 p,
-a {
+a,
+button {
     color: antiquewhite;
 }
 
@@ -41,7 +42,8 @@ h3 {
 }
 
 h2,
-a {
+a,
+button {
     font-size: 50px;
     margin-top: 10px;
     text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
@@ -57,17 +59,13 @@ header {
 
 h1 {
     margin: 0 auto;
-    font-size: 65px;
+    font-size: 128px;
     text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
     text-align: center;
 }
-h1 {
-    font-size: 128px;
-    position: fixed;
-    top: -2000px;
-}
 
-a {
+a,
+button {
     background-color: rgba(0, 0, 0, 0.375);
     padding: 0 20px;
     margin-bottom: 5px;
@@ -75,68 +73,35 @@ a {
     text-decoration: none;
 }
 
-img {
-    margin: 0 auto;
-    width: 40%;
-}
-
-a:hover {
+a:hover,
+button:hover {
     color: rgb(187, 177, 164);
     transition: all 150ms;
 }
 
-footer {
-    width: 100%;
+button {
+    border: none;
 }
 
-.footerArea {
-    margin: 0 auto;
-    width: 75%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.footerArea > *,
-.creditArea > p {
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.creditArea {
-    width: 100%;
+.revRow {
+    background-color:rgba(0, 0, 0, 0.375);
     display: flex;
     flex-direction: row;
-    align-content: space-around;
+    border-radius: 20px;
+    padding: 10px;
 }
 
-.footerArea > h2 {
-    margin-top: 40px;
-}
-
-.contentArea {
-    width: 50%;
-    margin: 0 auto;
+.flex {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 20px;
+    align-items: center;
 }
 
-@media screen and (max-width: 1290px) {
-    .footerArea {
-        width: 100%;
-    }
+#revSect {
+    width: 50%;
 }
 
-@media screen and (max-width: 655px) {
-    .footerArea {
-        width: 100%;
-    }
-
-    .creditArea {
-        flex-direction: column;
-        justify-content: space-around;
-    }
+.revSquare {
+    margin-right: 50px;
 }
