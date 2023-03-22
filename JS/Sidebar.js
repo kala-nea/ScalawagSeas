@@ -22,6 +22,7 @@ window.localStorage.setItem('numberOfShips', numberOfShips);
 //     clearSidebar()
 // }
 
+
 //adds ship selection and the start button
 function addStart(){
     sidebar = document.getElementById("SideBarContent");
@@ -35,6 +36,8 @@ function addStart(){
     sidebar.innerHTML+=`<datalist id="ShipList">
                     </datalist>`;
     sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="multiplayerTest" >multi</button>\n`);
+    console.log(`made button`);
     ShipList = document.getElementById("ShipList");
     for(let i = 0;i<window.localStorage.getItem('numberOfShips');i++){
         let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));

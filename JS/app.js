@@ -791,7 +791,7 @@ class ShipStats{
             this.weightclass = "Super Dreadnought";
         }
         //bow,port,starboard
-        //type,weight,quantity,quantityLeft
+        //type,weight,quantity
         this.Weapons= weaponsArray;
         //[type,max,ammountLeft]
         this.ammo=[];
