@@ -34,12 +34,12 @@ function displayStats(id){
     let PieceInfo = document.getElementById("ShipInfo");
     let shipNum = id.split("Ship").pop();
     let storedShip = JSON.parse(window.localStorage.getItem(`ship${shipNum}`));
-    PieceInfo.innerText=`
+    PieceInfo.innerHTML=`
     Name: ${storedShip.name}
     Tonnage: ${storedShip.tonnage}
     Weight Class: ${storedShip.weightclass}
     Captain Skill: ${storedShip.captainSkill}
-  
+    
     Movement Points:
         Cruising: ${storedShip.movePower[0]}
         Full Steam: ${storedShip.movePower[1]}
@@ -48,42 +48,42 @@ function displayStats(id){
     Weapons:
       `;
     if(storedShip.Weapons[0].length>0){
-    PieceInfo.innerText+=`Bow:
+    PieceInfo.innerHTML+=`Bow:
     `;
     }
     for(let i=0;i<storedShip.Weapons[0].length;i++){
-    PieceInfo.innerText+=`${storedShip.Weapons[0][i][2]}x ${storedShip.Weapons[0][i][1]}lb ${storedShip.Weapons[0][i][0]}
+    PieceInfo.innerHTML+=`${storedShip.Weapons[0][i][2]}x ${storedShip.Weapons[0][i][1]}lb ${storedShip.Weapons[0][i][0]}
     `;
     }
     if(storedShip.Weapons[1].length>0){
-    PieceInfo.innerText+=`Port:
+    PieceInfo.innerHTML+=`Port:
     `;
     }
     for(let i=0;i<storedShip.Weapons[1].length;i++){
-    PieceInfo.innerText+=`${storedShip.Weapons[1][i][2]}x ${storedShip.Weapons[1][i][1]}lb ${storedShip.Weapons[1][i][0]}
+    PieceInfo.innerHTML+=`${storedShip.Weapons[1][i][2]}x ${storedShip.Weapons[1][i][1]}lb ${storedShip.Weapons[1][i][0]}
     `;
     }
     if(storedShip.Weapons[2].length>0){
-    PieceInfo.innerText+=`Starboard:
+    PieceInfo.innerHTML+=`Starboard:
     `;
     }
     for(let i=0;i<storedShip.Weapons[2].length;i++){
-    PieceInfo.innerText+=`${storedShip.Weapons[2][i][2]}x ${storedShip.Weapons[2][i][1]}lb ${storedShip.Weapons[2][i][0]}
+    PieceInfo.innerHTML+=`${storedShip.Weapons[2][i][2]}x ${storedShip.Weapons[2][i][1]}lb ${storedShip.Weapons[2][i][0]}
     `;
     }
-    PieceInfo.innerText+=`
+    PieceInfo.innerHTML+=`
     Ammo:
     `;
     for(let i=0;i<storedShip.ammo.length;i++){
-        PieceInfo.innerText+=`${storedShip.ammo[i][0]}: ${storedShip.ammo[i][2]}/${storedShip.ammo[i][1]}
+        PieceInfo.innerHTML+=`${storedShip.ammo[i][0]}: ${storedShip.ammo[i][2]}/${storedShip.ammo[i][1]}
         `;
     }
     let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
-    PieceInfo.innerText+=`
+    PieceInfo.innerHTML+=`
     Hitpoints:
     `;
     for(let i=0;i<storedShip.hitpoints.length;i++){
-        PieceInfo.innerText+=`${shipParts[i]}: ${storedShip.hitpoints[i][1]}/${storedShip.hitpoints[i][0]}
+        PieceInfo.innerHTML+=`${shipParts[i]}: ${storedShip.hitpoints[i][1]}/${storedShip.hitpoints[i][0]}
         `;
     }
 }
