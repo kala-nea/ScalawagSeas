@@ -44,6 +44,11 @@
     <script src="JS/Sidebar.js"></script>
     <script src="JS/Teams.js"></script>
     <script src="JS/GameplayControl.js"></script>
+    <script type="module" src="Multiplayer.js"></script>
+    <script type="module">
+        import { greet } from "./app.js";
+        window.greetFromModule = greet;
+      </script>
     <audio id="music">
         <source src="">     
     </audio>

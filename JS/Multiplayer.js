@@ -1,8 +1,9 @@
 import { joinRoom, selfId } from 'https://cdn.skypack.dev/trystero/ipfs';
-const config = {appId: 'CARTChatDemo'};
-const room = joinRoom(config, 'lobby');
+const config = {appId: 'ScalawagSeas'};
+const room = joinRoom(config, 'Match0');
 const [sendName, getName] = room.makeAction('name');
 const [sendMsg, getMsg] = room.makeAction('message');
+const [sendShipMove, getShipMove] = room.makeAction('moveShip');
 
 const idsToNames = {}; // map of peer ids to names
 const nameInput = document.getElementById('nameInput');
@@ -100,8 +101,10 @@ getMsg((message, peerId) => {
   appendMessage(message, peerId);
 });
 
-getShipMove((x,y,shipNum,peerId) => {
-    
+export function setShipMove(x,y,shipNum){
+  sendShipMove([x,y,shipNum],selfId)
 }
 
-);
+getShipMove((data,peerId) => {
+    console.log(`move ship ${data[2]} to ${data[0]} ${data[1]}`);
+});
