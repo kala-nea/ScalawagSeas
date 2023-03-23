@@ -18,6 +18,7 @@ function loadreviews () {
 
     // gets section to place reviews in
     let tableArea = document.getElementById("revSect");
+    tableArea.replaceChildren('');
 
     // crates section to store reviews in
     let revTable = document.createElement("article");
