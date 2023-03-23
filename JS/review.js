@@ -30,12 +30,16 @@ function loadreviews () {
     let revTS;
     let revExp;
 
-    getJSON('https://opensheet.elk.sh/1WXTuIFPG-pPBPeAwFx7vp5vntdw_3TfwngHbV-wZsvo/FormResponses1',
+    let rateTotal = 0;
+    let revCount = 0;
+
+    getJSON('https://opensheet.elk.sh/1fKstg6LUiDjQxEDib5Im3n_e-4NADRWxv0r7EhZZG60/FormResponses1',
     function(err, data) {
       if (err !== null) {
         console.log('Something went wrong: ' + err);
       } else {
         for(review of data){
+          revCount = revCount + 1;
             // creates the row that a review goes in
             let revRow = document.createElement("section");
             revRow.setAttribute("class", "revRow");
@@ -50,7 +54,10 @@ function loadreviews () {
             // saves the rating made by the reviewer
             revRate = review.rating;
             let revRateSect = document.createElement("p");
-            revRateSect.textContent = revRate + " out of 10";
+            let star = '\u2605';
+            let noStar = "\u2606";
+            revRateSect.textContent = (star.repeat(parseInt(revRate))) + (noStar.repeat(parseInt(10-revRate)));
+            rateTotal = rateTotal + parseInt(revRate);
 
             // saves the timestamp of the review
             revTS = review.ts;
@@ -60,7 +67,7 @@ function loadreviews () {
             // saves the review content
             revExp = review.exp;
             let revExpSect = document.createElement("p");
-            revExpSect.textContent = "'" + revExp + "'";
+            revExpSect.textContent = "\u201C" + revExp + "\u201D";
 
             // place reviewer info in square area
             revSquare.append(revNameSect);
@@ -72,7 +79,16 @@ function loadreviews () {
             // place row in table
             revTable.append(revRow);
         }
+        let totalRateRow = document.createElement("p");
+        if (rateCount > 0) {
+          let remain = 10 - Math.floor(totalRate / revCount);
+          totalRateRow.textcontent = "Current Average Rating: " + star.repeat(Math.floor(totalRate / revCount)) + noStar.repeat(remain);
+        } else {
+          totalRateRow.textcontent = "Current Average Rating: None";
+        }
+        
         // places table on page
+        tableArea.append(totalRateRow);
         tableArea.append(revTable);
       }
     });

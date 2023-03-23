@@ -1,10 +1,13 @@
 document.addEventListener("click", playMusic);
 
-
 function playMusic () {
     let audio = document.getElementById("music");
     audio.volume = 0.3;
-    audio.play();
+    let x = 0;
+    if (x == 0) {
+        audio.play();
+        x = 1;
+    }
 }
 
 let titleImg = document.getElementById("title");
