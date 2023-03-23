@@ -110,8 +110,3 @@ nxtPg.addEventListener("click", (evt) => {
         evt.preventDefault();
     }
 });
-
-
-function preventMax () {
-    
-}
