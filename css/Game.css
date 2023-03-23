@@ -134,6 +134,7 @@ hr.smallDivider{
 .Tiles{
     display: flex;
     background-image: url("../IMG/image0.gif");
+    background-color: #0065c3;
     background-size: 160px;
     background-repeat: repeat;
     background-position: center;
