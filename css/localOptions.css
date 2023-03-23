@@ -67,6 +67,10 @@ a:hover {
     transition: all 150ms;
 }
 
+a#enterGameBoard{
+    min-width: fit-content;
+}
+
 .bigBox {
     width: 50%;
     margin: 0 auto;
