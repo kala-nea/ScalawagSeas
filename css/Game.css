@@ -68,7 +68,8 @@ button#nextBoat{
 button#makeBoard{
     background-color: #0065c3;
     color: white;
-    height: 2.5vh;
+    /* height: 2.5vh;x */
+    min-height: fit-content;
 }
 
 button#SpeedCruise{
@@ -96,7 +97,7 @@ button {
     display: block;
     position: fixed;
     width: auto;
-    left: 11.5vw;
+    right: 81%;
     bottom: 25px;
 
     font-family: pfefferMediaeval;
