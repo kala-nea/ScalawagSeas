@@ -58,8 +58,10 @@ function MakeBoard(){
     Hex.setAttribute("class","Tile");
     Hex.setAttribute("Src","IMG/Hex.png");
     Hex.setAttribute("clip-path", "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)");
-    Hex.setAttribute("onmouseover","highlight(this.id)");
-    Hex.setAttribute("onmouseleave","unhighlight(this.id)");
+    // Hex.setAttribute("onmouseover","highlight(this.id)");
+    // Hex.setAttribute("onmouseleave","unhighlight(this.id)");
+    // Hex.addEventListener("mouseenter",(e)=>highlight(e.id));
+    // Hex.addEventListener("mouseleave",(e)=>unhighlight(e.id));
     Hex.style.filter ="brightness(1)"
     Hex.style.width="100%"
     Hex.style.zIndex = "0"
@@ -75,9 +77,9 @@ function MakeBoard(){
             HexsInfo[i][j] = [0];
             let SubmitHex = Hex.cloneNode(true);
             SubmitHex.setAttribute(`id`,`col${i}row${j}`);
-            // SubmitHex.setAttribute("onmouseover",`highlight(col${i}row${j})`);
-            // SubmitHex.setAttribute("onmouseleave",`unhighlight(col${i}row${j})`);
             SubmitHex.addEventListener("click",(e) => moveShipClick(e.target.id));
+            SubmitHex.addEventListener("mouseenter",(e)=>highlight(e.target.id));
+            SubmitHex.addEventListener("mouseleave",(e)=>unhighlight(e.target.id));
             if(i%2==0){
                 SubmitHex.style.top = `${100/boardHeight/2}%`;
             }
@@ -91,6 +93,7 @@ function MakeBoard(){
         HexGrid.appendChild(SubmitCol);
     }
     Board.appendChild(HexGrid);
+    setTimeout((e)=>{Board.addEventListener("click",updateMove);},100);
     setTimeout(spaceify,50);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
@@ -204,6 +207,7 @@ function redoShade(){
 
 //highlights the tiles you hover over
 function highlight(id){
+    // console.log(`highlighting: ${id}`)
     let hex = document.getElementById(id);
     if(hex.style.filter == "brightness(1)"){
         hex.style.filter ="brightness(1.8)"
@@ -574,8 +578,9 @@ function moveShade(col,row){
 
 //removes the shading from hexes that can no longer be moved on
 function moveShadent(col,row){
+    let goal;
     try{
-        let goal = document.getElementById(`col${col}row${row+1}`);
+        goal = document.getElementById(`col${col}row${row+1}`);
         goal.style.filter ="brightness(1)";
         goal.style.zIndex = "0"
     }catch{}
@@ -632,7 +637,7 @@ let pastDone = 0;
 let done = 1;
 music.volume = 0.3;
 
-document.addEventListener("click", (e)=>playlist(pastSongNum));
+// document.addEventListener("click", (e)=>playlist(pastSongNum));
 music.addEventListener("ended", check);
 //runs the music through a playlist
 function playlist (x) {
@@ -765,7 +770,9 @@ class Ship{
         pieceStorage.append(shipmake);
         this.ship = document.getElementById(this.id);
         // this.ship.addEventListener("click",(e) => displayAShipsStats(e.target.id.split("Ship").pop()));
-        this.ship.addEventListener("click",(e) => this.clicked());
+        setTimeout((e)=>{
+            this.ship.addEventListener("click",(e) => shipClicked(this.shipNum));
+        },200)
         let desiredHex = document.getElementById(`col${this.shipx}row${this.shipy}`);
         let desiredPos = document.getElementById(`col${this.shipx}row${this.shipy}`).getBoundingClientRect();
         this.ship.style.height = `${desiredHex.height}px`;
@@ -814,6 +821,7 @@ class Ship{
         this.hitpoints = shipTemplate.hitpoints;
         this.identifier.innerText = `Player ${this.team+1}
         ${this.name}`;
+        setShip(this);
     }
     
     //try and move the ship to the esired hex
@@ -848,6 +856,7 @@ class Ship{
             this.moveLeft-=moveCost;
             this.adjustShip();
         }
+        setShip(this);
     }
     
     //repositions the ship and its related sprites
@@ -882,22 +891,24 @@ class Ship{
             moveShadent(this.shipx,this.shipy);
             moveShade(this.shipx,this.shipy);
         }
+        setShip(this);
     }
     //higlights the ship
     selectColor(){
         this.ship.style.filter = "brightness(150%)";
+        setShip(this);
     }
     //unhiglights the ship
     deselectColor(){
         this.ship.style.filter = "brightness(1)";
+        setShip(this);
     }
     //either shoots or displays the stats depending on whether or not another boat is attacking upon being clicked
     clicked(){
         if(firing&&this.id!=teams[activeTeam].ships[activeBoat].id){
             AttackThis(teams[activeTeam].ships[activeBoat], this)
         }else{
-            // this.displayStats();
-            window.setShipMove(this.shipx,this.shipy,this.shipNum);
+            this.displayStats();
         }
     }
     //refills the ammo
@@ -906,6 +917,7 @@ class Ship{
             console.log(ammo[0]);
             ammo[2]=ammo[1];
         }
+        setShip(this);
     }
     //shows the ships stats in the sidebar
     displayStats(){
@@ -996,8 +1008,8 @@ function readyAll(){
         ship.moveType = "Still";
         ship.prevX = ship.shipx;
         ship.prevY = ship.shipy;
-        for(side of ship.Weapons){
-            for(weapon of side){
+        for(let side of ship.Weapons){
+            for(let weapon of side){
                 weapon[3]=weapon[2];
             }
         }
@@ -1131,7 +1143,7 @@ function setAllStats(){
             }
         }
     }
-    addStart();
+    // addStart();
 }
 
 // function shipFromShipyard(){
@@ -1141,6 +1153,10 @@ function setAllStats(){
 //displays the stats of a ship
 function displayAShipsStats(shipsNum){
     ships[shipsNum].displayStats();
+}
+
+function shipClicked(num){
+    ships[num].clicked()
 }
 
 
@@ -1187,11 +1203,13 @@ function moveShipClick(id){
         unhighlight(id)
         moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
         moveShip(location[0],location[1],teams[activeTeam].ships[activeBoat].shipNum)
+        setShip(this);
     }
 }
 
 //postions the turning arrows
 function repositionArrows(){
+    // console.log(teams[activeTeam].ships[activeBoat].moveType);
     if(teams[activeTeam].ships[activeBoat].moveLeft<teams[activeTeam].ships[activeBoat].turnCost||teams[activeTeam].ships[activeBoat].hitpoints[7][1]<0){
         LeftArrow.style.visibility = "hidden";
         RightArrow.style.visibility = "hidden";
@@ -1417,14 +1435,14 @@ function adjustHitPNG(defender){
     sourcex = defender.ship.getBoundingClientRect().left+defender.ship.getBoundingClientRect().width/2;
     sourcey = defender.ship.getBoundingClientRect().top+defender.ship.getBoundingClientRect().height/2;
 
-    attackx = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
-    attacky = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
+    let attackx = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
+    let attacky = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
 
     offsetx = sourcex-attackx
     // console.log("offsetx: ",offsetx);
     offsety = sourcey-attacky
     // rotationHit = angle-30-90-(teams[activeTeam].ships[activeBoat].rotation*60)
-    rotationHit = Math.atan2(offsety,offsetx)/Math.PI*180+30;
+    let rotationHit = Math.atan2(offsety,offsetx)/Math.PI*180+30;
     while(rotationHit>180||rotationHit<-180){
         if(rotationHit>180){
             rotationHit-=360;
@@ -1535,13 +1553,13 @@ function AttackThis(attacker, defender){
     angle += teams[activeTeam].ships[activeBoat].rotation*60
     // console.log(`*: ${angle}`);
 
-
     if(InView(attacker, defender)){
+        console.log("ahh")
         // console.log("clicked");
         let ammoRemains = false;
         let damage
         if(selectedAmmo!=""){
-            for(ammo of attacker.ammo){
+            for(let ammo of attacker.ammo){
                 if(ammo[2]>0&&ammo[0]==selectedAmmo){
                     ammoRemains = true;
                     ammo[2]--;
@@ -1588,6 +1606,7 @@ function AttackThis(attacker, defender){
 // checks if the opponet is in the angle and range of the selected weapon
 function InView(attacker, defender){
     let canHit = true;
+    let range;
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
     if (angle>180){
         angle-=360;
@@ -1614,7 +1633,7 @@ function InView(attacker, defender){
             canHit=false
         }
     }
-
+    // console.log(canHit+"1")
     try{
         for(let i=0;i<ammoTypes.length;i++){
             if(ammoTypes[i]==selectedAmmo){
@@ -1631,6 +1650,7 @@ function InView(attacker, defender){
         }
         range = range[2]*((hexRef.height*0.75));
     }catch{}
+    // console.log(canHit+"2")
     try{
         if(offset<range){
         }else{
@@ -1639,6 +1659,7 @@ function InView(attacker, defender){
     }catch{
         canHit=false
     }
+    // console.log(canHit+"3")
 
     return canHit;
 }
@@ -1654,7 +1675,7 @@ function willItHit(attacker,defender){
         if(ammoTypes[i]==selectedAmmo){
             for(let j=0;j<poundages.length;j++){
                 if(poundages[j]==attacker.Weapons[firingSide][firingWeapon][1]){
-                    range = ammoRanges[i][j];
+                    let range = ammoRanges[i][j];
                     // console.log(`short ${range[0]*((hexRef.height*0.75))}`);
                     // console.log(`med ${range[1]*((hexRef.height*0.75))}`);
                     // console.log(`long ${range[2]*((hexRef.height*0.75))}`);
@@ -1700,7 +1721,7 @@ function willItHit(attacker,defender){
     }
 
 
-    defhex = document.getElementById(`col${defender.shipx}row${defender.shipy}`);
+    let defhex = document.getElementById(`col${defender.shipx}row${defender.shipy}`);
     if(defhex.getAttribute("Src") == "IMG/hex_island.png"){
         ToBeat+=2;
     }else if(defhex.getAttribute("Src") == "IMG/hex_rocks.png"){
@@ -1721,6 +1742,7 @@ function Hit(damage,clusterSize,target){
             console.log(`doing ${Math.min(clusterSize,(damage-clusterSize*i))} to ${location}`)
         }
     }
+    setShip(target);
 }
 
 
@@ -1751,19 +1773,7 @@ if(window.localStorage.getItem('numberOfShips') == null){
 window.localStorage.setItem('numberOfShips', numberOfShips);
 
 
-// function removeBoardMake(){
-//     clearSidebar()
-// }
-
-// function addBoatMake(){
-//     sidebar = document.getElementById("SideBarContent");
-//     sidebar.innerHTML = sidebar.innerHTML.concat(`<input type="number" id="teams" placeholder="teams" value="2">\n                <input type="number" id="boatCountPer" placeholder="boats per team" value="3">\n                         <button id="makeBoard" onclick="makeBoats()">Build boats</button>\n`);
-// }
-
-// function removeBoatMake(){
-//     clearSidebar()
-// }
-
+let GameControls;
 
 //adds ship selection and the start button
 function addStart(){
@@ -1777,8 +1787,14 @@ function addStart(){
     }
     sidebar.innerHTML+=`<datalist id="ShipList">
                     </datalist>`;
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="multiplayerTest" >multi</button>\n`);
+    // let startButton = document.createElement('button');
+    // startButton.id = `makeBoard`;
+    // startButton.innerText = "start";
+    // startButton.addEventListener("click",startGame);
+    // sidebar.appendChild(startButton);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard">start</button>\n`);
+    // console.log(document.getElementById("makeBoard"));
+    setTimeout((e)=>{document.getElementById("makeBoard").addEventListener("click",startGame)},100);
     // console.log(`made button`);
     let ShipList = document.getElementById("ShipList");
     for(let i = 0;i<window.localStorage.getItem('numberOfShips');i++){
@@ -1801,12 +1817,14 @@ function removeStart(){
 //adds the movement phase info
 function addMoveProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n         <img id="phaseIndicator" src="/IMG/indicator_phase_move.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" onClick="nextBoatMove()">Finish Turn</button>`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n         <img id="phaseIndicator" src="/IMG/indicator_phase_move.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" >Finish Turn</button>`);
+    document.getElementById("nextBoat").addEventListener("click",nextBoatMove);
 }
 //adds the attack phase info
 function addAttackProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n          <img id = "phaseIndicator" src="/IMG/indicator_phase_battle.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n       <p id="firingWeapon">Firing:</p>\n    <p id="firingAmmo">With:</p>\n         <button id="nextBoat" onClick="nextBoatAttack()">Finish Turn</button>   `);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n          <img id = "phaseIndicator" src="/IMG/indicator_phase_battle.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n       <p id="firingWeapon">Firing:</p>\n    <p id="firingAmmo">With:</p>\n         <button id="nextBoat">Finish Turn</button>   `);
+    document.getElementById("nextBoat").addEventListener("click",nextBoatAttack);
 }
 
 //clears the sidebars main section
@@ -1820,11 +1838,15 @@ function clearSidebar(){
 function setSpeedSelection(){
     GameControls = document.getElementById("GameControls");
     if(teams[activeTeam].ships[activeBoat].hitpoints[6][1]>0){
-        GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" onClick="setSpeed(0)">Cruise</button>
-        <button class="SpeedSet" id = "SpeedFullSteam" onClick="setSpeed(1)">Full Steam</button>
-        <button class="SpeedSet" id = "SpeedFlank" onClick="setSpeed(2)">Flank</button>`);
+        GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" >Cruise</button>
+        <button class="SpeedSet" id = "SpeedFullSteam" >Full Steam</button>
+        <button class="SpeedSet" id = "SpeedFlank" >Flank</button>`);
+        document.getElementById("SpeedCruise").addEventListener("click",(e)=>setSpeed(0))
+        document.getElementById("SpeedFullSteam").addEventListener("click",(e)=>setSpeed(1))
+        document.getElementById("SpeedFlank").addEventListener("click",(e)=>setSpeed(2))
     }else{
-        GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" onClick="setSpeed(0)">Cruise</button>`);
+        GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" >Cruise</button>`);
+        document.getElementById("SpeedCruise").addEventListener("click",(e)=>setSpeed(0))
     }
     setTimeout((e) => adjustAll(),100)
 }
@@ -1838,28 +1860,39 @@ function setAttackButtons(){
         }
         for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[0].length&&teams[activeTeam].ships[activeBoat].hitpoints[1][1]>0;i++){
         GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[0][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[0][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}`;
-        GameControls.innerHTML+=`<button id="FireSide0Weapon${i}" onclick="FireWeapon(0,${i})">Select</button><br>`;
-        
+        GameControls.innerHTML+=`<button id="FireSide0Weapon${i}" >Select</button><br>`;
+        setTimeout((e)=>{
+            document.getElementById(`FireSide0Weapon${i}`).addEventListener("click",(e)=>FireWeapon(0,i));
+        },100)
     }
     if(teams[activeTeam].ships[activeBoat].Weapons[1].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0){
         GameControls.innerHTML+=`Port:<hr class ="smallDivider">`;
     }
     for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[1].length&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0;i++){
         GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[1][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[1][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[1][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}`;
-        GameControls.innerHTML+=`<button id="FireSide1Weapon${i}" onclick="FireWeapon(1,${i})">Select</button><br>`;
+        GameControls.innerHTML+=`<button id="FireSide1Weapon${i}" >Select</button><br>`;
+        setTimeout((e)=>{
+            document.getElementById(`FireSide1Weapon${i}`).addEventListener("click",(e)=>FireWeapon(1,i));
+        },100)
     }
     if(teams[activeTeam].ships[activeBoat].Weapons[2].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0){
         GameControls.innerHTML+=`<br>Starboard:<hr class ="smallDivider">`;
     }
     for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[2].length&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0;i++){
         GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[2][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[2][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[2][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}`;
-        GameControls.innerHTML+=`<button id="FireSide2Weapon${i}" onclick="FireWeapon(2,${i})">Select</button><br>`;
+        GameControls.innerHTML+=`<button id="FireSide2Weapon${i}" >Select</button><br>`;
+        setTimeout((e)=>{
+            document.getElementById(`FireSide2Weapon${i}`).addEventListener("click",(e)=>FireWeapon(2,i));
+        },100)
     }
     GameControls.innerHTML+=`<hr class="bigDivider">`;
     GameControls.innerHTML+=`<h3>Ammo:</h3>`;
     for(let i=0;i<teams[activeTeam].ships[activeBoat].ammo.length;i++){
         GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}`;
-        GameControls.innerHTML+=`<button id="SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}" onclick="selectAmmo('${teams[activeTeam].ships[activeBoat].ammo[i][0]}')">Select</button><br>`;
+        GameControls.innerHTML+=`<button id="SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}" >Select</button><br>`;
+        setTimeout((e)=>{
+            document.getElementById(`SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}`).addEventListener("click",(e)=>selectAmmo(teams[activeTeam].ships[activeBoat].ammo[i][0]));
+        },100)
     }
     GameControls.innerHTML+=`<hr class="bigDivider">`;
     let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
@@ -1944,9 +1977,10 @@ let teams = [];
 
 //object for a team
 class Team{
-    constructor(ships = [],teamNum){
+    constructor(ships = [],teamNum,hash){
      this.ships = ships;
      this.teamNum = teamNum;
+     this.hash = hash;
      teams.push(this); 
     }
 }
@@ -1964,7 +1998,9 @@ function shuffleTeams(){
     teams[teams.length - 1] = temp;
 }
 
-
+function setTeamhash(teamNum,hash){
+    teams[teamNum].hash=hash
+}
 
 
 
@@ -1984,6 +2020,7 @@ let activeBoat=0;
 
 //starts the game
 function startGame(){
+    // console.log("starting")
     if(shipsAreSelected()){
         setAllStats();
         removeStart();
@@ -2147,6 +2184,8 @@ function StartAttackPhase(){
     firingWeapon = "";
     firingSide="";
     selectedAmmo="";
+    LeftArrow.style.visibility = "hidden";
+    RightArrow.style.visibility = "hidden";
     clearSidebar();
     // readyAll()
     activeTeam = 0;
@@ -2209,7 +2248,7 @@ const config = {appId: 'ScalawagSeas'};
 const room = joinRoom(config, 'Match0');
 const [sendName, getName] = room.makeAction('name');
 const [sendMsg, getMsg] = room.makeAction('message');
-const [sendShipMove, getShipMove] = room.makeAction('moveShip');
+const [sendShip, getShip] = room.makeAction('ShipUpdate');
 
 const idsToNames = {}; // map of peer ids to names
 // const nameInput = document.getElementById('nameInput');
@@ -2308,15 +2347,17 @@ getMsg((message, peerId) => {
 });
 
 // document.getElementById("multiplayer test").addEventListener("click",(e) => setShipMove(2,3,1));
-setTimeout(() =>{document.getElementById("multiplayerTest").addEventListener("click",(e) => setShipMove(2,3,1));},200)
 
 
-function setShipMove(x,y,shipNum){
-  console.log([x,y,shipNum])
-  sendShipMove([x,y,shipNum])
+function setShip(ship){
+  console.log(ship)
+  sendShip(ship)
 }
 
 
-getShipMove((data,peerId) => {
-    console.log(`move ship ${data[2]} to ${data[0]} ${data[1]}`);
+getShip((ship,peerId) => {
+    console.log(`receive: ${ship.shipNum}`)
+    ships[ship.shipNum]=ship;
+    ships[ship.shipNum].adjustShip();
+    console.log(ships[ship.shipNum]);
 });

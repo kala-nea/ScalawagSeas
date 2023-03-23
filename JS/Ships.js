@@ -75,7 +75,7 @@ class Ship{
     //creates the ship sprite and related sprites
     makeShip(){
         let shipmake = document.createElement("img");
-        console.log(this.sprite);
+        // console.log(this.sprite);
         shipmake.setAttribute("src",this.sprite);
         shipmake.setAttribute("class","Ship");
         shipmake.setAttribute("id",this.id);

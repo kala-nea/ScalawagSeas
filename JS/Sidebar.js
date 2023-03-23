@@ -37,7 +37,7 @@ function addStart(){
                     </datalist>`;
     sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
     sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="multiplayerTest" >multi</button>\n`);
-    console.log(`made button`);
+    // console.log(`made button`);
     ShipList = document.getElementById("ShipList");
     for(let i = 0;i<window.localStorage.getItem('numberOfShips');i++){
         let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
