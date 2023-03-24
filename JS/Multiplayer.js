@@ -1,4 +1,25 @@
 
+let hosting =window.localStorage.getItem('Hosting')
+console.log(`hosting ${typeof(hosting)}`)
+
+console.log(`hosting works ${hosting=="true"}`);
+
+
+
+let builtIn = [
+    "{\"movePower\":[9,13,18],\"crowsNest\":false,\"sprite\":\"IMG/Sampan.png\",\"name\":\"Kori's Sampan\",\"tonnage\":25,\"turnCost\":0,\"weightclass\":\"Corvette\",\"Weapons\":[[],[[\"Cannon\",8,6]],[[\"Cannon\",8,6]]],\"ammo\":[[\"Round Shot\",50,50],[\"Grape Shot\",10,10],[\"Chain Shot\",0,0]],\"captainSkill\":3,\"hitpoints\":[[13,13,0],[15,15,0],[15,15,0],[19,19,0],[19,19,0],[18,18,0],[13,13,0],[9,9,0]]}",
+    "{\"movePower\":[8,12,16],\"crowsNest\":false,\"sprite\":\"IMG/catboat.png\",\"name\":\"Kirk's Catboat\",\"tonnage\":30,\"turnCost\":0,\"weightclass\":\"Corvette\",\"Weapons\":[[],[[\"Cannon\",8,1],[\"Long Nine\",9,2]],[[\"Cannon\",8,1],[\"Long Nine\",9,2]]],\"ammo\":[[\"Round Shot\",10,10],[\"Grape Shot\",20,20],[\"Chain Shot\",0,0]],\"captainSkill\":3,\"hitpoints\":[[18,18,0],[20,20,0],[20,20,0],[24,24,0],[24,24,0],[20,20,0],[18,18,0],[11,11,0]]}",
+    "{\"movePower\":[7,11,14],\"crowsNest\":false,\"sprite\":\"IMG/Lugger.png\",\"name\":\"Pettit's Lugger\",\"tonnage\":40,\"turnCost\":1,\"weightclass\":\"Cruiser\",\"Weapons\":[[],[[\"Cannon\",8,2],[\"Long Nine\",8,1],[\"Carronade\",18,1]],[[\"Cannon\",8,2],[\"Long Nine\",8,1],[\"Carronade\",18,1]]],\"ammo\":[[\"Round Shot\",20,20],[\"Grape Shot\",10,10],[\"Chain Shot\",10,10]],\"captainSkill\":3,\"hitpoints\":[[31,31,0],[33,33,0],[33,33,0],[37,37,0],[37,37,0],[36,36,0],[31,31,0],[18,18,0]]}",
+    "{\"movePower\":[7,10,14],\"crowsNest\":false,\"sprite\":\"IMG/cutter.png\",\"name\":\"Salam's Cutter\",\"tonnage\":50,\"turnCost\":1,\"weightclass\":\"Cruiser\",\"Weapons\":[[[\"Long Nine\",8,1]],[[\"Carronade\",18,2]],[[\"Carronade\",18,2]]],\"ammo\":[[\"Round Shot\",20,20],[\"Grape Shot\",5,5],[\"Chain Shot\",0,0]],\"captainSkill\":3,\"hitpoints\":[[41,41,0],[43,43,0],[43,43,0],[47,47,0],[47,47,0],[39,39,0],[41,41,0],[22,22,0]]}",
+    "{\"movePower\":[6,8,11],\"crowsNest\":false,\"sprite\":\"IMG/galleon.png\",\"name\":\"Stockdale's Galleon\",\"tonnage\":60,\"turnCost\":2,\"weightclass\":\"Destroyer\",\"Weapons\":[[[\"Long Nine\",9,1]],[[\"Carronade\",18,2]],[[\"Carronade\",18,2]]],\"ammo\":[[\"Round Shot\",25,25],[\"Grape Shot\",0,0],[\"Chain Shot\",0,0]],\"captainSkill\":3,\"hitpoints\":[[51,51,0],[53,53,0],[53,53,0],[57,57,0],[57,57,0],[52,52,0],[51,51,0],[26,26,0]]}",
+    "{\"movePower\":[6,8,10],\"crowsNest\":false,\"sprite\":\"IMG/schooner.png\",\"name\":\"Olsen's Schooner\",\"tonnage\":65,\"turnCost\":2,\"weightclass\":\"Destroyer\",\"Weapons\":[[[\"Long Nine\",9,1],[\"Cannon\",8,1]],[[\"Cannon\",24,1],[\"Carronade\",24,1]],[[\"Cannon\",24,1],[\"Carronade\",24,1]]],\"ammo\":[[\"Round Shot\",20,20],[\"Grape Shot\",10,10],[\"Chain Shot\",0,0]],\"captainSkill\":3,\"hitpoints\":[[56,56,0],[59,59,0],[59,59,0],[62,62,0],[62,62,0],[53,53,0],[56,56,0],[28,28,0]]}",
+    "{\"movePower\":[5,6,8],\"crowsNest\":false,\"sprite\":\"IMG/brig.png\",\"name\":\"Cox's Brig\",\"tonnage\":80,\"turnCost\":3,\"weightclass\":\"Dreadnought\",\"Weapons\":[[[\"Long Nine\",9,2]],[[\"Carronade\",24,2]],[[\"Carronade\",24,2]]],\"ammo\":[[\"Round Shot\",30,30],[\"Grape Shot\",0,0],[\"Chain Shot\",0,0]],\"captainSkill\":3,\"hitpoints\":[[88,88,0],[90,90,0],[90,90,0],[94,94,0],[94,94,0],[81,81,0],[88,88,0],[48,48,0]]}",
+    "{\"movePower\":[5,6,9],\"crowsNest\":false,\"sprite\":\"IMG/barque.png\",\"name\":\"Day's Barque\",\"tonnage\":90,\"turnCost\":3,\"weightclass\":\"Dreadnought\",\"Weapons\":[[[\"Long Nine\",9,2]],[[\"Carronade\",18,1],[\"Paixhan\",32,1]],[[\"Carronade\",18,1],[\"Paixhan\",32,1]]],\"ammo\":[[\"Round Shot\",20,20],[\"Grape Shot\",0,0],[\"Chain Shot\",10,10]],\"captainSkill\":3,\"hitpoints\":[[99,99,0],[101,101,0],[101,101,0],[105,105,0],[105,105,0],[86,86,0],[99,99,0],[53,53,0]]}",
+    "{\"movePower\":[3,5,6],\"crowsNest\":true,\"sprite\":\"IMG/frigate.png\",\"name\":\"Aguilera's Frigate\",\"tonnage\":130,\"turnCost\":3,\"weightclass\":\"Super Dreadnought\",\"Weapons\":[[[\"Long Nine\",9,2],[\"Cannon\",9,1]],[[\"Carronade\",24,2]],[[\"Carronade\",24,2]]],\"ammo\":[[\"Round Shot\",25,25],[\"Grape Shot\",10,10],[\"Chain Shot\",0,0]],\"captainSkill\":3,\"hitpoints\":[[137,137,0],[139,139,0],[139,139,0],[143,143,0],[143,143,0],[119,119,0],[137,137,0],[70,70,0]]}"
+]
+
+
+
 
 // let BoardXIn = document.getElementById("BoardX");
 // let BoardYIn = document.getElementById("BoardY");
@@ -24,6 +45,7 @@ setTimeout(MakeBoard,1);
 setTimeout((e) =>makeBoats(),200);
 setTimeout((e) =>AdjustBoard(),200);
 setTimeout((e) =>AdjustBoard(),310);
+setTimeout((e) =>AdjustBoard(),500);
 setTimeout((e) => adjustAll(),300)
 setTimeout((e) => adjustAll(),3000)
 
@@ -784,8 +806,9 @@ class Ship{
         this.identifier = document.createElement("p");
         this.identifier.setAttribute("id",`IdentifierFor${this.id}`);
         this.identifier.setAttribute("class",`Identifier`);
-        this.identifier.innerText = `Player ${this.team+1} 
-        Boat ${teams[this.team].ships.length+1}`;
+        this.identification=`Player ${this.team+1} 
+        Boat ${teams[this.team].ships.length+1}`
+        this.identifier.innerText = this.identification;
         // this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
         this.identifier.style.width = "fit-content"
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-Math.max(desiredHex.width/2,37.5)}px`;
@@ -798,6 +821,7 @@ class Ship{
 
     //set the stats of the ship from a preset
     setStats(shipTemplate){
+        
         this.movePower = shipTemplate.movePower;
         this.crowsNest = shipTemplate.crowsNest;
         this.name = shipTemplate.name;
@@ -819,9 +843,46 @@ class Ship{
         //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
         //[max,ammountLeft, incoming]
         this.hitpoints = shipTemplate.hitpoints;
-        this.identifier.innerText = `Player ${this.team+1}
-        ${this.name}`;
+        this.identification=`Player ${this.team+1}
+        ${this.name}`
+        this.identifier.innerText = this.identification;
         setShip(this);
+    }
+
+    setStatsMulti(shipTemplate){
+        this.shipx = shipTemplate.shipx;
+        this.shipy = shipTemplate.shipy;
+        this.prevX = shipTemplate.prevX;
+        this.prevY = shipTemplate.prevY;
+        this.rotation = shipTemplate.rotation;
+        this.team = shipTemplate.team 
+        this.id = shipTemplate.id
+        this.moveLeft = shipTemplate.moveLeft;
+        this.moveType = shipTemplate.moveType;
+        this.exhausted = shipTemplate.exhausted;
+        this.alive = shipTemplate.alive;
+
+
+        this.movePower = shipTemplate.movePower;
+        this.crowsNest = shipTemplate.crowsNest;
+        this.name = shipTemplate.name;
+        this.tonnage = shipTemplate.tonnage;
+        this.weightclass =shipTemplate.weightclass;
+        this.turnCost = shipTemplate.turnCost;
+        //bow,port,starboard
+        //type,weight,quantity,quantityLeft
+        this.Weapons= shipTemplate.Weapons;
+        //[type,max,ammountLeft]
+        this.ammo=shipTemplate.ammo;
+
+        this.sprite = shipTemplate.sprite;
+        this.ship.setAttribute("src",this.sprite);
+        this.captainSkill = shipTemplate.captainSkill;
+        //bridge,Bow,aft,Port,starboard,bilge,mast,Rudder
+        //[max,ammountLeft, incoming]
+        this.hitpoints = shipTemplate.hitpoints;
+        this.identification=shipTemplate.identification
+        this.identifier.innerText = this.identification;
     }
     
     //try and move the ship to the esired hex
@@ -867,6 +928,7 @@ class Ship{
         this.ship.style.width = `${desiredHex.width}px`;
         this.ship.style.left = `${desiredPos.left}px`;
         this.ship.style.top = `${desiredPos.top}px`;
+        this.ship.style.transform = `rotate(${360/6*this.rotation}deg)`
         // this.identifier.style.width = `${Math.max(desiredHex.width,75)}px`;
         this.identifier.style.width = "fit-content";
         this.identifier.style.left = `${desiredPos.left+desiredHex.width/2-this.identifier.getBoundingClientRect().width/2}px`;
@@ -1136,7 +1198,7 @@ function makeBoats(){
 function setAllStats(){
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
-            for(let k = 0;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
+            for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
                 if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
                     teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${k}`)))
                 }
@@ -1797,7 +1859,10 @@ function addStart(){
     setTimeout((e)=>{document.getElementById("makeBoard").addEventListener("click",startGame)},100);
     // console.log(`made button`);
     let ShipList = document.getElementById("ShipList");
-    for(let i = 0;i<window.localStorage.getItem('numberOfShips');i++){
+    for(let i =0;i<builtIn.length;i++){
+        window.localStorage.setItem(`ship${-(i+1)}`,builtIn[i]);
+    }
+    for(let i = -builtIn.length;i<window.localStorage.getItem('numberOfShips');i++){
         let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
         let shipItem = document.createElement("option");
         shipItem.setAttribute("id",`Ship${i}`);
@@ -1977,10 +2042,10 @@ let teams = [];
 
 //object for a team
 class Team{
-    constructor(ships = [],teamNum,hash){
+    constructor(ships = [],teamNum){
      this.ships = ships;
      this.teamNum = teamNum;
-     this.hash = hash;
+     this.hash = null;
      teams.push(this); 
     }
 }
@@ -2036,7 +2101,7 @@ function shipsAreSelected(){
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
             let isValid = false
-            for(let k = 0;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
+            for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
                 if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
                     isValid = true
                 }
@@ -2245,10 +2310,20 @@ function StartAttackPhase(){
 
 import { joinRoom, selfId } from 'https://cdn.skypack.dev/trystero/ipfs';
 const config = {appId: 'ScalawagSeas'};
-const room = joinRoom(config, 'Match0');
+let room
+if(hosting=="true"){
+    console.log(`Match${selfId}`);
+    console.log(`hosting`)
+    room = joinRoom(config, `Match${selfId}`);
+}else{
+    console.log(`Match${window.localStorage.getItem('savedJoinCode')}`);
+    console.log(`hostint`)
+    room = joinRoom(config, `Match${window.localStorage.getItem('savedJoinCode')}`);
+}
 const [sendName, getName] = room.makeAction('name');
 const [sendMsg, getMsg] = room.makeAction('message');
 const [sendShip, getShip] = room.makeAction('ShipUpdate');
+const [sendTeamsH, getTeamsH] = room.makeAction('TeamHash');
 
 const idsToNames = {}; // map of peer ids to names
 // const nameInput = document.getElementById('nameInput');
@@ -2265,10 +2340,21 @@ function randomHash() {
 }
 
 
+setTimeout(
+    ()=>{
+        if(hosting=="true"){
+            teams[0].hash=selfId;
+        }
+    },200
+);
+
 // listen to peer activity
 room.onPeerJoin( (peerId) => {
     console.log(`${peerId} joined`);
     sendName(`${myName} #${selfId.substring(0, 4)}`, peerId); // tell newcomers our name
+    if(hosting=="true"){
+        sendTeamsH(teams);
+    }
     //appendMessage('', peerId);
 });
 
@@ -2346,18 +2432,44 @@ getMsg((message, peerId) => {
   // appendMessage(message, peerId);
 });
 
-// document.getElementById("multiplayer test").addEventListener("click",(e) => setShipMove(2,3,1));
-
 
 function setShip(ship){
-  console.log(ship)
-  sendShip(ship)
+    console.log(ship)
+    sendShip(ship)
 }
 
 
 getShip((ship,peerId) => {
-    console.log(`receive: ${ship.shipNum}`)
-    ships[ship.shipNum]=ship;
+    console.log(ship);
+    console.log(ship.shipNum);
+    ships[ship.shipNum].setStatsMulti(ship);
     ships[ship.shipNum].adjustShip();
     console.log(ships[ship.shipNum]);
+    // console.log(`set to: ${ships[ship.shipNum]}`)
 });
+
+getTeamsH(
+    (teamsIn,peerId) => {
+        teams=teamsIn
+        if(hosting=="false"){
+            let selected = false;
+            for(let i = 0;i<teams.length&&selected==false;i++){
+                if(teams[i].hash==selfId){
+                    selected = true;
+                }
+            }
+            for(let i = 0;i<teams.length&&selected==false;i++){
+                if(teams[i].hash==null){
+                    teams[i].hash==selfId
+                    sendTeamsH(teams);
+                }
+            }
+        }
+    }
+)
+
+
+
+
+
+
