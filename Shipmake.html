@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Your Ship - Scalawag Seas</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="../IMG/logoIcon.PNG">
 </head>
 <body>
     
@@ -43,6 +44,7 @@
                     <option value="5">Schooner</option>
                     <option value="6">Brig</option>
                     <option value="7">Barque</option>
+                    <option value="8">Frigate</option>
                 </select>
             </section>
 
@@ -113,11 +115,7 @@
                 </section>
 
                 <section class="horizontal">
-                    <h4>Add Crow's Nest</h4>
-                    <button id="addCNButton">Add</button>
-                </section>
-
-                <section class="horizontal">
+                    <button id="addCNButton">Add - 2pts from Port and Starboard</button>
                     <button onclick="CNReset()">Remove Crow's Nest</button>
                 </section>
             </section>
@@ -129,9 +127,7 @@
                 </section>
 
                 <section class="horizontal">
-                    <h4>Add</h4>
                     <select name="" id="armorType"></select>
-                    <h4>to</h4>
                     <select name="" id="armorArea">
                         <option value="0">Bridge</option>
                         <option value="1">Bow</option>
@@ -156,10 +152,8 @@
                 </section>
 
                 <section class="horizontal">
-                    <h4>Add</h4>
                     <select name="" id="weaponTypeB"></select>
                     <select name="" id="weaponLbB"></select>
-                    <h4>with</h4>
                     <select name="" id="weaponAmmoB">
                     </select>
                     <button id="addWeaponButtonB">Add</button>
@@ -171,10 +165,8 @@
                 </section>
 
                 <section class="horizontal">
-                    <h4>Add</h4>
                     <select name="" id="weaponTypeP"></select>
                     <select name="" id="weaponLbP"></select>
-                    <h4>with</h4>
                     <select name="" id="weaponAmmoP">
                     </select>
                     <button id="addWeaponButtonP">Add</button>
@@ -186,10 +178,8 @@
                 </section>
 
                 <section class="horizontal">
-                    <h4>Add</h4>
                     <select name="" id="weaponTypeS"></select>
                     <select name="" id="weaponLbS"></select>
-                    <h4>with</h4>
                     <select name="" id="weaponAmmoS">
                     </select>
                     <button id="addWeaponButtonS">Add</button>
@@ -205,15 +195,15 @@
                 <h2>Weaponry added</h2>
                 <section class="horizontal">
                     <section class="box">
-                        <h3>Bow</h3>
+                        <h3>Bow (Limit 3 Weapons)</h3>
                         <section id="bowWeaponTable"></section>
                     </section>
                     <section class="box">
-                        <h3>Port</h3>
+                        <h3>Port (Limit 6 Weapons)</h3>
                         <section id="portWeaponTable"></section>
                     </section>
                     <section class="box">
-                        <h3>Starboard</h3>
+                        <h3>Starboard (Limit 6 Weapons)</h3>
                         <section id="starboardWeaponTable"></section>
                     </section>
                     <section class="box">
@@ -240,7 +230,7 @@
         <button onclick="saveBoatToLocal()">Save Your Ship</button>
         <a href="shipyard.html">Return to Shipyard</a>
     </main>
-
-    <script src="JS/app.js"></script>
+    <script type="text/javascript" src="JS/builtInShips.js"></script>
+    <script type="text/javascript" src="JS/app.js"></script>
 </body>
 </html>

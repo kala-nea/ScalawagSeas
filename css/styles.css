@@ -8,6 +8,11 @@ body {
     src: url(../css/blackchancery.regular.ttf);
 }
 
+@font-face {
+    font-family: pfefferMediaeval;
+    src: url(../css/pfeffer-mediaeval.regular.otf);
+}
+
 * {
     font-family: blackChancery;
     font-size: 18px;
@@ -25,6 +30,10 @@ a {
 p,
 h4 {
     font-size: 25px;
+}
+
+p {
+    font-family: pfefferMediaeval;
 }
 
 h3 {
@@ -68,10 +77,12 @@ a {
     background-color: rgba(0, 0, 0, 0.2);
     border: solid 1px black;
     color: antiquewhite;
+    font-family: pfefferMediaeval;
 }
 
 option {
-    background: rgba(0, 0, 0, 1);;
+    background: rgba(0, 0, 0, 1);
+    font-family: pfefferMediaeval;
 }
 
 button.nextBoat{
@@ -120,7 +131,23 @@ img {
     margin: 0 20%;
 }
 
-@media screen and (max-width: 1573px) {
+@media screen and (max-width: 1238px) {
+    article {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .box {
+        width: 40%;
+    }
+
+    img {
+        width: 25%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 816px) {
     article {
         display: flex;
         flex-wrap: wrap;
@@ -128,5 +155,10 @@ img {
     
     .box {
         width: 100%;
+    }
+
+    img {
+        width: 25%;
+        margin: 0 auto;
     }
 }

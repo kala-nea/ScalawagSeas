@@ -8,6 +8,11 @@ body {
     src: url(../css/blackchancery.regular.ttf);
 }
 
+@font-face {
+    font-family: pfefferMediaeval;
+    src: url(../css/pfeffer-mediaeval.regular.otf);
+}
+
 * {
     font-family: blackChancery;
     font-size: 16px;
@@ -25,6 +30,8 @@ a {
 p,
 h4 {
     font-size: 25px;
+    font-family: pfefferMediaeval;
+    text-shadow: 0 0 2px black;
 }
 
 h3 {
@@ -33,9 +40,13 @@ h3 {
     margin-top: 20px;
 }
 
-h2 {
-    font-size: 40px;
+h2,
+a {
+    font-size: 50px;
     margin-top: 10px;
+    text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
+    text-align: center;
+    margin: 0 auto;
 }
 
 header {
@@ -44,8 +55,7 @@ header {
     justify-content: center;
 }
 
-h1,
-a {
+h1 {
     margin: 0 auto;
     font-size: 65px;
     text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
@@ -53,8 +63,8 @@ a {
 }
 h1 {
     font-size: 128px;
-    position:absolute;
-    top: -200px;
+    position: fixed;
+    top: -2000px;
 }
 
 a {
@@ -68,7 +78,6 @@ a {
 img {
     margin: 0 auto;
     width: 40%;
-    
 }
 
 a:hover {

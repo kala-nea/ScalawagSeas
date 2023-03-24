@@ -102,3 +102,11 @@ ResupplyIn.addEventListener("change",setRs);
 function setRs(){
     window.localStorage.setItem('ResupplyCount',ResupplyIn.value);
 }
+
+let nxtPg = document.getElementById("nxtPg");
+nxtPg.addEventListener("click", (evt) => {
+    if ((parseInt(PlayerCountIn.value) * parseInt(BoatCountIn.value)) >= (parseInt(BoardXIn.value) * parseInt(BoardYIn.value)) / 2) {
+        alert("There are too many players for the current board dimensions. Please decrease the number of players or increase the size of the board.");
+        evt.preventDefault();
+    }
+});

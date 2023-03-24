@@ -1,3 +1,5 @@
+
+// List of stats for eah ship tonnage (tonnage, class, health values, armor limit, weaponry limits, speeds)
 statsByTon = [
     [20,  "Corvette",          4,  6,  6,  10, 10, 6,  4,  3, 30,  0, 5,  5,  10, 15, 20],
     [25,  "Corvette",          7,  9,  9,  13, 13, 8,  7,  3, 44,  0, 6,  6,  9,  13, 18],
@@ -24,18 +26,22 @@ statsByTon = [
     [155, "Super-Dreadnought", 85, 87, 87, 91, 91, 60, 85, 3, 408, 9, 15, 15, 2,  3,  4]
 ]
 
+// sets the options of the tonnage dropdown to those in the stat table
 let tonnageTable = document.getElementById("tonnageTable");
 for (ton in statsByTon) {
+    // creates the option
     let newRow = document.createElement("option")
+    // sets the text of the option to the corresponding index
     newRow.setAttribute("value", ton);
     newRow.textContent = statsByTon[ton][0];
+    // places option in dropdown
     tonnageTable.appendChild(newRow);
 }
 
 // daniel says hi :>
 
 
-
+// updates base healths, armor limit, weapon limits, and resets armor and weapons when tonnage is changed
 tonnageTable.addEventListener("change", setValues);
 tonnageTable.addEventListener("change", getArmorOptions);
 tonnageTable.addEventListener("change", getWeaponOptions);
@@ -45,6 +51,7 @@ tonnageTable.addEventListener("change", getWeaponSpecs);
 // tonnageTable.addEventListener("change", getWeaponOptionsS1);
 // tonnageTable.addEventListener("change", getWeaponOptionsS2);
 
+// gets the html elements for each stat display
 let wcDisplay = document.getElementById("wcDisplay");
 
 let cpDisplay = document.getElementById("cpDisplay");
@@ -65,6 +72,7 @@ let wlDisplayB = document.getElementById("wlDisplayB");
 let wlDisplayP = document.getElementById("wlDisplayP");
 let wlDisplayS = document.getElementById("wlDisplayS");
 
+// declares variables used to update stats
 let armorRemaining;
 let weaponsRemainingB;
 let weaponsRemainingP;
@@ -82,12 +90,15 @@ let biHP;
 let mHP;
 let rHP;
 
+// waits for rest of values to load before attempting to call them
 setTimeout(setValues,1)
 setTimeout(getArmorOptions,1)
 setTimeout(getWeaponOptions,1)
 setTimeout(getWeaponSpecs,1)
 
+// sets the base health values based on the selected tonnage
 function setValues () {
+    // declares variables that hold stats
     wc = statsByTon[parseInt(tonnageTable.value)][1];
 
     cp = statsByTon[parseInt(tonnageTable.value)][14];
@@ -108,6 +119,7 @@ function setValues () {
     weaponsRemainingS = statsByTon[parseInt(tonnageTable.value)][13];
     weaponsRemaining = [weaponsRemainingB,weaponsRemainingP,weaponsRemainingS]
 
+    // sets display areas to base values
     wcDisplay.textContent = wc;
     
 
@@ -124,227 +136,285 @@ function setValues () {
     mastHP.textContent = mHP;
     rudderHP.textContent = rHP;
 
-    alDisplay.textContent = armorRemaining;
-    wlDisplayB.textContent = weaponsRemainingB;
-    wlDisplayP.textContent = weaponsRemainingP;
-    wlDisplayS.textContent = weaponsRemainingS;
+    alDisplay.textContent = armorRemaining + " points remaining";
+    wlDisplayB.textContent = weaponsRemainingB + " points remaining";
+    wlDisplayP.textContent = weaponsRemainingP + " points remaining";
+    wlDisplayS.textContent = weaponsRemainingS + " points remaining";
 }
 
+// gets html elements for armor placement and type respectively
 let armorArea = document.getElementById("armorArea");
 let armorType = document.getElementById("armorType");
 
+// decides which armor types can be added to a ship, then updates the type dropdown to only disply armor types that can be afforded
 function getArmorOptions () {
+    // clears dropdown to avoid doubling up on values
     armorType.replaceChildren('');
 
+    // creates each potential option with each value
     let newRow1 = document.createElement("option");
     newRow1.setAttribute("value", 0);
-    newRow1.textContent = "Wood - 1pt";
+    newRow1.textContent = "Wood - 1pt, 1x value";
     let newRow2 = document.createElement("option");
     newRow2.setAttribute("value", 1);
-    newRow2.textContent = "Ceramic - 5pt";
+    newRow2.textContent = "Ceramic - 5pt, 1.25x value";
     let newRow3 = document.createElement("option");
     newRow3.setAttribute("value", 2);
-    newRow3.textContent = "Iron - 10pt";
+    newRow3.textContent = "Iron - 10pt, 1.5x value";
     let newRow4 = document.createElement("option");
     newRow4.setAttribute("value", 3);
-    newRow4.textContent = "Compound - 25pt";
+    newRow4.textContent = "Compound - 25pt, 1.75x value";
     let newRow5 = document.createElement("option");
     newRow5.setAttribute("value", 4);
-    newRow5.textContent = "Synthetic - 50pt";
+    newRow5.textContent = "Synthetic - 50pt, 2x value";
 
+    // determines whether each armor type can be added
     if (armorRemaining >= 50) {
+        // adds all types of armor if >=50 armor points
         armorType.appendChild(newRow1);
         armorType.appendChild(newRow2);
         armorType.appendChild(newRow3);
         armorType.appendChild(newRow4);
         armorType.appendChild(newRow5);
     } else if (armorRemaining >= 25) {
+        // adds only wood, ceramic, iron, compound if >=25 armor points
         armorType.appendChild(newRow1);
         armorType.appendChild(newRow2);
         armorType.appendChild(newRow3);
         armorType.appendChild(newRow4);
     } else if (armorRemaining >= 10) {
+        // adds only wood, ceramic, iron if >=10 armor points
         armorType.appendChild(newRow1);
         armorType.appendChild(newRow2);
         armorType.appendChild(newRow3);
     } else if (armorRemaining >= 5) {
+        // adds only wood, ceramic if >=5 armor points
         armorType.appendChild(newRow1);
         armorType.appendChild(newRow2);
     } else if (armorRemaining >= 1) {
+        // adds only wood if >=1 armor points
         armorType.appendChild(newRow1);
     }
+    // dropdown is blank when no armor points
 }
 
+// gets html element for button to add armor
 let addArmorButton = document.getElementById("addArmorButton");
 
+// adds points to healt hbased on armor and area value chosen
 function addArmor () {
+    // combines armor type and area choice to make comparison simpler
     switch (armorType.value + "-" + armorArea.value) {
+        // adds wood to bridge
         case "0-0":
             armorRemaining = armorRemaining - 1;
             brHP = brHP + 1;
             break;
+        // adds wood to bow
         case "0-1":
             armorRemaining = armorRemaining - 1;
             boHP = boHP + 1;
             break;
+        // adds wood to aft
         case "0-2":
             armorRemaining = armorRemaining - 1;
             aHP = aHP + 1;
             break;
+        // adds wood to port
         case "0-3":
             armorRemaining = armorRemaining - 1;
             pHP = pHP + 1;
             break;
+        // adds wood to starboard
         case "0-4":
             armorRemaining = armorRemaining - 1;
             sHP = sHP + 1;
             break;
+        // adds wood to bilge
         case "0-5":
             armorRemaining = armorRemaining - 1;
             biHP = biHP + 1;
             break;
+        // adds wood to mast
         case "0-6":
             armorRemaining = armorRemaining - 1;
             mHP = mHP + 1;
-            break; 
+            break;
+        // adds wood to rudder
         case "0-7":
             armorRemaining = armorRemaining - 1;
             rHP = rHP + 1;
             break;
         
+        // adds ceramic to bridge
         case "1-0":
             armorRemaining = armorRemaining - 5;
-            brHP = brHP + 10;
+            brHP = brHP + 6;
             break;
+        // adds ceramic to bow
         case "1-1":
             armorRemaining = armorRemaining - 5;
-            boHP = boHP + 10;
+            boHP = boHP + 6;
             break;
+        // adds ceramic to aft
         case "1-2":
             armorRemaining = armorRemaining - 5;
-            aHP = aHP + 10;
+            aHP = aHP + 6;
             break;
+        // adds ceramic to port
         case "1-3":
             armorRemaining = armorRemaining - 5;
-            pHP = pHP + 10;
+            pHP = pHP + 6;
             break;
+        // adds ceramic to startboard
         case "1-4":
             armorRemaining = armorRemaining - 5;
-            sHP = sHP + 10;
+            sHP = sHP + 6;
             break;
+        // adds ceramic to bilge
         case "1-5":
             armorRemaining = armorRemaining - 5;
-            biHP = biHP + 10;
+            biHP = biHP + 6;
             break;
+        // adds ceramic to mast
         case "1-6":
             armorRemaining = armorRemaining - 5;
-            mHP = mHP + 10;
-            break; 
+            mHP = mHP + 6;
+            break;
+        // adds ceramic to rudder
         case "1-7":
             armorRemaining = armorRemaining - 5;
-            rHP = rHP + 10;
+            rHP = rHP + 6;
             break;
         
+        // IRON
         case "2-0":
+            // bridge
             armorRemaining = armorRemaining - 10;
-            brHP = brHP + 25;
+            brHP = brHP + 15;
             break;
         case "2-1":
+            // bow
             armorRemaining = armorRemaining - 10;
-            boHP = boHP + 25;
+            boHP = boHP + 15;
             break;
         case "2-2":
+            // aft
             armorRemaining = armorRemaining - 10;
-            aHP = aHP + 25;
+            aHP = aHP + 15;
             break;
         case "2-3":
+            // port
             armorRemaining = armorRemaining - 10;
-            pHP = pHP + 25;
+            pHP = pHP + 15;
             break;
         case "2-4":
+            // starboard
             armorRemaining = armorRemaining - 10;
-            sHP = sHP + 25;
+            sHP = sHP + 15;
             break;
         case "2-5":
+            // bilge
             armorRemaining = armorRemaining - 10;
-            biHP = biHP + 25;
+            biHP = biHP + 15;
             break;
         case "2-6":
+            // mast
             armorRemaining = armorRemaining - 10;
-            mHP = mHP + 25;
+            mHP = mHP + 15;
             break; 
         case "2-7":
+            //rudder
             armorRemaining = armorRemaining - 10;
-            rHP = rHP + 25;
+            rHP = rHP + 15;
             break;
         
+        // COMPOUND
         case "3-0":
+            // bridge
             armorRemaining = armorRemaining - 25;
-            brHP = brHP + 75;
+            brHP = brHP + 44;
             break;
         case "3-1":
+            // bow
             armorRemaining = armorRemaining - 25;
-            boHP = boHP + 75;
+            boHP = boHP + 44;
             break;
         case "3-2":
+            // aft
             armorRemaining = armorRemaining - 25;
-            aHP = aHP + 75;
+            aHP = aHP + 44;
             break;
         case "3-3":
+            // port
             armorRemaining = armorRemaining - 25;
-            pHP = pHP + 75;
+            pHP = pHP + 44;
             break;
         case "3-4":
+            // starboard
             armorRemaining = armorRemaining - 25;
-            sHP = sHP + 75;
+            sHP = sHP + 44;
             break;
         case "3-5":
+            // bilge
             armorRemaining = armorRemaining - 25;
-            biHP = biHP + 75;
+            biHP = biHP + 44;
             break;
         case "3-6":
+            // mast
             armorRemaining = armorRemaining - 25;
-            mHP = mHP + 75;
+            mHP = mHP + 44;
             break; 
         case "3-7":
+            // rudder
             armorRemaining = armorRemaining - 25;
-            rHP = rHP + 75;
+            rHP = rHP + 44;
             break;
         
+        // SYNTHETIC
         case "4-0":
+            // bridge 
             armorRemaining = armorRemaining - 50;
-            brHP = brHP + 175;
+            brHP = brHP + 100;
             break;
         case "4-1":
+            // bow
             armorRemaining = armorRemaining - 50;
-            boHP = boHP + 175;
+            boHP = boHP + 100;
             break;
         case "4-2":
+            // aft
             armorRemaining = armorRemaining - 50;
-            aHP = aHP + 175;
+            aHP = aHP + 100;
             break;
         case "4-3":
+            // port
             armorRemaining = armorRemaining - 50;
-            pHP = pHP + 175;
+            pHP = pHP + 100;
             break;
         case "4-4":
+            // starboard
             armorRemaining = armorRemaining - 50;
-            sHP = sHP + 175;
+            sHP = sHP + 100;
             break;
         case "4-5":
+            // bilge
             armorRemaining = armorRemaining - 50;
-            biHP = biHP + 175;
+            biHP = biHP + 100;
             break;
         case "4-6":
+            // mast
             armorRemaining = armorRemaining - 50;
-            mHP = mHP + 175;
+            mHP = mHP + 100;
             break; 
         case "4-7":
+            // rudder
             armorRemaining = armorRemaining - 50;
-            rHP = rHP + 175;
+            rHP = rHP + 100;
             break;
     }
 
+    // sets updated values of each health display
     bridgeHP.textContent = brHP;
     bowHP.textContent = boHP;
     aftHP.textContent = aHP;
@@ -353,12 +423,14 @@ function addArmor () {
     bilgeHP.textContent = biHP;
     mastHP.textContent = mHP;
     rudderHP.textContent = rHP;
-    alDisplay.textContent = armorRemaining;
+    alDisplay.textContent = armorRemaining + " points remaining";
 }
 
+// gives functions to armor add button
 addArmorButton.addEventListener("click", addArmor);
 addArmorButton.addEventListener("click", getArmorOptions);
 
+// declares variables for adding weapons to areas
 let names = ["Bow","Port","Starboard"]
 let ids = ["weaponTypeB","weaponTypeP","weaponTypeS"];
 let idsLb = ["weaponLbB","weaponLbP","weaponLbS"];
@@ -367,14 +439,17 @@ let idsAdd = ["addWeaponButtonB","addWeaponButtonP","addWeaponButtonS"]
 let wlDisplays = [wlDisplayB,wlDisplayP,wlDisplayS];
 let weaponsRemaining = [weaponsRemainingB,weaponsRemainingP,weaponsRemainingS]
 
+// sets each button to add weapons to the correct side
 function setupAddWeaponButtons(){
     for(let i = 0;i<ids.length;i++){
         let addWeaponButton = document.getElementById(idsAdd[i]);
         addWeaponButton.addEventListener("click", (e) => addWeapon(i));
     }
 }
+// runs button setup beforehand to make sure weapons add buttons work
 setupAddWeaponButtons();
 
+// 
 function getWeaponOptions() {
     for(let i = 0;i<ids.length;i++){
         let weaponType = document.getElementById(ids[i]);
@@ -383,16 +458,16 @@ function getWeaponOptions() {
 
         let newRow1 = document.createElement("option");
         newRow1.setAttribute("value", "Cannon");
-        newRow1.textContent = "Cannon";
+        newRow1.textContent = "Cannon - -1pt";
         let newRow2 = document.createElement("option");
         newRow2.setAttribute("value", "Long Nine");
-        newRow2.textContent = "Long Nine";
+        newRow2.textContent = "Long Nine - +0pt";
         let newRow3 = document.createElement("option");
         newRow3.setAttribute("value", "Carronade");
-        newRow3.textContent = "Carronade";
+        newRow3.textContent = "Carronade - +0pt";
         let newRow4 = document.createElement("option");
         newRow4.setAttribute("value", "Paixhan");
-        newRow4.textContent = "Paixhan";
+        newRow4.textContent = "Paixhan - +1pt";
 
         if (weaponsRemaining[i] >= 8) {
             weaponType.appendChild(newRow1);
@@ -421,31 +496,31 @@ function getWeaponSpecs () {
 
         let newPound1 = document.createElement("option");
         newPound1.setAttribute("value", "6lb");
-        newPound1.textContent = "6lb";
+        newPound1.textContent = "6lb - +1pt";
         let newPound2 = document.createElement("option");
         newPound2.setAttribute("value", "8lb");
-        newPound2.textContent = "8lb";
+        newPound2.textContent = "8lb - +2pt";
         let newPound3 = document.createElement("option");
         newPound3.setAttribute("value", "9lb");
-        newPound3.textContent = "9lb";
+        newPound3.textContent = "9lb - +3pt";
         let newPound4 = document.createElement("option");
         newPound4.setAttribute("value", "12lb");
-        newPound4.textContent = "12lb";
+        newPound4.textContent = "12lb - +4pt";
         let newPound5 = document.createElement("option");
         newPound5.setAttribute("value", "18lb");
-        newPound5.textContent = "18lb";
+        newPound5.textContent = "18lb - +5pt";
         let newPound6 = document.createElement("option");
         newPound6.setAttribute("value", "24lb");
-        newPound6.textContent = "24lb";
+        newPound6.textContent = "24lb - +6pt";
         let newPound7 = document.createElement("option");
         newPound7.setAttribute("value", "32lb");
-        newPound7.textContent = "32lb";
+        newPound7.textContent = "32lb - +7pt";
         let newPound8 = document.createElement("option");
         newPound8.setAttribute("value", "36lb");
-        newPound8.textContent = "36lb";
+        newPound8.textContent = "36lb - +8pt";
         let newPound9 = document.createElement("option");
         newPound9.setAttribute("value", "42lb");
-        newPound9.textContent = "42lb";
+        newPound9.textContent = "42lb - +9pt";
 
         if (weaponType.value == "Cannon") {
             if (weaponsRemaining[i] >= 8) {
@@ -538,13 +613,13 @@ function getWeaponSpecs () {
 
         let newAmmo1 = document.createElement("option");
         newAmmo1.setAttribute("value", 0);
-        newAmmo1.textContent = "Round Shot";
+        newAmmo1.textContent = "Round Shot - 5 shots";
         let newAmmo2 = document.createElement("option");
         newAmmo2.setAttribute("value", 1);
-        newAmmo2.textContent = "Grapeshot";
+        newAmmo2.textContent = "Grapeshot - 5 shots";
         let newAmmo3 = document.createElement("option");
         newAmmo3.setAttribute("value", 2);
-        newAmmo3.textContent = "Chain Shot";
+        newAmmo3.textContent = "Chain Shot - 5 shots";
 
         if (weaponType.value == "Cannon") {
             weaponAmmo.appendChild(newAmmo1);
@@ -592,6 +667,9 @@ function addWeapon (section) {
     let weaponLb = document.getElementById(idsLb[section]);
 
     let PrevWeaponCount = weaponsRemaining[section];
+    let wpnLmts = [
+        3, 6, 6
+    ]
     console.log(`sectio: ${section}`);
     
 
@@ -610,28 +688,39 @@ function addWeapon (section) {
     if(weaponsRemaining[section]<0){
         weaponsRemaining[section] = PrevWeaponCount;
     }else{
-        getAmmo(section)
+        
         // console.log("works");
         let DesiredWeapon = [weaponType.value,parseInt(weaponLb.value.split("lb")[0])];
         let newWeapon = true;
-        for(let i = 0;i<weaponsArray[section].length&&newWeapon;i++){
-            if(weaponsArray[section][i][0] == DesiredWeapon[0]&&weaponsArray[section][i][1] == DesiredWeapon[1]){
-                let oldLine1 = document.getElementById(`${names[section]}${weaponsArray[section][weaponsArray[section].length-1][1]}lb${weaponsArray[section][weaponsArray[section].length-1][0]}`);
-                weaponsArray[section][i][2]++;
-                newWeapon=false;
-                oldLine1.innerText =`${weaponsArray[section][weaponsArray[section].length-1][1]}lb ${weaponsArray[section][weaponsArray[section].length-1][0]} x${weaponsArray[section][weaponsArray[section].length-1][2]}`;
+        let weaponCountInSect = 0;
+        for(let i = 0;i<weaponsArray[section].length;i++){
+            weaponCountInSect += weaponsArray[section][i][2]
+        }
+        if (weaponCountInSect<wpnLmts[section]) {
+            getAmmo(section)
+            for(let i = 0;i<weaponsArray[section].length&&newWeapon;i++){
+                if(weaponsArray[section][i][0] == DesiredWeapon[0]&&weaponsArray[section][i][1] == DesiredWeapon[1]){
+                    let oldLine1 = document.getElementById(`${names[section]}${weaponsArray[section][i][1]}lb${weaponsArray[section][i][0]}`);
+                    weaponsArray[section][i][2]++;
+                    newWeapon=false;
+                    oldLine1.innerText =`${weaponsArray[section][i][1]}lb ${weaponsArray[section][i][0]} x${weaponsArray[section][i][2]}`;
+                }
             }
+            if(newWeapon){
+                weaponsArray[section].push([DesiredWeapon[0],DesiredWeapon[1],1]);
+                let newLine1 = document.createElement("p");
+                newLine1.setAttribute("id",`${names[section]}${weaponsArray[section][weaponsArray[section].length-1][1]}lb${weaponsArray[section][weaponsArray[section].length-1][0]}`);
+                newLine1.innerText = `${weaponsArray[section][weaponsArray[section].length-1][1]}lb ${weaponsArray[section][weaponsArray[section].length-1][0]} x${weaponsArray[section][weaponsArray[section].length-1][2]}`;
+                WeaponTables[section].appendChild(newLine1);
+            }
+        }else{
+            alert("There are too many weapons on this area");
+            weaponsRemaining[section] = PrevWeaponCount;
         }
-        if(newWeapon){
-            weaponsArray[section].push([DesiredWeapon[0],DesiredWeapon[1],1]);
-            let newLine1 = document.createElement("p");
-            newLine1.setAttribute("id",`${names[section]}${weaponsArray[section][weaponsArray[section].length-1][1]}lb${weaponsArray[section][weaponsArray[section].length-1][0]}`);
-            newLine1.innerText = `${weaponsArray[section][weaponsArray[section].length-1][1]}lb ${weaponsArray[section][weaponsArray[section].length-1][0]} x${weaponsArray[section][weaponsArray[section].length-1][2]}`;
-            WeaponTables[section].appendChild(newLine1);
-        }
+            
     }
 
-    wlDisplays[section].textContent = weaponsRemaining[section];
+    wlDisplays[section].textContent = weaponsRemaining[section] + " points remaining";
 }
 
 function getAmmo(section) {
@@ -681,9 +770,9 @@ function resetWeapons () {
     weaponsRemaining[0] = statsByTon[parseInt(tonnageTable.value)][11];
     weaponsRemaining[1] = statsByTon[parseInt(tonnageTable.value)][12];
     weaponsRemaining[2] = statsByTon[parseInt(tonnageTable.value)][13];
-    wlDisplayB.textContent = weaponsRemaining[0];
-    wlDisplayP.textContent = weaponsRemaining[1];
-    wlDisplayS.textContent = weaponsRemaining[2];
+    wlDisplayB.textContent = weaponsRemaining[0] + " points remaining";
+    wlDisplayP.textContent = weaponsRemaining[1] + " points remaining";
+    wlDisplayS.textContent = weaponsRemaining[2] + " points remaining";
     bowWeaponTable.replaceChildren('');
     portWeaponTable.replaceChildren('');
     starboardWeaponTable.replaceChildren('');
@@ -706,8 +795,8 @@ function addCrowsNest () {
         CNPresent = true;
         weaponsRemaining[1] = weaponsRemaining[1] - 2;
         weaponsRemaining[2] = weaponsRemaining[2] - 2;
-        wlDisplayP.textContent = weaponsRemaining[1];
-        wlDisplayS.textContent = weaponsRemaining[2];
+        wlDisplayP.textContent = weaponsRemaining[1] + " points remaining";
+        wlDisplayS.textContent = weaponsRemaining[2] + " points remaining";
         cnDisplay.textContent = "Present";
     }
 }
@@ -720,8 +809,8 @@ function CNReset () {
         CNPresent = false;
         weaponsRemaining[1] = weaponsRemaining[1] + 2;
         weaponsRemaining[2] = weaponsRemaining[2] + 2;
-        wlDisplayP.textContent = weaponsRemaining[1];
-        wlDisplayS.textContent = weaponsRemaining[2];
+        wlDisplayP.textContent = weaponsRemaining[1] + " points remaining";
+        wlDisplayS.textContent = weaponsRemaining[2] + " points remaining";
         cnDisplay.textContent = "Absent";
     }
     
@@ -815,7 +904,7 @@ function saveBoatToLocal(){
     }
     window.localStorage.setItem('numberOfShips', numberOfShips);
     let preixisting = false;
-    for(let i =0;i<numberOfShips;i++){
+    for(let i =-builtIn.length;i<numberOfShips;i++){
         if(JSON.parse(window.localStorage.getItem(`ship${i}`)).name==shipName.value){
             preixisting=true;
         }
@@ -891,6 +980,10 @@ function getIcon () {
         case 7:
             iconPreview.setAttribute("src", "../IMG/barque.png");
             icon = 8;
+            break;
+        case 8:
+            iconPreview.setAttribute("src", "../IMG/frigate.png");
+            icon = 9;
             break;
     }
 }

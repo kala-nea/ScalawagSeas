@@ -154,8 +154,6 @@ function AdjustBoard(){
     setTimeout(repositionArrows,1);
 }
 
-// TODO: make an input for the island
-
 //creates the diferent types of islands
 function islands(){
     let x = 0;

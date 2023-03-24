@@ -8,6 +8,11 @@ body {
     src: url(../css/blackchancery.regular.ttf);
 }
 
+@font-face {
+    font-family: pfefferMediaeval;
+    src: url(../css/pfeffer-mediaeval.regular.otf);
+}
+
 * {
     font-family: blackChancery;
     font-size: 16px;
@@ -18,13 +23,16 @@ h2,
 h3,
 h4,
 p,
-a {
+a,
+button {
     color: antiquewhite;
 }
 
 p,
 h4 {
     font-size: 25px;
+    font-family: pfefferMediaeval;
+    text-shadow: 0 0 2px black;
 }
 
 h3 {
@@ -33,91 +41,74 @@ h3 {
     margin-top: 20px;
 }
 
-h2 {
-    font-size: 40px;
+h2,
+a,
+button {
+    font-size: 50px;
     margin-top: 10px;
+    text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
     text-align: center;
+    margin: 0 auto;
 }
 
 header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
-h1,
-a {
+h1 {
     margin: 0 auto;
-    font-size: 65px;
+    font-size: 128px;
     text-shadow: 0 5px 0 rgba(0, 0, 0, 0.75);
-    text-align: center;
     text-align: center;
 }
 
-a {
+a,
+button {
     background-color: rgba(0, 0, 0, 0.375);
+    padding: 0 20px;
     margin-bottom: 5px;
     border-radius: 25px;
     text-decoration: none;
-    width: 200px;
-    text-align: center;
 }
 
-a:hover {
+a:hover,
+button:hover {
     color: rgb(187, 177, 164);
     transition: all 150ms;
 }
 
-a#enterGameBoard{
-    min-width: fit-content;
+button {
+    border: none;
 }
 
-.bigBox {
-    width: 50%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-.contentArea {
+.revRow {
+    background-color:rgba(0, 0, 0, 0.375);
     display: flex;
     flex-direction: row;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-input{
-    height: 22px;
-    margin-left: 5px;
-} 
-
-button,
-input {
-    background-color: rgba(0, 0, 0, 0.2);
-    border: solid 1px black;
-    color: antiquewhite;
+#revSect {
+    width: 50%;
 }
 
-button {
-    width: 100px;
-    margin: 0 auto;
-    font-size: 32px;
-}
-
-.contentArea,
-h2 {
-    margin: 10px;
-}
-
-.contentArea > * {
-    margin: 0;
+.revSquare {
+    margin-right: 50px;
 }
 
 #backButton {
     display: block;
     position: fixed;
-    width: auto;
     right: 25px;
     bottom: 25px;
 
@@ -127,27 +118,4 @@ h2 {
 
     text-decoration: none;
     font-size: 30px;
-}
-
-#backButton:hover {
-    color: rgb(255, 250, 244);
-    background-color: rgba(35, 35, 35, 0.375);
-    transition: all 150ms;
-}
-
-@media screen and (max-width: 1290px) {
-    .footerArea {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 655px) {
-    .footerArea {
-        width: 100%;
-    }
-
-    .creditArea {
-        flex-direction: column;
-        justify-content: space-around;
-    }
 }
