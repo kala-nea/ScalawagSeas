@@ -88,7 +88,7 @@ function loadreviews () {
         }
         
         // places table on page
-        tableArea.append(totalRateRow);
+        tableArea.unshift(totalRateRow);
         tableArea.append(revTable);
       }
     });

@@ -1,3 +1,4 @@
+document.addEventListener("scroll", playMusic);
 document.addEventListener("click", playMusic);
 
 function playMusic () {

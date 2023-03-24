@@ -36,7 +36,10 @@ function addStart(){
                     </datalist>`;
     sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
     ShipList = document.getElementById("ShipList");
-    for(let i = 0;i<window.localStorage.getItem('numberOfShips');i++){
+    for(let i =0;i<builtIn.length;i++){
+        window.localStorage.setItem(`ship${-(i+1)}`,builtIn[i]);
+    }
+    for(let i = -builtIn.length;i<window.localStorage.getItem('numberOfShips');i++){
         let storedShip = JSON.parse(window.localStorage.getItem(`ship${i}`));
         let shipItem = document.createElement("option");
         shipItem.setAttribute("id",`Ship${i}`);

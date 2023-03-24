@@ -81,7 +81,8 @@ a {
 }
 
 option {
-    background: rgba(0, 0, 0, 1);;
+    background: rgba(0, 0, 0, 1);
+    font-family: pfefferMediaeval;
 }
 
 button.nextBoat{

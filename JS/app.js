@@ -458,16 +458,16 @@ function getWeaponOptions() {
 
         let newRow1 = document.createElement("option");
         newRow1.setAttribute("value", "Cannon");
-        newRow1.textContent = "Cannon";
+        newRow1.textContent = "Cannon - -1pt";
         let newRow2 = document.createElement("option");
         newRow2.setAttribute("value", "Long Nine");
-        newRow2.textContent = "Long Nine";
+        newRow2.textContent = "Long Nine - +0pt";
         let newRow3 = document.createElement("option");
         newRow3.setAttribute("value", "Carronade");
-        newRow3.textContent = "Carronade";
+        newRow3.textContent = "Carronade - +0pt";
         let newRow4 = document.createElement("option");
         newRow4.setAttribute("value", "Paixhan");
-        newRow4.textContent = "Paixhan";
+        newRow4.textContent = "Paixhan - +1pt";
 
         if (weaponsRemaining[i] >= 8) {
             weaponType.appendChild(newRow1);
@@ -496,31 +496,31 @@ function getWeaponSpecs () {
 
         let newPound1 = document.createElement("option");
         newPound1.setAttribute("value", "6lb");
-        newPound1.textContent = "6lb";
+        newPound1.textContent = "6lb - +1pt";
         let newPound2 = document.createElement("option");
         newPound2.setAttribute("value", "8lb");
-        newPound2.textContent = "8lb";
+        newPound2.textContent = "8lb - +2pt";
         let newPound3 = document.createElement("option");
         newPound3.setAttribute("value", "9lb");
-        newPound3.textContent = "9lb";
+        newPound3.textContent = "9lb - +3pt";
         let newPound4 = document.createElement("option");
         newPound4.setAttribute("value", "12lb");
-        newPound4.textContent = "12lb";
+        newPound4.textContent = "12lb - +4pt";
         let newPound5 = document.createElement("option");
         newPound5.setAttribute("value", "18lb");
-        newPound5.textContent = "18lb";
+        newPound5.textContent = "18lb - +5pt";
         let newPound6 = document.createElement("option");
         newPound6.setAttribute("value", "24lb");
-        newPound6.textContent = "24lb";
+        newPound6.textContent = "24lb - +6pt";
         let newPound7 = document.createElement("option");
         newPound7.setAttribute("value", "32lb");
-        newPound7.textContent = "32lb";
+        newPound7.textContent = "32lb - +7pt";
         let newPound8 = document.createElement("option");
         newPound8.setAttribute("value", "36lb");
-        newPound8.textContent = "36lb";
+        newPound8.textContent = "36lb - +8pt";
         let newPound9 = document.createElement("option");
         newPound9.setAttribute("value", "42lb");
-        newPound9.textContent = "42lb";
+        newPound9.textContent = "42lb - +9pt";
 
         if (weaponType.value == "Cannon") {
             if (weaponsRemaining[i] >= 8) {
@@ -613,13 +613,13 @@ function getWeaponSpecs () {
 
         let newAmmo1 = document.createElement("option");
         newAmmo1.setAttribute("value", 0);
-        newAmmo1.textContent = "Round Shot";
+        newAmmo1.textContent = "Round Shot - 5 shots";
         let newAmmo2 = document.createElement("option");
         newAmmo2.setAttribute("value", 1);
-        newAmmo2.textContent = "Grapeshot";
+        newAmmo2.textContent = "Grapeshot - 5 shots";
         let newAmmo3 = document.createElement("option");
         newAmmo3.setAttribute("value", 2);
-        newAmmo3.textContent = "Chain Shot";
+        newAmmo3.textContent = "Chain Shot - 5 shots";
 
         if (weaponType.value == "Cannon") {
             weaponAmmo.appendChild(newAmmo1);
@@ -904,7 +904,7 @@ function saveBoatToLocal(){
     }
     window.localStorage.setItem('numberOfShips', numberOfShips);
     let preixisting = false;
-    for(let i =0;i<numberOfShips;i++){
+    for(let i =-builtIn.length;i<numberOfShips;i++){
         if(JSON.parse(window.localStorage.getItem(`ship${i}`)).name==shipName.value){
             preixisting=true;
         }
@@ -980,6 +980,10 @@ function getIcon () {
         case 7:
             iconPreview.setAttribute("src", "../IMG/barque.png");
             icon = 8;
+            break;
+        case 8:
+            iconPreview.setAttribute("src", "../IMG/frigate.png");
+            icon = 9;
             break;
     }
 }
