@@ -89,7 +89,7 @@ button[id^="FireSide"]{
 }
 
 button {
-    
+    min-height: fit-content;
     font-family: pfefferMediaeval;
 }
 
