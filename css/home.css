@@ -82,7 +82,8 @@ img {
 
 a:hover {
     color: rgb(187, 177, 164);
-    transition: all 150ms;
+    transform: scale(1.15, 1.15);
+    transition: all 250ms;
 }
 
 footer {

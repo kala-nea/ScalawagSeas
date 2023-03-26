@@ -76,6 +76,7 @@ button {
 a:hover,
 button:hover {
     color: rgb(187, 177, 164);
+    transform: scale(1.15, 1.15);
     transition: all 150ms;
 }
 

@@ -101,6 +101,7 @@ button:hover,
 #backButton:hover {
     color: rgb(255, 250, 244);
     background-color: rgba(35, 35, 35, 0.375);
+    transform: scale(1.15, 1.15);
     transition: all 150ms;
 }
 
