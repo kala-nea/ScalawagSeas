@@ -628,7 +628,7 @@ let songNum = Math.floor(Math.random() * 3);
 let pastSongNum = songNum;
 let pastDone = 0;
 let done = 1;
-music.volume = 0.3;
+music.setAttribute("volume", 0.3);
 
 document.addEventListener("click", (e)=>playlist(pastSongNum));
 music.addEventListener("ended", check);
