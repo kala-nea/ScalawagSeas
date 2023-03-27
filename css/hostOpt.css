@@ -129,3 +129,8 @@ a:hover {
     background-color: rgba(35, 35, 35, 0.375);
     transition: all 150ms;
 }
+
+.subText > *,
+.subText > * > * {
+    font-size: 24px;
+}
