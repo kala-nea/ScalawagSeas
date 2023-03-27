@@ -1,8 +1,6 @@
 
-let hosting =window.localStorage.getItem('Hosting')
-console.log(`hosting ${typeof(hosting)}`)
-
-console.log(`hosting works ${hosting=="true"}`);
+let hosting =window.localStorage.getItem('Hosting')=="true"
+console.log(`hosting ${hosting}`)
 
 
 
@@ -40,14 +38,15 @@ let rockCount =window.localStorage.getItem('RockCount');
 let resupplyCount =window.localStorage.getItem('ResupplyCount');
 
 window.addEventListener('resize',resizeBoard);
-
-setTimeout(MakeBoard,1);
-setTimeout((e) =>makeBoats(),200);
-setTimeout((e) =>AdjustBoard(),200);
-setTimeout((e) =>AdjustBoard(),310);
-setTimeout((e) =>AdjustBoard(),500);
-setTimeout((e) => adjustAll(),300)
-setTimeout((e) => adjustAll(),3000)
+if(hosting){
+    setTimeout(MakeBoard,1);
+    setTimeout((e) =>makeBoats(),200);
+    setTimeout((e) =>AdjustBoard(),200);
+    setTimeout((e) =>AdjustBoard(),310);
+    setTimeout((e) =>AdjustBoard(),500);
+    setTimeout((e) => adjustAll(),300)
+    setTimeout((e) => adjustAll(),3000)
+}
 
 //creates the board
 function MakeBoard(){
@@ -2311,7 +2310,7 @@ function StartAttackPhase(){
 import { joinRoom, selfId } from 'https://cdn.skypack.dev/trystero/ipfs';
 const config = {appId: 'ScalawagSeas'};
 let room
-if(hosting=="true"){
+if(hosting){
     console.log(`Match${selfId}`);
     console.log(`hosting`)
     room = joinRoom(config, `Match${selfId}`);
@@ -2324,6 +2323,7 @@ const [sendName, getName] = room.makeAction('name');
 const [sendMsg, getMsg] = room.makeAction('message');
 const [sendShip, getShip] = room.makeAction('ShipUpdate');
 const [sendTeamsH, getTeamsH] = room.makeAction('TeamHash');
+const [sendBoard, getBoard] = room.makeAction('Board');
 
 const idsToNames = {}; // map of peer ids to names
 // const nameInput = document.getElementById('nameInput');
@@ -2342,7 +2342,7 @@ function randomHash() {
 
 setTimeout(
     ()=>{
-        if(hosting=="true"){
+        if(hosting){
             teams[0].hash=selfId;
         }
     },200
@@ -2352,8 +2352,9 @@ setTimeout(
 room.onPeerJoin( (peerId) => {
     console.log(`${peerId} joined`);
     sendName(`${myName} #${selfId.substring(0, 4)}`, peerId); // tell newcomers our name
-    if(hosting=="true"){
+    if(hosting){
         sendTeamsH(teams);
+        sendBoard(Board,boardHeight,boardWidth,peerId);
     }
     //appendMessage('', peerId);
 });
@@ -2451,7 +2452,7 @@ getShip((ship,peerId) => {
 getTeamsH(
     (teamsIn,peerId) => {
         teams=teamsIn
-        if(hosting=="false"){
+        if(!hosting){
             let selected = false;
             for(let i = 0;i<teams.length&&selected==false;i++){
                 if(teams[i].hash==selfId){
@@ -2465,6 +2466,31 @@ getTeamsH(
                 }
             }
         }
+    }
+)
+
+getBoard(
+    (boardIn,xIn,yIn,peerId) =>{
+        boardHeight = xIn;
+        boardWidth = yIn;
+        Board.innerHTML = boardIn.innerHTML;
+        for(let i = 0; i<parseInt(boardWidth);i++){
+            for(let j = 0; j<parseInt(boardHeight);j++){
+                //{terrain}
+                HexsInfo[i][j] = [0];
+                let SubmitHex = Hex.cloneNode(true);
+                SubmitHex.getElementById(`col${i}row${j}`);
+                SubmitHex.addEventListener("click",(e) => moveShipClick(e.target.id));
+                SubmitHex.addEventListener("mouseenter",(e)=>highlight(e.target.id));
+                SubmitHex.addEventListener("mouseleave",(e)=>unhighlight(e.target.id));
+            }
+        }
+        setTimeout((e) =>makeBoats(),200);
+        setTimeout((e) =>AdjustBoard(),200);
+        setTimeout((e) =>AdjustBoard(),310);
+        setTimeout((e) =>AdjustBoard(),500);
+        setTimeout((e) => adjustAll(),300)
+        setTimeout((e) => adjustAll(),3000)
     }
 )
 
