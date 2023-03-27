@@ -22,7 +22,7 @@ makeBoardButton = document.getElementById("makeBoard");
 
 window.addEventListener('resize',resizeBoard);
 
-setTimeout(MakeBoard,5);
+setTimeout(MakeBoard,30);
 setTimeout((e) =>makeBoats(),200);
 setTimeout((e) =>AdjustBoard(),200);
 setTimeout((e) =>AdjustBoard(),310);
