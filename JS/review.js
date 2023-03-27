@@ -1,4 +1,4 @@
-// https://opensheet.elk.sh/1WXTuIFPG-pPBPeAwFx7vp5vntdw_3TfwngHbV-wZsvo/FormResponses1
+// https://opensheet.elk.sh/1fKstg6LUiDjQxEDib5Im3n_e-4NADRWxv0r7EhZZG60/FormResponses1
 function loadreviews () {
     // grabs json of response data
     let getJSON = function(url, callback) {
