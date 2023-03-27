@@ -22,7 +22,7 @@ makeBoardButton = document.getElementById("makeBoard");
 
 window.addEventListener('resize',resizeBoard);
 
-setTimeout(MakeBoard,99);
+setTimeout(MakeBoard,1);
 setTimeout((e) =>makeBoats(),200);
 setTimeout((e) =>AdjustBoard(),200);
 setTimeout((e) =>AdjustBoard(),310);
@@ -91,10 +91,11 @@ function MakeBoard(){
         HexGrid.appendChild(SubmitCol);
     }
     Board.appendChild(HexGrid);
-    setTimeout(spaceify,50);
+    setTimeout(spaceify,150);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
         HexGrid.style.maxHeight = `${Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0])}px`
+        console.log(`max height to ${Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0])}px`)
         // Board.style.paddingBlockEnd =`${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
         Board.style.paddingBlockEnd =`${(HexGrid.clientHeight)-(Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0]))}px`
         // Board.style.marginBlockEnd =`40px`
