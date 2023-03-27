@@ -91,7 +91,7 @@ function MakeBoard(){
         HexGrid.appendChild(SubmitCol);
     }
     Board.appendChild(HexGrid);
-    setTimeout(spaceify,150);
+    setTimeout(spaceify,550);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
         HexGrid.style.maxHeight = `${Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0])}px`
