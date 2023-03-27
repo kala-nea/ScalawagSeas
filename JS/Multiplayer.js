@@ -71,6 +71,7 @@ function MakeBoard(){
     Board.innerHTML ="";
     HexGrid = document.createElement("section");
     HexGrid.setAttribute("class","Tiles");
+    HexGrid.setAttribute("id","HexGrid");
     HexGrid.style.aspectRatio = `${boardWidth}/${1.16*boardHeight}`
     HexColumn = document.createElement("section");
     HexColumn.setAttribute("class","TileColumn");
@@ -115,7 +116,7 @@ function MakeBoard(){
     }
     Board.appendChild(HexGrid);
     setTimeout((e)=>{Board.addEventListener("click",updateMove);},100);
-    setTimeout(spaceify,50);
+    setTimeout(spaceify,750);
     function spaceify(){
         HexGrid.style.paddingBlockEnd = `${document.getElementById("col0row0").getBoundingClientRect().height/2}px`
         HexGrid.style.maxHeight = `${Board.clientHeight-parseFloat(getComputedStyle(Board).paddingBottom.split("px")[0])}px`
@@ -1167,7 +1168,6 @@ function makeBoats(){
     let y = 0;
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
         let spaceAvailable = true;
-        let teamPlaceHoler = new Team([],i);
         for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
             let done = false;
             while(!done){
@@ -1196,12 +1196,16 @@ function makeBoats(){
 //sets the stats of all ships
 function setAllStats(){
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
-        for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
-            for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
-                if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
-                    teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${k}`)))
+        if(teams[i].hash==selfId){
+            for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+                for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
+                    if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
+                        teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${k}`)))
+                    }
                 }
             }
+        }else{
+            sendShipSelect([]);
         }
     }
     // addStart();
@@ -1840,11 +1844,14 @@ let GameControls;
 function addStart(){
     sidebar = document.getElementById("SideBarContent");
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
-        sidebar.innerHTML+=`<h3>Player ${i+1} Ships</h3>`;
-        for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
-            sidebar.innerHTML+=`<input list="ShipList" name="Player${i}ShipSelect${j}" id="Player${i}ShipSelect${j}" placeholder="Player ${i+1}: Ship ${j+1}" autocomplete="off">`;
+        console.log(teams[i].hash);
+        if(teams[i].hash==selfId){
+            sidebar.innerHTML+=`<h3>Player ${i+1} Ships</h3>`;
+            for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+                sidebar.innerHTML+=`<input list="ShipList" name="Player${i}ShipSelect${j}" id="Player${i}ShipSelect${j}" placeholder="Player ${i+1}: Ship ${j+1}" autocomplete="off">`;
+            }
+            sidebar.innerHTML+=`<br>`;
         }
-        sidebar.innerHTML+=`<br>`;
     }
     sidebar.innerHTML+=`<datalist id="ShipList">
                     </datalist>`;
@@ -1853,9 +1860,10 @@ function addStart(){
     // startButton.innerText = "start";
     // startButton.addEventListener("click",startGame);
     // sidebar.appendChild(startButton);
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard">start</button>\n`);
-    // console.log(document.getElementById("makeBoard"));
-    setTimeout((e)=>{document.getElementById("makeBoard").addEventListener("click",startGame)},100);
+    if(hosting){
+        sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard">start</button>\n`);
+        setTimeout((e)=>{document.getElementById("makeBoard").addEventListener("click",startGame)},100);
+    }
     // console.log(`made button`);
     let ShipList = document.getElementById("ShipList");
     for(let i =0;i<builtIn.length;i++){
@@ -1900,71 +1908,75 @@ function clearSidebar(){
 
 //adds the movement speed selection buttons
 function setSpeedSelection(){
-    GameControls = document.getElementById("GameControls");
-    if(teams[activeTeam].ships[activeBoat].hitpoints[6][1]>0){
-        GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" >Cruise</button>
-        <button class="SpeedSet" id = "SpeedFullSteam" >Full Steam</button>
-        <button class="SpeedSet" id = "SpeedFlank" >Flank</button>`);
-        document.getElementById("SpeedCruise").addEventListener("click",(e)=>setSpeed(0))
-        document.getElementById("SpeedFullSteam").addEventListener("click",(e)=>setSpeed(1))
-        document.getElementById("SpeedFlank").addEventListener("click",(e)=>setSpeed(2))
-    }else{
-        GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" >Cruise</button>`);
-        document.getElementById("SpeedCruise").addEventListener("click",(e)=>setSpeed(0))
+    if(teams[activeTeam]==selfId){
+        GameControls = document.getElementById("GameControls");
+        if(teams[activeTeam].ships[activeBoat].hitpoints[6][1]>0){
+            GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" >Cruise</button>
+            <button class="SpeedSet" id = "SpeedFullSteam" >Full Steam</button>
+            <button class="SpeedSet" id = "SpeedFlank" >Flank</button>`);
+            document.getElementById("SpeedCruise").addEventListener("click",(e)=>setSpeed(0))
+            document.getElementById("SpeedFullSteam").addEventListener("click",(e)=>setSpeed(1))
+            document.getElementById("SpeedFlank").addEventListener("click",(e)=>setSpeed(2))
+        }else{
+            GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" >Cruise</button>`);
+            document.getElementById("SpeedCruise").addEventListener("click",(e)=>setSpeed(0))
+        }
+        setTimeout((e) => adjustAll(),100)
     }
-    setTimeout((e) => adjustAll(),100)
 }
 
 //adds the attack buttons for selecting weapons ammo and health
 function setAttackButtons(){
-    GameControls = document.getElementById("GameControls");
-    GameControls.innerHTML = GameControls.innerHTML=`<h3>Weapons:</h3>`;
-        if(teams[activeTeam].ships[activeBoat].Weapons[0].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[1][1]>0){
-            GameControls.innerHTML+=`Bow:<hr class ="smallDivider">`;
+    if(teams[activeTeam]==selfId){
+        GameControls = document.getElementById("GameControls");
+        GameControls.innerHTML = GameControls.innerHTML=`<h3>Weapons:</h3>`;
+            if(teams[activeTeam].ships[activeBoat].Weapons[0].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[1][1]>0){
+                GameControls.innerHTML+=`Bow:<hr class ="smallDivider">`;
+            }
+            for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[0].length&&teams[activeTeam].ships[activeBoat].hitpoints[1][1]>0;i++){
+            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[0][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[0][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}`;
+            GameControls.innerHTML+=`<button id="FireSide0Weapon${i}" >Select</button><br>`;
+            setTimeout((e)=>{
+                document.getElementById(`FireSide0Weapon${i}`).addEventListener("click",(e)=>FireWeapon(0,i));
+            },100)
         }
-        for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[0].length&&teams[activeTeam].ships[activeBoat].hitpoints[1][1]>0;i++){
-        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[0][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[0][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}`;
-        GameControls.innerHTML+=`<button id="FireSide0Weapon${i}" >Select</button><br>`;
-        setTimeout((e)=>{
-            document.getElementById(`FireSide0Weapon${i}`).addEventListener("click",(e)=>FireWeapon(0,i));
-        },100)
+        if(teams[activeTeam].ships[activeBoat].Weapons[1].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0){
+            GameControls.innerHTML+=`Port:<hr class ="smallDivider">`;
+        }
+        for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[1].length&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0;i++){
+            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[1][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[1][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[1][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}`;
+            GameControls.innerHTML+=`<button id="FireSide1Weapon${i}" >Select</button><br>`;
+            setTimeout((e)=>{
+                document.getElementById(`FireSide1Weapon${i}`).addEventListener("click",(e)=>FireWeapon(1,i));
+            },100)
+        }
+        if(teams[activeTeam].ships[activeBoat].Weapons[2].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0){
+            GameControls.innerHTML+=`<br>Starboard:<hr class ="smallDivider">`;
+        }
+        for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[2].length&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0;i++){
+            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[2][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[2][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[2][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}`;
+            GameControls.innerHTML+=`<button id="FireSide2Weapon${i}" >Select</button><br>`;
+            setTimeout((e)=>{
+                document.getElementById(`FireSide2Weapon${i}`).addEventListener("click",(e)=>FireWeapon(2,i));
+            },100)
+        }
+        GameControls.innerHTML+=`<hr class="bigDivider">`;
+        GameControls.innerHTML+=`<h3>Ammo:</h3>`;
+        for(let i=0;i<teams[activeTeam].ships[activeBoat].ammo.length;i++){
+            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}`;
+            GameControls.innerHTML+=`<button id="SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}" >Select</button><br>`;
+            setTimeout((e)=>{
+                document.getElementById(`SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}`).addEventListener("click",(e)=>selectAmmo(teams[activeTeam].ships[activeBoat].ammo[i][0]));
+            },100)
+        }
+        GameControls.innerHTML+=`<hr class="bigDivider">`;
+        let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
+        GameControls.innerHTML+=`<h3>Hitpoints:</h3>`;
+        for(let i=0;i<teams[activeTeam].ships[activeBoat].hitpoints.length;i++){
+            GameControls.innerHTML+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}<br>`;
+        }
+        setTimeout((e) => adjustAll(),100)
     }
-    if(teams[activeTeam].ships[activeBoat].Weapons[1].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0){
-        GameControls.innerHTML+=`Port:<hr class ="smallDivider">`;
-    }
-    for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[1].length&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0;i++){
-        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[1][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[1][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[1][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}`;
-        GameControls.innerHTML+=`<button id="FireSide1Weapon${i}" >Select</button><br>`;
-        setTimeout((e)=>{
-            document.getElementById(`FireSide1Weapon${i}`).addEventListener("click",(e)=>FireWeapon(1,i));
-        },100)
-    }
-    if(teams[activeTeam].ships[activeBoat].Weapons[2].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0){
-        GameControls.innerHTML+=`<br>Starboard:<hr class ="smallDivider">`;
-    }
-    for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[2].length&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0;i++){
-        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[2][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[2][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[2][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}`;
-        GameControls.innerHTML+=`<button id="FireSide2Weapon${i}" >Select</button><br>`;
-        setTimeout((e)=>{
-            document.getElementById(`FireSide2Weapon${i}`).addEventListener("click",(e)=>FireWeapon(2,i));
-        },100)
-    }
-    GameControls.innerHTML+=`<hr class="bigDivider">`;
-    GameControls.innerHTML+=`<h3>Ammo:</h3>`;
-    for(let i=0;i<teams[activeTeam].ships[activeBoat].ammo.length;i++){
-        GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}`;
-        GameControls.innerHTML+=`<button id="SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}" >Select</button><br>`;
-        setTimeout((e)=>{
-            document.getElementById(`SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}`).addEventListener("click",(e)=>selectAmmo(teams[activeTeam].ships[activeBoat].ammo[i][0]));
-        },100)
-    }
-    GameControls.innerHTML+=`<hr class="bigDivider">`;
-    let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
-    GameControls.innerHTML+=`<h3>Hitpoints:</h3>`;
-    for(let i=0;i<teams[activeTeam].ships[activeBoat].hitpoints.length;i++){
-        GameControls.innerHTML+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}<br>`;
-    }
-    setTimeout((e) => adjustAll(),100)
 }
     
 //clear the controll section of the sidebar 
@@ -2066,7 +2078,9 @@ function setTeamhash(teamNum,hash){
     teams[teamNum].hash=hash
 }
 
-
+for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
+    let teamPlaceHoler = new Team([],i);
+}
 
 
 
@@ -2081,14 +2095,38 @@ function setTeamhash(teamNum,hash){
 
 let activeTeam = 0;
 let activeBoat=0;
+let selectedShipsValid = []
+var foo = [];
+
+for (var i = 1; i <= parseInt(window.localStorage.getItem('PlayerCount')); i++) {
+   selectedShipsValid.push(false);
+}
+let selectedAll = true;
 
 //starts the game
 function startGame(){
     // console.log("starting")
-    if(shipsAreSelected()){
-        setAllStats();
-        removeStart();
-        startMovePhase();
+    if(myShipsAreSelected()){
+        selectedShipsValid[0] = myShipsAreSelected();
+        shipsAreSelected();
+        setTimeout(
+            ()=>{
+                selectedAll = true;
+                for(let shipvalidity of selectedShipsValid){
+                    if(shipvalidity!=true){
+                        selectedAll = false;
+                    }
+                }
+                if(selectedAll){
+                    setAllStats();
+                    removeStart();
+                    startMovePhase();
+                    sendStart(true);
+                }else{
+                    alert("Please have other players select valid ships");
+                }
+            },1000
+        )
     }else{
         alert("Please select valid ships");
     }
@@ -2096,21 +2134,29 @@ function startGame(){
 
 // makes sure that the players select actual ships when selecting from their custom ships
 function shipsAreSelected(){
-    let selectedAll = true;
+    let selectedAll = false;
+    sendSelectedQuery(true);
+}
+
+// makes sure that the players select actual ships when selecting from their custom ships
+function myShipsAreSelected(){
+    let selected = true;
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
-        for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
-            let isValid = false
-            for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
-                if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
-                    isValid = true
+        if(teams[i].hash==selfId){
+            for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+                let isValid = false
+                for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
+                    if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
+                        isValid = true
+                    }
                 }
-            }
-            if(!isValid){
-                selectedAll=false;
+                if(!isValid){
+                    selected=false;
+                }
             }
         }
     }
-    return selectedAll;
+    return selected;
 }
 
 //Updates the board during the move phase
@@ -2141,6 +2187,9 @@ function updateMove(){
 
 // selects the next boat during the move phase
 function nextBoatMove(){
+    if(hosting){
+        sendNextBoat(true);
+    }
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
     clearPieceInfo();
@@ -2172,6 +2221,9 @@ function nextBoatMove(){
 
 // selects the next boat during the attack phase
 function nextBoatAttack(){
+    if(hosting){
+        sendNextBoat(true);
+    }
     teams[activeTeam].ships[activeBoat].deselectColor();
     moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
     clearPieceInfo();
@@ -2314,16 +2366,23 @@ if(hosting){
     console.log(`Match${selfId}`);
     console.log(`hosting`)
     room = joinRoom(config, `Match${selfId}`);
+    document.getElementById("CodeDisHer").innerText = `Join Code: ${selfId}`
 }else{
     console.log(`Match${window.localStorage.getItem('savedJoinCode')}`);
     console.log(`hostint`)
     room = joinRoom(config, `Match${window.localStorage.getItem('savedJoinCode')}`);
+    document.getElementById("CodeDisHer").innerText = `Join Code: ${window.localStorage.getItem('savedJoinCode')}`
 }
 const [sendName, getName] = room.makeAction('name');
 const [sendMsg, getMsg] = room.makeAction('message');
 const [sendShip, getShip] = room.makeAction('ShipUpdate');
 const [sendTeamsH, getTeamsH] = room.makeAction('TeamHash');
 const [sendBoard, getBoard] = room.makeAction('Board');
+const [sendSelectedQuery, getSelectedQuery] = room.makeAction('SelectedQue');
+const [sendShipSelect, getShipSelect] = room.makeAction('ShipSelect');
+const [sendLocalStore, getLocalStore] = room.makeAction('LocalStore');
+const [sendStart, getStart] = room.makeAction('Start');
+const [sendNextBoat, getNextBoat] = room.makeAction('NextBoat');
 
 const idsToNames = {}; // map of peer ids to names
 // const nameInput = document.getElementById('nameInput');
@@ -2345,7 +2404,7 @@ setTimeout(
         if(hosting){
             teams[0].hash=selfId;
         }
-    },200
+    },10
 );
 
 // listen to peer activity
@@ -2353,8 +2412,30 @@ room.onPeerJoin( (peerId) => {
     console.log(`${peerId} joined`);
     sendName(`${myName} #${selfId.substring(0, 4)}`, peerId); // tell newcomers our name
     if(hosting){
+        sendLocalStore([window.localStorage.getItem('BoatCount'),window.localStorage.getItem('PlayerCount')],peerId);
+        let freeTeam = -1;
+        for(let i=0;i<teams.length&&freeTeam==-1;i++){
+            if(teams[i].hash==null){
+                freeTeam=i
+            }
+        }
+        if(freeTeam!=-1){
+            teams[freeTeam].hash=peerId.toString();
+        }
+        // console.log("new hash: ");
+        // console.log(teams[freeTeam].hash.toString());
         sendTeamsH(teams);
-        sendBoard(Board,boardHeight,boardWidth,peerId);
+        // console.log('sending teams: ');
+        // console.log(teams);
+        sendBoard([Board.innerHTML,boardHeight,boardWidth],peerId);
+        setTimeout(
+            ()=>{
+
+                for(let ship of ships){
+                    setShip(ship);
+                }
+            },500
+        )
     }
     //appendMessage('', peerId);
 });
@@ -2470,21 +2551,20 @@ getTeamsH(
 )
 
 getBoard(
-    (boardIn,xIn,yIn,peerId) =>{
+    ([boardIn,xIn,yIn],peerId) =>{
+        console.log(boardIn)
         boardHeight = xIn;
         boardWidth = yIn;
-        Board.innerHTML = boardIn.innerHTML;
+        Board.innerHTML = boardIn;
         for(let i = 0; i<parseInt(boardWidth);i++){
             for(let j = 0; j<parseInt(boardHeight);j++){
-                //{terrain}
-                HexsInfo[i][j] = [0];
-                let SubmitHex = Hex.cloneNode(true);
-                SubmitHex.getElementById(`col${i}row${j}`);
+                let SubmitHex  = document.getElementById(`col${i}row${j}`);
                 SubmitHex.addEventListener("click",(e) => moveShipClick(e.target.id));
                 SubmitHex.addEventListener("mouseenter",(e)=>highlight(e.target.id));
                 SubmitHex.addEventListener("mouseleave",(e)=>unhighlight(e.target.id));
             }
         }
+        HexGrid = document.getElementById("HexGrid");
         setTimeout((e) =>makeBoats(),200);
         setTimeout((e) =>AdjustBoard(),200);
         setTimeout((e) =>AdjustBoard(),310);
@@ -2494,6 +2574,72 @@ getBoard(
     }
 )
 
+getSelectedQuery(
+    (validity,peerId) =>{
+        if(hosting){
+            for(let i = 0;i<teams.length;i++){
+                if(teams[i].hash==peerId){
+                    selectedShipsValid[i]=validity
+                }
+            }
+        }else{
+            sendSelectedQuery(myShipsAreSelected(),teams[0].peerId)
+        }
+    }
+)
+
+getShipSelect(
+    (shipsSet,peerId)=>{
+        if(hosting){
+            console.log(shipsSet);
+            for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
+                if(teams[i].hash==peerId){
+                    for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+                        teams[i].ships[j].setStats(shipsSet[j])
+                    }
+                }
+            }
+        }else{
+            for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
+                if(teams[i].hash==selfId){
+                    let shipsTosend = []
+                    for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+                        for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
+                            if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
+                                shipsTosend.push(JSON.parse(window.localStorage.getItem(`ship${k}`)));
+                            }
+                        }
+                    }
+                    sendShipSelect(shipsTosend,peerId)
+                }
+            }
+        }
+    }
+)
+
+getLocalStore(
+    ([shipCount,PlayerCount],peerId)=>{
+        window.localStorage.setItem('BoatCount',shipCount)
+        window.localStorage.setItem('PlayerCount',PlayerCount)
+    }
+)
+
+getStart(
+    (dummy,peerId)=>{
+        removeStart();
+        startMovePhase();
+    }
+)
+
+getNextBoat(
+    (dummy,peerId)=>{
+        if(document.getElementById("phase").innerText.split("Phase: ")[1]=="Move"){
+            nextBoatMove()
+        }else{
+            nextBoatAttack()
+        }
+    }
+)
 
 
 

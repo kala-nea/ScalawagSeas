@@ -8,5 +8,6 @@ joinCode.addEventListener("change",setCode);
 
 function setCode(){
     console.log("saved code");
+    window.localStorage.setItem('Hosting', false);
     window.localStorage.setItem('savedJoinCode',joinCode.value);
 }

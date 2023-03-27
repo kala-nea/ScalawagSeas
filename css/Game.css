@@ -261,7 +261,7 @@ p#activeTeam{
     display: block;
     position: absolute;
     width: auto;
-    left: 81%;
+    right: 19%;
     top: 25px;
 
     font-family: pfefferMediaeval;
