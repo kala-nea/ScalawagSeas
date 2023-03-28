@@ -1,4 +1,6 @@
 
+// import {setShipMove} from './Multiplayer';
+// window.setShipMove=setShipMove;
 
 let pieceStorage = document.getElementById("PieceStorage");
 let PieceInfo = document.getElementById("PieceInfo");
@@ -73,7 +75,7 @@ class Ship{
     //creates the ship sprite and related sprites
     makeShip(){
         let shipmake = document.createElement("img");
-        console.log(this.sprite);
+        // console.log(this.sprite);
         shipmake.setAttribute("src",this.sprite);
         shipmake.setAttribute("class","Ship");
         shipmake.setAttribute("id",this.id);
@@ -211,7 +213,8 @@ class Ship{
         if(firing&&this.id!=teams[activeTeam].ships[activeBoat].id){
             AttackThis(teams[activeTeam].ships[activeBoat], this)
         }else{
-            this.displayStats();
+            // this.displayStats();
+            window.setShipMove(this.shipx,this.shipy,this.shipNum);
         }
     }
     //refills the ammo

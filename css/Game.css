@@ -257,3 +257,22 @@ p#activeTeam{
     z-index: 7;
     visibility: hidden;
 }
+
+#CodeDisHer {
+    display: block;
+    position: absolute;
+    width: auto;
+    right: 19%;
+    top: 25px;
+
+    font-family: pfefferMediaeval;
+    color: antiquewhite;
+    background-color:rgba(0, 0, 0, 0.375);
+    border-radius: 25px;
+    padding: 10px;
+
+    text-decoration: none;
+    font-size: 30px;
+    z-index: 101;
+    margin-top: 1vh;
+}

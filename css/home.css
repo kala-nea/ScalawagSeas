@@ -23,12 +23,14 @@ h2,
 h3,
 h4,
 p,
-a {
+a,
+abbr {
     color: antiquewhite;
 }
 
 p,
-h4 {
+h4,
+abbr {
     font-size: 25px;
     font-family: pfefferMediaeval;
     text-shadow: 0 0 2px black;

@@ -1,4 +1,16 @@
 
+// import * as mod from "./bootlegMulti.js";
+
+// let network =await import("./bootlegMulti.js");
+(async () => {
+    try {
+        let network = await import('./bootlegMulti.js');
+        network.hello('nerd')
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 // let BoardXIn = document.getElementById("BoardX");
 // let BoardYIn = document.getElementById("BoardY");
 let BoardXIn = window.localStorage.getItem('BoardX');
@@ -26,8 +38,9 @@ setTimeout(MakeBoard,1);
 setTimeout((e) =>makeBoats(),200);
 setTimeout((e) =>AdjustBoard(),200);
 setTimeout((e) =>AdjustBoard(),310);
-setTimeout((e) => adjustAll(),300)
-setTimeout((e) => adjustAll(),3000)
+setTimeout((e) => adjustAll(),300);
+setTimeout((e) => adjustAll(),3000);
+// setTimeout((e) => network.hello('world'),1000);
 
 //creates the board
 function MakeBoard(){
