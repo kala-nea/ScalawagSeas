@@ -223,8 +223,8 @@ function resizeBoard(){
 }
 //redoes the shading on the tiles
 function redoShade(){
-    moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
-    moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    moveShadent(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
+    moveShade(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
 }
 
 //highlights the tiles you hover over
@@ -276,21 +276,21 @@ function unhighlight(id){
 function moveShade(col,row){
     
     let goal
-    if(teams[activeTeam].ships[activeBoat].rotation==0||teams[activeTeam].ships[activeBoat].rotation==3){
+    if(ships[teams[activeTeam].ships[activeBoat]].rotation==0||ships[teams[activeTeam].ships[activeBoat]].rotation==3){
         
         try{
             goal = document.getElementById(`col${col}row${row+1}`);
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -298,7 +298,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -307,15 +307,15 @@ function moveShade(col,row){
             goal = document.getElementById(`col${col}row${row-1}`);
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -323,27 +323,27 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
         }catch{}
-    }else if(teams[activeTeam].ships[activeBoat].rotation==1||teams[activeTeam].ships[activeBoat].rotation==4){
+    }else if(ships[teams[activeTeam].ships[activeBoat]].rotation==1||ships[teams[activeTeam].ships[activeBoat]].rotation==4){
         
         if(col%2==0){
             try{
             goal = document.getElementById(`col${col+1}row${row}`);
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -351,7 +351,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -362,15 +362,15 @@ function moveShade(col,row){
                 
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -378,7 +378,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -389,15 +389,15 @@ function moveShade(col,row){
                 
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -405,7 +405,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -416,15 +416,15 @@ function moveShade(col,row){
                 
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -432,28 +432,28 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
             }catch{}
         }
-    }else if(teams[activeTeam].ships[activeBoat].rotation==2||teams[activeTeam].ships[activeBoat].rotation==5){
+    }else if(ships[teams[activeTeam].ships[activeBoat]].rotation==2||ships[teams[activeTeam].ships[activeBoat]].rotation==5){
         if(col%2==0){
             try{
                 goal = document.getElementById(`col${col+1}row${row+1}`);
                 
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -461,7 +461,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -472,15 +472,15 @@ function moveShade(col,row){
                 
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -488,7 +488,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -499,15 +499,15 @@ function moveShade(col,row){
                 
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -515,7 +515,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -526,15 +526,15 @@ function moveShade(col,row){
                 
             let moveCost;
             if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
                 }
             }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(teams[activeTeam].ships[activeBoat].tonnage<40){
+                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
                     moveCost = 2;
-                }else if(teams[activeTeam].ships[activeBoat].tonnage<60){
+                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
                     moveCost = 3;
                 }else{
                     moveCost = 100000;
@@ -542,7 +542,7 @@ function moveShade(col,row){
             }else{
                 moveCost = 1;
             }
-            if(teams[activeTeam].ships[activeBoat].moveLeft>=moveCost){
+            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
             }
@@ -967,8 +967,8 @@ class Ship{
     }
     //either shoots or displays the stats depending on whether or not another boat is attacking upon being clicked
     clicked(){
-        if(firing&&this.id!=teams[activeTeam].ships[activeBoat].id){
-            AttackThis(teams[activeTeam].ships[activeBoat], this)
+        if(firing&&this.id!=ships[teams[activeTeam].ships[activeBoat]].id){
+            AttackThis(ships[teams[activeTeam].ships[activeBoat]], this)
         }else{
             this.displayStats();
         }
@@ -1123,44 +1123,6 @@ function moveShip(x,y,shipNum){
     ships[shipNum].moveShip(x,y);
 }
 
-// function makeBoats(){
-//     let x = 0;
-//     let y = 0;
-//     for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
-//         let spaceAvailable = true;
-//         let teamPlaceHoler = new Team();
-//         for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
-//             let done = false;
-//             while(!done){
-//                 spaceAvailable = true;
-//                 x=Math.round(Math.random()*(boardWidth-1));
-//                 y=Math.round(Math.random()*(boardHeight-1));
-//                 HexTest = document.getElementById(`col${x}row${y}`);
-//                 if(HexTest.getAttribute("Src") == "IMG/Hex.png"){
-//                     for(let k = 0;k<ships.length;k++){
-//                         if(ships[k].shipx==x&&ships[k].shipy==y){
-//                             spaceAvailable = false;
-//                         }
-//                     }
-//                     if(spaceAvailable){
-//                         let shipPlaceHolder = new Ship(x,y,i,6,Math.round(Math.random()*5));
-//                         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
-//                         done = true
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     // for(let i = 0;i<parseInt(document.getElementById("teams").value);i++){
-//     //     let teamPlaceHoler = new Team();
-//     //     for(let j = 0;j<parseInt(document.getElementById("boatCountPer").value);j++){
-//     //         let shipPlaceHolder = new Ship(i*7,j*3,i);
-//     //         teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
-//     //     }
-//     // }
-//     removeBoatMake();
-//     addStart();
-// }
 
 //creates the ship objects oppon starting the game
 function makeBoats(){
@@ -1183,7 +1145,7 @@ function makeBoats(){
                     }
                     if(spaceAvailable){
                         let shipPlaceHolder = new Ship(x,y,i,Math.round(Math.random()*5),6);
-                        teams[i].ships.push(ships[shipPlaceHolder.shipNum]);
+                        teams[i].ships.push(shipPlaceHolder.shipNum);
                         done = true
                     }
                 }
@@ -1200,7 +1162,7 @@ function setAllStats(){
             for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
                 for(let k = -builtIn.length;k<parseInt(window.localStorage.getItem('numberOfShips'));k++){
                     if(document.getElementById(`Player${i}ShipSelect${j}`).value == JSON.parse(window.localStorage.getItem(`ship${k}`)).name){
-                        teams[i].ships[j].setStats(JSON.parse(window.localStorage.getItem(`ship${k}`)))
+                        ships[teams[i].ships[j]].setStats(JSON.parse(window.localStorage.getItem(`ship${k}`)))
                     }
                 }
             }
@@ -1266,24 +1228,24 @@ function moveShipClick(id){
     if(document.getElementById(id).style.filter == "hue-rotate(90deg) brightness(1.5)"){
         let location = id.split("col").pop().split("row");
         unhighlight(id)
-        moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
-        moveShip(location[0],location[1],teams[activeTeam].ships[activeBoat].shipNum)
-        setShip(this);
+        moveShadent(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
+        moveShip(location[0],location[1],ships[teams[activeTeam].ships[activeBoat]].shipNum)
+        setShip(ships[teams[activeTeam].ships[activeBoat]]);
     }
 }
 
 //postions the turning arrows
 function repositionArrows(){
-    // console.log(teams[activeTeam].ships[activeBoat].moveType);
-    if(teams[activeTeam].ships[activeBoat].moveLeft<teams[activeTeam].ships[activeBoat].turnCost||teams[activeTeam].ships[activeBoat].hitpoints[7][1]<0){
+    // console.log(ships[teams[activeTeam].ships[activeBoat]].moveType);
+    if(ships[teams[activeTeam].ships[activeBoat]].moveLeft<ships[teams[activeTeam].ships[activeBoat]].turnCost||ships[teams[activeTeam].ships[activeBoat]].hitpoints[7][1]<0){
         LeftArrow.style.visibility = "hidden";
         RightArrow.style.visibility = "hidden";
-    }else if(teams[activeTeam].ships[activeBoat].moveType != "Flank"){
+    }else if(ships[teams[activeTeam].ships[activeBoat]].moveType != "Flank"){
         LeftArrow.style.visibility = "visible";
         RightArrow.style.visibility = "visible";
-        let selectedBoat = document.getElementById(`col${teams[activeTeam].ships[activeBoat].shipx}row${teams[activeTeam].ships[activeBoat].shipy}`);
-        let selectedBoatPos = document.getElementById(`col${teams[activeTeam].ships[activeBoat].shipx}row${teams[activeTeam].ships[activeBoat].shipy}`).getBoundingClientRect();
-        let angle = teams[activeTeam].ships[activeBoat].rotation*60/180*Math.PI;
+        let selectedBoat = document.getElementById(`col${ships[teams[activeTeam].ships[activeBoat]].shipx}row${ships[teams[activeTeam].ships[activeBoat]].shipy}`);
+        let selectedBoatPos = document.getElementById(`col${ships[teams[activeTeam].ships[activeBoat]].shipx}row${ships[teams[activeTeam].ships[activeBoat]].shipy}`).getBoundingClientRect();
+        let angle = ships[teams[activeTeam].ships[activeBoat]].rotation*60/180*Math.PI;
         LeftArrow.style.height = `${selectedBoat.height/3}px`;
         LeftArrow.style.width = `${selectedBoat.width/3}px`;
         LeftArrow.style.left = `${selectedBoatPos.left+selectedBoat.width/3+Math.cos(angle)*(-selectedBoat.width/4)+Math.sin(angle)*(selectedBoat.height/6+selectedBoat.height/3)}px`;
@@ -1302,7 +1264,7 @@ function repositionArrows(){
 
 //calls to roatte a ship
 function rotateAShip(dir){
-    teams[activeTeam].ships[activeBoat].rotate(dir);
+    ships[teams[activeTeam].ships[activeBoat]].rotate(dir);
     repositionArrows();
 }
 
@@ -1378,15 +1340,15 @@ function FireWeapon(side,weapon){
     if(firingSide==side&&firingWeapon==weapon&&firing == true){
         stopFiring();
         activeAllAmmo();
-    }else if(teams[activeTeam].ships[activeBoat].Weapons[side][weapon][3]>0){
+    }else if(ships[teams[activeTeam].ships[activeBoat]].Weapons[side][weapon][3]>0){
         firingWeapon = weapon;
         firingSide = side;
         firing = true;
-        attacker = teams[activeTeam].ships[activeBoat];
+        attacker = ships[teams[activeTeam].ships[activeBoat]];
         anglerIfy();
         setFiringWeapon(firingWeapon,firingSide);
 
-        switch(teams[activeTeam].ships[activeBoat].Weapons[side][weapon][0]){
+        switch(ships[teams[activeTeam].ships[activeBoat]].Weapons[side][weapon][0]){
             case "Cannon":
             break;
             case "Long Nine":
@@ -1414,7 +1376,7 @@ function FireWeapon(side,weapon){
             break;
         }
         // console.log("bang");
-        // teams[activeTeam].ships[activeBoat].Weapons[side][weapon][3]--;
+        // ships[teams[activeTeam].ships[activeBoat]].Weapons[side][weapon][3]--;
         // setAttackButtons();
     }else{
         stopFiring();
@@ -1431,7 +1393,7 @@ function activeAllAmmo(){
 
 //position and rotate the image that shows firing angles
 function adjustAnglePNG(){
-    attacker = teams[activeTeam].ships[activeBoat];
+    attacker = ships[teams[activeTeam].ships[activeBoat]];
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
     sourcex = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
     sourcey = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
@@ -1465,7 +1427,7 @@ function adjustAnglePNG(){
 
 //adjusts the cannon flash location and roatation
 function adjustFirePNG(){
-    attacker = teams[activeTeam].ships[activeBoat];
+    attacker = ships[teams[activeTeam].ships[activeBoat]];
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
     sourcex = attacker.ship.getBoundingClientRect().left+attacker.ship.getBoundingClientRect().width/2;
     sourcey = attacker.ship.getBoundingClientRect().top+attacker.ship.getBoundingClientRect().height/2;
@@ -1495,7 +1457,7 @@ function adjustFirePNG(){
 // positions and rotates the hit/miss marker for the ships
 function adjustHitPNG(defender){
     // console.log("placing hit2");
-    attacker = teams[activeTeam].ships[activeBoat];
+    attacker = ships[teams[activeTeam].ships[activeBoat]];
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
     sourcex = defender.ship.getBoundingClientRect().left+defender.ship.getBoundingClientRect().width/2;
     sourcey = defender.ship.getBoundingClientRect().top+defender.ship.getBoundingClientRect().height/2;
@@ -1506,7 +1468,7 @@ function adjustHitPNG(defender){
     offsetx = sourcex-attackx
     // console.log("offsetx: ",offsetx);
     offsety = sourcey-attacky
-    // rotationHit = angle-30-90-(teams[activeTeam].ships[activeBoat].rotation*60)
+    // rotationHit = angle-30-90-(ships[teams[activeTeam].ships[activeBoat]].rotation*60)
     let rotationHit = Math.atan2(offsety,offsetx)/Math.PI*180+30;
     while(rotationHit>180||rotationHit<-180){
         if(rotationHit>180){
@@ -1615,7 +1577,7 @@ function AttackThis(attacker, defender){
     // console.log("sqrtnt",(offsetx*offsetx)+(offsety*offsety))
     // console.log("offset: ",offset);
     angle = -Math.atan2(offsety,offsetx)/Math.PI*180;
-    angle += teams[activeTeam].ships[activeBoat].rotation*60
+    angle += ships[teams[activeTeam].ships[activeBoat]].rotation*60
     // console.log(`*: ${angle}`);
 
     if(InView(attacker, defender)){
@@ -1657,9 +1619,9 @@ function AttackThis(attacker, defender){
                 }
             }
             adjustHitPNG(defender)
-            teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]--;
+            ships[teams[activeTeam].ships[activeBoat]].Weapons[firingSide][firingWeapon][3]--;
                 setAttackButtons();
-            if(teams[activeTeam].ships[activeBoat].Weapons[firingSide][firingWeapon][3]<=0){
+            if(ships[teams[activeTeam].ships[activeBoat]].Weapons[firingSide][firingWeapon][3]<=0){
                 firing = false;
                 angler.style.visibility ="hidden";
             }
@@ -1734,7 +1696,7 @@ function willItHit(attacker,defender){
     hexRef = document.getElementById("col0row0").getBoundingClientRect();
     // console.log(`team ${activeTeam}`);
     // console.log(`boat ${activeBoat}`);
-    // console.log(teams[activeTeam].ships[activeBoat].captainSkill);
+    // console.log(ships[teams[activeTeam].ships[activeBoat]].captainSkill);
     let ToBeat = attacker.captainSkill;
     for(let i=0;i<ammoTypes.length;i++){
         if(ammoTypes[i]==selectedAmmo){
@@ -1889,14 +1851,26 @@ function removeStart(){
 //adds the movement phase info
 function addMoveProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n         <img id="phaseIndicator" src="/IMG/indicator_phase_move.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  <button id="nextBoat" >Finish Turn</button>`);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n         <img id="phaseIndicator" src="/IMG/indicator_phase_move.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n                <p id="Movement left">Movement Left:</p>\n  `);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="nextBoat">Finish Turn</button>`);
     document.getElementById("nextBoat").addEventListener("click",nextBoatMove);
+    if(teams[activeTeam].hash==selfId){
+        document.getElementById("nextBoat").style.visibility = "visible";
+    }else{
+        document.getElementById("nextBoat").style.visibility = "hidden";
+    }
 }
 //adds the attack phase info
 function addAttackProgress(){
     sidebar = document.getElementById("SideBarContent");
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n          <img id = "phaseIndicator" src="/IMG/indicator_phase_battle.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n       <p id="firingWeapon">Firing:</p>\n    <p id="firingAmmo">With:</p>\n         <button id="nextBoat">Finish Turn</button>   `);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<div id="phaseDiv"><p id="phase">Phase: Move</p>\n          <img id = "phaseIndicator" src="/IMG/indicator_phase_battle.png"></div>\n                <p id="activeTeam">Active Team:</p>\n                <p id="activeBoat">Active Boat:</p>\n       <p id="firingWeapon">Firing:</p>\n    <p id="firingAmmo">With:</p>\n         `);
+    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="nextBoat">Finish Turn</button>`);
     document.getElementById("nextBoat").addEventListener("click",nextBoatAttack);
+    if(teams[activeTeam].hash==selfId){
+        document.getElementById("nextBoat").style.visibility = "visible";
+    }else{
+        document.getElementById("nextBoat").style.visibility = "hidden";
+    }
 }
 
 //clears the sidebars main section
@@ -1908,9 +1882,11 @@ function clearSidebar(){
 
 //adds the movement speed selection buttons
 function setSpeedSelection(){
-    if(teams[activeTeam]==selfId){
+    document.getElementById("nextBoat").style.visibility = "hidden";
+    if(teams[activeTeam].hash==selfId){
+    document.getElementById("nextBoat").style.visibility = "visible";
         GameControls = document.getElementById("GameControls");
-        if(teams[activeTeam].ships[activeBoat].hitpoints[6][1]>0){
+        if(ships[teams[activeTeam].ships[activeBoat]].hitpoints[6][1]>0){
             GameControls.innerHTML = GameControls.innerHTML.concat(`<p>Select movement speed:</p>  <button class="SpeedSet" id = "SpeedCruise" >Cruise</button>
             <button class="SpeedSet" id = "SpeedFullSteam" >Full Steam</button>
             <button class="SpeedSet" id = "SpeedFlank" >Flank</button>`);
@@ -1927,34 +1903,36 @@ function setSpeedSelection(){
 
 //adds the attack buttons for selecting weapons ammo and health
 function setAttackButtons(){
-    if(teams[activeTeam]==selfId){
+    document.getElementById("nextBoat").style.visibility = "hidden";
+    if(teams[activeTeam].hash==selfId){
+    document.getElementById("nextBoat").style.visibility = "visible";
         GameControls = document.getElementById("GameControls");
         GameControls.innerHTML = GameControls.innerHTML=`<h3>Weapons:</h3>`;
-            if(teams[activeTeam].ships[activeBoat].Weapons[0].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[1][1]>0){
+            if(ships[teams[activeTeam].ships[activeBoat]].Weapons[0].length>0&&ships[teams[activeTeam].ships[activeBoat]].hitpoints[1][1]>0){
                 GameControls.innerHTML+=`Bow:<hr class ="smallDivider">`;
             }
-            for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[0].length&&teams[activeTeam].ships[activeBoat].hitpoints[1][1]>0;i++){
-            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[0][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[0][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[0][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[0][i][2]}`;
+            for(let i=0;i<ships[teams[activeTeam].ships[activeBoat]].Weapons[0].length&&ships[teams[activeTeam].ships[activeBoat]].hitpoints[1][1]>0;i++){
+            GameControls.innerHTML+=`${ships[teams[activeTeam].ships[activeBoat]].Weapons[0][i][2]}x ${ships[teams[activeTeam].ships[activeBoat]].Weapons[0][i][1]}lb ${ships[teams[activeTeam].ships[activeBoat]].Weapons[0][i][0]}      ${ships[teams[activeTeam].ships[activeBoat]].Weapons[0][i][3]}/${ships[teams[activeTeam].ships[activeBoat]].Weapons[0][i][2]}`;
             GameControls.innerHTML+=`<button id="FireSide0Weapon${i}" >Select</button><br>`;
             setTimeout((e)=>{
                 document.getElementById(`FireSide0Weapon${i}`).addEventListener("click",(e)=>FireWeapon(0,i));
             },100)
         }
-        if(teams[activeTeam].ships[activeBoat].Weapons[1].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0){
+        if(ships[teams[activeTeam].ships[activeBoat]].Weapons[1].length>0&&ships[teams[activeTeam].ships[activeBoat]].hitpoints[3][1]>0){
             GameControls.innerHTML+=`Port:<hr class ="smallDivider">`;
         }
-        for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[1].length&&teams[activeTeam].ships[activeBoat].hitpoints[3][1]>0;i++){
-            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[1][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[1][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[1][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[1][i][2]}`;
+        for(let i=0;i<ships[teams[activeTeam].ships[activeBoat]].Weapons[1].length&&ships[teams[activeTeam].ships[activeBoat]].hitpoints[3][1]>0;i++){
+            GameControls.innerHTML+=`${ships[teams[activeTeam].ships[activeBoat]].Weapons[1][i][2]}x ${ships[teams[activeTeam].ships[activeBoat]].Weapons[1][i][1]}lb ${ships[teams[activeTeam].ships[activeBoat]].Weapons[1][i][0]}      ${ships[teams[activeTeam].ships[activeBoat]].Weapons[1][i][3]}/${ships[teams[activeTeam].ships[activeBoat]].Weapons[1][i][2]}`;
             GameControls.innerHTML+=`<button id="FireSide1Weapon${i}" >Select</button><br>`;
             setTimeout((e)=>{
                 document.getElementById(`FireSide1Weapon${i}`).addEventListener("click",(e)=>FireWeapon(1,i));
             },100)
         }
-        if(teams[activeTeam].ships[activeBoat].Weapons[2].length>0&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0){
+        if(ships[teams[activeTeam].ships[activeBoat]].Weapons[2].length>0&&ships[teams[activeTeam].ships[activeBoat]].hitpoints[4][1]>0){
             GameControls.innerHTML+=`<br>Starboard:<hr class ="smallDivider">`;
         }
-        for(let i=0;i<teams[activeTeam].ships[activeBoat].Weapons[2].length&&teams[activeTeam].ships[activeBoat].hitpoints[4][1]>0;i++){
-            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}x ${teams[activeTeam].ships[activeBoat].Weapons[2][i][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[2][i][0]}      ${teams[activeTeam].ships[activeBoat].Weapons[2][i][3]}/${teams[activeTeam].ships[activeBoat].Weapons[2][i][2]}`;
+        for(let i=0;i<ships[teams[activeTeam].ships[activeBoat]].Weapons[2].length&&ships[teams[activeTeam].ships[activeBoat]].hitpoints[4][1]>0;i++){
+            GameControls.innerHTML+=`${ships[teams[activeTeam].ships[activeBoat]].Weapons[2][i][2]}x ${ships[teams[activeTeam].ships[activeBoat]].Weapons[2][i][1]}lb ${ships[teams[activeTeam].ships[activeBoat]].Weapons[2][i][0]}      ${ships[teams[activeTeam].ships[activeBoat]].Weapons[2][i][3]}/${ships[teams[activeTeam].ships[activeBoat]].Weapons[2][i][2]}`;
             GameControls.innerHTML+=`<button id="FireSide2Weapon${i}" >Select</button><br>`;
             setTimeout((e)=>{
                 document.getElementById(`FireSide2Weapon${i}`).addEventListener("click",(e)=>FireWeapon(2,i));
@@ -1962,18 +1940,18 @@ function setAttackButtons(){
         }
         GameControls.innerHTML+=`<hr class="bigDivider">`;
         GameControls.innerHTML+=`<h3>Ammo:</h3>`;
-        for(let i=0;i<teams[activeTeam].ships[activeBoat].ammo.length;i++){
-            GameControls.innerHTML+=`${teams[activeTeam].ships[activeBoat].ammo[i][0]}: ${teams[activeTeam].ships[activeBoat].ammo[i][2]}/${teams[activeTeam].ships[activeBoat].ammo[i][1]}`;
-            GameControls.innerHTML+=`<button id="SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}" >Select</button><br>`;
+        for(let i=0;i<ships[teams[activeTeam].ships[activeBoat]].ammo.length;i++){
+            GameControls.innerHTML+=`${ships[teams[activeTeam].ships[activeBoat]].ammo[i][0]}: ${ships[teams[activeTeam].ships[activeBoat]].ammo[i][2]}/${ships[teams[activeTeam].ships[activeBoat]].ammo[i][1]}`;
+            GameControls.innerHTML+=`<button id="SelectAmmo${ships[teams[activeTeam].ships[activeBoat]].ammo[i][0]}" >Select</button><br>`;
             setTimeout((e)=>{
-                document.getElementById(`SelectAmmo${teams[activeTeam].ships[activeBoat].ammo[i][0]}`).addEventListener("click",(e)=>selectAmmo(teams[activeTeam].ships[activeBoat].ammo[i][0]));
+                document.getElementById(`SelectAmmo${ships[teams[activeTeam].ships[activeBoat]].ammo[i][0]}`).addEventListener("click",(e)=>selectAmmo(ships[teams[activeTeam].ships[activeBoat]].ammo[i][0]));
             },100)
         }
         GameControls.innerHTML+=`<hr class="bigDivider">`;
         let shipParts = ["Bridge","Bow","Aft","Port","Starboard","Bilge","Mast","Rudder"]
         GameControls.innerHTML+=`<h3>Hitpoints:</h3>`;
-        for(let i=0;i<teams[activeTeam].ships[activeBoat].hitpoints.length;i++){
-            GameControls.innerHTML+=`${shipParts[i]}: ${teams[activeTeam].ships[activeBoat].hitpoints[i][1]}/${teams[activeTeam].ships[activeBoat].hitpoints[i][0]}<br>`;
+        for(let i=0;i<ships[teams[activeTeam].ships[activeBoat]].hitpoints.length;i++){
+            GameControls.innerHTML+=`${shipParts[i]}: ${ships[teams[activeTeam].ships[activeBoat]].hitpoints[i][1]}/${ships[teams[activeTeam].ships[activeBoat]].hitpoints[i][0]}<br>`;
         }
         setTimeout((e) => adjustAll(),100)
     }
@@ -2025,7 +2003,7 @@ let sides = ["Bow","Port","Starboard"]
 
 //sets the firing weapon on the sidebar
 function setFiringWeapon(input,input2){
-    document.getElementById("firingWeapon").innerText = `Firing:${teams[activeTeam].ships[activeBoat].Weapons[input2][input][1]}lb ${teams[activeTeam].ships[activeBoat].Weapons[input2][input][0]} on ${sides[input2]}`;
+    document.getElementById("firingWeapon").innerText = `Firing:${ships[teams[activeTeam].ships[activeBoat]].Weapons[input2][input][1]}lb ${ships[teams[activeTeam].ships[activeBoat]].Weapons[input2][input][0]} on ${sides[input2]}`;
 }
 
 //sets the firing weapon on the sidebar to a raw value
@@ -2119,9 +2097,14 @@ function startGame(){
                 }
                 if(selectedAll){
                     setAllStats();
-                    removeStart();
-                    startMovePhase();
-                    sendStart(true);
+                    setTimeout(
+                        ()=>{
+
+                            removeStart();
+                            startMovePhase();
+                            sendStart(true);
+                        },300
+                    );
                 }else{
                     alert("Please have other players select valid ships");
                 }
@@ -2162,39 +2145,34 @@ function myShipsAreSelected(){
 //Updates the board during the move phase
 function updateMove(){
     try{
-        teams[activeTeam].ships[activeBoat].deselectColor();
-        // if(teams[activeTeam].ships[activeBoat].moveLeft==0){
-        //     activeBoat++;
-        // }
-        // if(activeBoat>teams[activeTeam].ships.length-1){
-        //     activeTeam++;
-        //     activeBoat = 0;
-        // }
+
+        ships[teams[activeTeam].ships[activeBoat]].deselectColor();
         
-        teams[activeTeam].ships[activeBoat].selectColor();
+        ships[teams[activeTeam].ships[activeBoat]].selectColor();
         repositionArrows()
         setPhase("Move");
         setTeam(teams[activeTeam].teamNum);
         setBoat(activeBoat);
-        setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
-        if(teams[activeTeam].ships[activeBoat].moveLeft==0){
-            moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+        setMoveLeft(ships[teams[activeTeam].ships[activeBoat]].moveLeft);
+        if(ships[teams[activeTeam].ships[activeBoat]].moveLeft==0){
+            moveShadent(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
         }else{
-            moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+            moveShade(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
         }
     }catch{}
 }
 
 // selects the next boat during the move phase
 function nextBoatMove(){
-    if(hosting){
+    if(teams[activeTeam].hash==selfId){
         sendNextBoat(true);
     }
-    teams[activeTeam].ships[activeBoat].deselectColor();
-    moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    console.log("next move")
+    ships[teams[activeTeam].ships[activeBoat]].deselectColor();
+    moveShadent(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
     clearPieceInfo();
     clearGameControls();
-    teams[activeTeam].ships[activeBoat].exhausted = true;
+    ships[teams[activeTeam].ships[activeBoat]].exhausted = true;
     activeBoat++;
     if(activeBoat>teams[activeTeam].ships.length-1){
         activeTeam++;
@@ -2203,32 +2181,33 @@ function nextBoatMove(){
     if(activeTeam>=teams.length){
         StartAttackPhase();
     }else{
-        if(teams[activeTeam].ships[activeBoat].alive==false){
+        if(ships[teams[activeTeam].ships[activeBoat]].alive==false){
             nextBoatMove()
         }else{
             setSpeedSelection();
-            teams[activeTeam].ships[activeBoat].selectColor();
-            teams[activeTeam].ships[activeBoat].moveLeft = 0;
+            ships[teams[activeTeam].ships[activeBoat]].selectColor();
+            ships[teams[activeTeam].ships[activeBoat]].moveLeft = 0;
             repositionArrows()
             setPhase("Move");
             setTeam(teams[activeTeam].teamNum);
             setBoat(activeBoat);
-            setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
-            moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+            setMoveLeft(ships[teams[activeTeam].ships[activeBoat]].moveLeft);
+            moveShade(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
         }
     }
 }
 
 // selects the next boat during the attack phase
 function nextBoatAttack(){
-    if(hosting){
+    if(teams[activeTeam].hash==selfId){
         sendNextBoat(true);
     }
-    teams[activeTeam].ships[activeBoat].deselectColor();
-    moveShadent(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    console.log("next attack")
+    ships[teams[activeTeam].ships[activeBoat]].deselectColor();
+    moveShadent(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
     clearPieceInfo();
     stopFiring();
-    teams[activeTeam].ships[activeBoat].exhausted = true;
+    ships[teams[activeTeam].ships[activeBoat]].exhausted = true;
     activeBoat++;
     selectedAmmo = "";
     if(activeBoat>teams[activeTeam].ships.length-1){
@@ -2238,11 +2217,11 @@ function nextBoatAttack(){
     if(activeTeam>=teams.length){
         startMovePhase();
     }else{
-        if(teams[activeTeam].ships[activeBoat].alive==false){
+        if(ships[teams[activeTeam].ships[activeBoat]].alive==false){
             nextBoatAttack()
         }else{
             setAttackButtons();
-            teams[activeTeam].ships[activeBoat].selectColor();
+            ships[teams[activeTeam].ships[activeBoat]].selectColor();
             setPhase("Attack");
             setTeam(teams[activeTeam].teamNum);
             setBoat(activeBoat);
@@ -2254,14 +2233,14 @@ function nextBoatAttack(){
 // selects the speed of the boat during the move phase
 function setSpeed(speed){
     if(speed == 1){
-        teams[activeTeam].ships[activeBoat].moveType = "Full";
+        ships[teams[activeTeam].ships[activeBoat]].moveType = "Full";
     }else if(speed == 2){
-        teams[activeTeam].ships[activeBoat].moveType = "Flank";
+        ships[teams[activeTeam].ships[activeBoat]].moveType = "Flank";
     }else{
-        teams[activeTeam].ships[activeBoat].moveType = "Cruise";
+        ships[teams[activeTeam].ships[activeBoat]].moveType = "Cruise";
     }
-    teams[activeTeam].ships[activeBoat].moveLeft = teams[activeTeam].ships[activeBoat].movePower[speed];
-    moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+    ships[teams[activeTeam].ships[activeBoat]].moveLeft = ships[teams[activeTeam].ships[activeBoat]].movePower[speed];
+    moveShade(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
     clearGameControls();
     updateMove();
     repositionArrows();
@@ -2270,6 +2249,13 @@ function setSpeed(speed){
 // starts the movement phase
 function startMovePhase(){
     shuffleTeams();
+    sendTeams(teams);
+    setTimeout(
+        ()=>{
+            sendTeams(teams);
+        },100
+    )
+    console.log(teams);
     clearSidebar();
     clearGameControls()
     damageAll()
@@ -2277,18 +2263,18 @@ function startMovePhase(){
     activeBoat = 0;
     readyAll();
     addMoveProgress();
-    if(teams[activeTeam].ships[activeBoat].alive==false){
+    if(ships[teams[activeTeam].ships[activeBoat]].alive==false){
         nextBoatMove()
     }else{
         setSpeedSelection();
-        teams[activeTeam].ships[activeBoat].selectColor();
-        teams[activeTeam].ships[activeBoat].moveLeft = 0;
+        ships[teams[activeTeam].ships[activeBoat]].selectColor();
+        ships[teams[activeTeam].ships[activeBoat]].moveLeft = 0;
         repositionArrows()
         setPhase("Move");
         setTeam(teams[activeTeam].teamNum);
         setBoat(activeBoat);
-        setMoveLeft(teams[activeTeam].ships[activeBoat].moveLeft);
-        moveShade(teams[activeTeam].ships[activeBoat].shipx,teams[activeTeam].ships[activeBoat].shipy);
+        setMoveLeft(ships[teams[activeTeam].ships[activeBoat]].moveLeft);
+        moveShade(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
     }
     
 }
@@ -2307,11 +2293,11 @@ function StartAttackPhase(){
     activeTeam = 0;
     activeBoat = 0;
     addAttackProgress();
-    if(teams[activeTeam].ships[activeBoat].alive==false){
+    if(ships[teams[activeTeam].ships[activeBoat]].alive==false){
         nextBoatAttack()
     }else{
         setAttackButtons();
-        teams[activeTeam].ships[activeBoat].selectColor();
+        ships[teams[activeTeam].ships[activeBoat]].selectColor();
         setPhase("Attack");
         setTeam(teams[activeTeam].teamNum);
         setBoat(activeBoat);
@@ -2377,6 +2363,7 @@ const [sendName, getName] = room.makeAction('name');
 const [sendMsg, getMsg] = room.makeAction('message');
 const [sendShip, getShip] = room.makeAction('ShipUpdate');
 const [sendTeamsH, getTeamsH] = room.makeAction('TeamHash');
+const [sendTeams, getTeams] = room.makeAction('Team');
 const [sendBoard, getBoard] = room.makeAction('Board');
 const [sendSelectedQuery, getSelectedQuery] = room.makeAction('SelectedQue');
 const [sendShipSelect, getShipSelect] = room.makeAction('ShipSelect');
@@ -2516,8 +2503,8 @@ getMsg((message, peerId) => {
 
 
 function setShip(ship){
-    console.log(ship)
-    sendShip(ship)
+    // console.log(ship);
+    sendShip(ship);
 }
 
 
@@ -2550,9 +2537,18 @@ getTeamsH(
     }
 )
 
+getTeams(
+    (teamsIn,peerId) => {
+        for(let i =0;i<teamsIn.length;i++){
+            teams[i]=teamsIn[i]
+        }
+        console.log(teams);
+    }
+)
+
 getBoard(
     ([boardIn,xIn,yIn],peerId) =>{
-        console.log(boardIn)
+        // console.log(boardIn)
         boardHeight = xIn;
         boardWidth = yIn;
         Board.innerHTML = boardIn;
@@ -2565,6 +2561,7 @@ getBoard(
             }
         }
         HexGrid = document.getElementById("HexGrid");
+        setTimeout((e)=>{Board.addEventListener("click",updateMove);},100);
         setTimeout((e) =>makeBoats(),200);
         setTimeout((e) =>AdjustBoard(),200);
         setTimeout((e) =>AdjustBoard(),310);
@@ -2595,7 +2592,7 @@ getShipSelect(
             for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
                 if(teams[i].hash==peerId){
                     for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
-                        teams[i].ships[j].setStats(shipsSet[j])
+                        ships[teams[i].ships[j]].setStats(shipsSet[j])
                     }
                 }
             }
