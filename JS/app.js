@@ -40,12 +40,26 @@ for (ton in statsByTon) {
 
 // daniel says hi :>
 
+let weaponsArray = [
+    [],
+    [],
+    []
+];
+let ammo = [0, 0, 0];
 
 // updates base healths, armor limit, weapon limits, and resets armor and weapons when tonnage is changed
 tonnageTable.addEventListener("change", setValues);
 tonnageTable.addEventListener("change", getArmorOptions);
 tonnageTable.addEventListener("change", getWeaponOptions);
 tonnageTable.addEventListener("change", getWeaponSpecs);
+tonnageTable.addEventListener("change", () => {
+    weaponsArray = [
+        [],
+        [],
+        []
+    ];
+    ammo = [0, 0, 0];
+});
 // tonnageTable.addEventListener("change", getWeaponOptionsP1);
 // tonnageTable.addEventListener("change", getWeaponOptionsP2);
 // tonnageTable.addEventListener("change", getWeaponOptionsS1);
@@ -636,14 +650,6 @@ function getWeaponSpecs () {
         }
     }
 }
-
-
-let weaponsArray = [
-    [],
-    [],
-    []
-];
-let ammo = [0, 0, 0];
 
 let addWeaponButtonB = document.getElementById("addWeaponButtonB");
 let addWeaponButtonP = document.getElementById("addWeaponButtonP");
