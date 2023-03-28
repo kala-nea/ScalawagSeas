@@ -2430,6 +2430,11 @@ room.onPeerJoin( (peerId) => {
 room.onPeerLeave( (peerId) => {
     console.log(`${idsToNames[peerId] || 'a weird stranger'} left`);
     // updatePeers(); // update peer list
+    for(let i = 0;i<teams.length;i++){
+        if(teams[i].hash==peerId){
+            teams[i].hash==null;
+        }
+    }
 });
 
 // receive peer names
