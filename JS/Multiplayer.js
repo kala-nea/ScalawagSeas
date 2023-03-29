@@ -2256,8 +2256,8 @@ function setSpeed(speed){
 
 // starts the movement phase
 function startMovePhase(){
-    shuffleTeams();
     if(hosting){
+        shuffleTeams();
         sendTeamsO(teams);
         sendPhaseSet(true);
     }
