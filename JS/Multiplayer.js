@@ -2179,7 +2179,9 @@ function nextBoatMove(){
         activeBoat = 0;
     }
     if(activeTeam>=teams.length){
-        StartAttackPhase();
+        if(hosting){
+            StartAttackPhase();
+        }
     }else{
         if(ships[teams[activeTeam].ships[activeBoat]].alive==false){
             nextBoatMove()
@@ -2190,7 +2192,9 @@ function nextBoatMove(){
             repositionArrows()
             setPhase("Move");
             setTeam(teams[activeTeam].teamNum);
+            console.log("active team"+activeTeam)
             setBoat(activeBoat);
+            console.log("active boat"+activeBoat)
             setMoveLeft(ships[teams[activeTeam].ships[activeBoat]].moveLeft);
             moveShade(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
         }
@@ -2215,7 +2219,9 @@ function nextBoatAttack(){
         activeBoat = 0;
     }
     if(activeTeam>=teams.length){
-        startMovePhase();
+        if(hosting){
+            startMovePhase();
+        }
     }else{
         if(ships[teams[activeTeam].ships[activeBoat]].alive==false){
             nextBoatAttack()
@@ -2224,7 +2230,9 @@ function nextBoatAttack(){
             ships[teams[activeTeam].ships[activeBoat]].selectColor();
             setPhase("Attack");
             setTeam(teams[activeTeam].teamNum);
+            console.log("active team"+activeTeam)
             setBoat(activeBoat);
+            console.log("active boat"+activeBoat)
         }
     }
 
@@ -2248,13 +2256,16 @@ function setSpeed(speed){
 
 // starts the movement phase
 function startMovePhase(){
-    shuffleTeams();
-    sendTeams(teams);
-    setTimeout(
-        ()=>{
-            sendTeams(teams);
-        },100
-    )
+    if(hosting){
+        shuffleTeams();
+        sendTeamsO(teams);
+        sendPhaseSet(true);
+    }
+    // setTimeout(
+    //     ()=>{
+    //         sendTeamsO(teams);
+    //     },100
+    // )
     console.log(teams);
     clearSidebar();
     clearGameControls()
@@ -2272,7 +2283,9 @@ function startMovePhase(){
         repositionArrows()
         setPhase("Move");
         setTeam(teams[activeTeam].teamNum);
+        console.log("active team"+activeTeam)
         setBoat(activeBoat);
+        console.log("active boat"+activeBoat)
         setMoveLeft(ships[teams[activeTeam].ships[activeBoat]].moveLeft);
         moveShade(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
     }
@@ -2282,6 +2295,9 @@ function startMovePhase(){
 // starts the attack phase
 function StartAttackPhase(){
     //startMovePhase();
+    if(hosting){
+        sendPhaseSet(false);
+    }
     firing = false;
     firingWeapon = "";
     firingSide="";
@@ -2300,7 +2316,9 @@ function StartAttackPhase(){
         ships[teams[activeTeam].ships[activeBoat]].selectColor();
         setPhase("Attack");
         setTeam(teams[activeTeam].teamNum);
+        console.log("active team"+activeTeam)
         setBoat(activeBoat);
+        console.log("active boat"+activeBoat)
     }
 }
 
@@ -2363,13 +2381,14 @@ const [sendName, getName] = room.makeAction('name');
 const [sendMsg, getMsg] = room.makeAction('message');
 const [sendShip, getShip] = room.makeAction('ShipUpdate');
 const [sendTeamsH, getTeamsH] = room.makeAction('TeamHash');
-const [sendTeams, getTeams] = room.makeAction('Team');
+const [sendTeamsO, getTeamsO] = room.makeAction('TeamO');
 const [sendBoard, getBoard] = room.makeAction('Board');
 const [sendSelectedQuery, getSelectedQuery] = room.makeAction('SelectedQue');
 const [sendShipSelect, getShipSelect] = room.makeAction('ShipSelect');
 const [sendLocalStore, getLocalStore] = room.makeAction('LocalStore');
 const [sendStart, getStart] = room.makeAction('Start');
 const [sendNextBoat, getNextBoat] = room.makeAction('NextBoat');
+const [sendPhaseSet, getPhaseSet] = room.makeAction('PhaseSet');
 
 const idsToNames = {}; // map of peer ids to names
 // const nameInput = document.getElementById('nameInput');
@@ -2430,6 +2449,11 @@ room.onPeerJoin( (peerId) => {
 room.onPeerLeave( (peerId) => {
     console.log(`${idsToNames[peerId] || 'a weird stranger'} left`);
     // updatePeers(); // update peer list
+    for(let i = 0;i<teams.length;i++){
+        if(teams[i].hash==peerId){
+            teams[i].hash==null;
+        }
+    }
 });
 
 // receive peer names
@@ -2537,7 +2561,7 @@ getTeamsH(
     }
 )
 
-getTeams(
+getTeamsO(
     (teamsIn,peerId) => {
         for(let i =0;i<teamsIn.length;i++){
             teams[i]=teamsIn[i]
@@ -2634,6 +2658,16 @@ getNextBoat(
             nextBoatMove()
         }else{
             nextBoatAttack()
+        }
+    }
+)
+
+getPhaseSet(
+    (phase,peerId)=>{
+        if(phase){
+            startMovePhase();
+        }else{
+            StartAttackPhase();
         }
     }
 )
