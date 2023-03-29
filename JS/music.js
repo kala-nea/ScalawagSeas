@@ -12,11 +12,11 @@ function playMusic () {
 }
 
 let titleImg = document.getElementById("title");
-let imgDis = true;
+let imgDis = false;
 
 function setImage () {
     if (imgDis == true) {
-        titleImg.setAttribute("src", "../IMG/logo.png");
+        titleImg.setAttribute("src", "../IMG/SSLogo2.png");
         imgDis = false;
     } else {
         titleImg.setAttribute("src", "../IMG/lorenz-sea-of-thieves.gif");
