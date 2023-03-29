@@ -88,6 +88,9 @@
                     </select>
                     <button id="addArmorButton">Add</button>
                 </section>
+                <section class="row">
+                    <button onclick="armorReset()">Reset Armor</button>
+                </section>
             </section>
             <section class="displayArea">
                 <section class="row">
@@ -128,13 +131,7 @@
                         <button class="areaSelect" id="selectToSB">Starboard</button>
                     </section>
                     <div id="wpnDisB">
-                        <section class="row">
-                            <section class="column">
-
-                            </section>
-                            <section class="column">
-
-                            </section>
+                        <section class="row" id="bowWeaponTable">
                         </section>
                         <section class="row">
                             <h3>Weapon Points Remaining:</h3>
@@ -148,13 +145,7 @@
                         </section>
                     </div>
                     <div id="wpnDisP">
-                        <section class="row">
-                            <section class="column">
-
-                            </section>
-                            <section class="column">
-
-                            </section>
+                        <section class="row" id="portWeaponTable">
                         </section>
                         <section class="row">
                             <h3>Weapon Points Remaining:</h3>
@@ -168,13 +159,7 @@
                         </section>
                     </div>
                     <div id="wpnDisS">
-                        <section class="row">
-                            <section class="column">
-
-                            </section>
-                            <section class="column">
-
-                            </section>
+                        <section class="row" id="starboardWeaponTable">
                         </section>
                         <section class="row">
                             <h3>Weapon Points Remaining:</h3>

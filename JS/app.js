@@ -448,7 +448,6 @@ addArmorButton.addEventListener("click", getArmorOptions);
 let names = ["Bow","Port","Starboard"]
 let ids = ["weaponTypeB","weaponTypeP","weaponTypeS"];
 let idsLb = ["weaponLbB","weaponLbP","weaponLbS"];
-let idsAmmo = ["weaponAmmoB","weaponAmmoP","weaponAmmoS"];
 let idsAdd = ["addWeaponButtonB","addWeaponButtonP","addWeaponButtonS"]
 let wlDisplays = [wlDisplayB,wlDisplayP,wlDisplayS];
 let weaponsRemaining = [weaponsRemainingB,weaponsRemainingP,weaponsRemainingS]
@@ -504,9 +503,7 @@ function getWeaponSpecs () {
     for(let i = 0;i<ids.length;i++){
         let weaponType = document.getElementById(ids[i]);
         let weaponLb = document.getElementById(idsLb[i]);
-        let weaponAmmo = document.getElementById(idsAmmo[i]);
         weaponLb.replaceChildren('');
-        weaponAmmo.replaceChildren('');
 
         let newPound1 = document.createElement("option");
         newPound1.setAttribute("value", "6lb");
@@ -624,30 +621,6 @@ function getWeaponSpecs () {
                 weaponLb.appendChild(newPound7);
             }
         }
-
-        let newAmmo1 = document.createElement("option");
-        newAmmo1.setAttribute("value", 0);
-        newAmmo1.textContent = "Round Shot - 5 shots";
-        let newAmmo2 = document.createElement("option");
-        newAmmo2.setAttribute("value", 1);
-        newAmmo2.textContent = "Grapeshot - 5 shots";
-        let newAmmo3 = document.createElement("option");
-        newAmmo3.setAttribute("value", 2);
-        newAmmo3.textContent = "Chain Shot - 5 shots";
-
-        if (weaponType.value == "Cannon") {
-            weaponAmmo.appendChild(newAmmo1);
-            weaponAmmo.appendChild(newAmmo2);
-            weaponAmmo.appendChild(newAmmo3);
-        } else if (weaponType.value == "Long Nine") {
-            weaponAmmo.appendChild(newAmmo1);
-            weaponAmmo.appendChild(newAmmo2);
-        } else if (weaponType.value == "Carronade") {
-            weaponAmmo.appendChild(newAmmo1);
-            weaponAmmo.appendChild(newAmmo3);
-        } else if (weaponType.value == "Paixhan") {
-            weaponAmmo.appendChild(newAmmo1);
-        }
     }
 }
 
@@ -729,24 +702,6 @@ function addWeapon (section) {
     wlDisplays[section].textContent = weaponsRemaining[section] + " points remaining";
 }
 
-function getAmmo(section) {
-    // console.log("works");
-    switch (document.getElementById(idsAmmo[section]).value) {
-        case "0":
-            ammo[0] = ammo[0] + 5;
-            break;
-        case "1":
-            ammo[1] = ammo[1] + 5;
-            break;
-        case "2":
-            ammo[2] = ammo[2] + 5;
-            break;
-    }
-    roundDisplay.textContent = ammo[0];
-    grapeDisplay.textContent = ammo[1];
-    chainDisplay.textContent = ammo[2];
-}
-
 // document.getElementById(idsAdd[0]).addEventListener("click", (e) => getAmmo(0));
 // document.getElementById(idsAdd[1]).addEventListener("click", (e) => getAmmo(1));
 // document.getElementById(idsAdd[2]).addEventListener("click", (e) => getAmmo(2));
@@ -791,35 +746,6 @@ function resetWeapons () {
     roundDisplay.textContent = ammo[0];
     grapeDisplay.textContent = ammo[1];
     chainDisplay.textContent = ammo[2];
-}
-
-let cnDisplay = document.getElementById("cnDisplay");
-let CNPresent = false;
-
-function addCrowsNest () {
-    if (CNPresent == false && weaponsRemaining[1] >= 2 && weaponsRemaining[2] >= 2) {
-        CNPresent = true;
-        weaponsRemaining[1] = weaponsRemaining[1] - 2;
-        weaponsRemaining[2] = weaponsRemaining[2] - 2;
-        wlDisplayP.textContent = weaponsRemaining[1] + " points remaining";
-        wlDisplayS.textContent = weaponsRemaining[2] + " points remaining";
-        cnDisplay.textContent = "Present";
-    }
-}
-
-let addCNButton = document.getElementById("addCNButton");
-addCNButton.addEventListener("click", addCrowsNest);
-
-function CNReset () {
-    if (CNPresent == true) {
-        CNPresent = false;
-        weaponsRemaining[1] = weaponsRemaining[1] + 2;
-        weaponsRemaining[2] = weaponsRemaining[2] + 2;
-        wlDisplayP.textContent = weaponsRemaining[1] + " points remaining";
-        wlDisplayS.textContent = weaponsRemaining[2] + " points remaining";
-        cnDisplay.textContent = "Absent";
-    }
-    
 }
 
 let shipName = document.getElementById("shipName");
@@ -1003,3 +929,37 @@ function clearAllShipsForcefully(){
 }
 
 iconSelect.addEventListener("change", getIcon);
+
+
+
+let selectToBow = document.getElementById("selectToBow");
+let selectToPort = document.getElementById("selectToPort");
+let selectToSB = document.getElementById("selectToSB");
+
+let wpnDisB = document.getElementById("wpnDisB");
+let wpnDisP = document.getElementById("wpnDisP");
+let wpnDisSB = document.getElementById("wpnDisSB");
+
+function setDisTo (x) {
+    switch (x) {
+        case 0:
+            wpnDisB.style.visible = "true";
+            wpnDisP.style.visible = "false";
+            wpnDisSB.style.visible = "false";
+            break;
+        case 1:
+            wpnDisB.style.visible = "false";
+            wpnDisP.style.visible = "true";
+            wpnDisSB.style.visible = "false";
+            break;
+        case 2:
+            wpnDisB.style.visible = "false";
+            wpnDisP.style.visible = "false";
+            wpnDisSB.style.visible = "true";
+            break;
+    }
+}
+
+selectToBow.addEventListener("click", () => {setDisTo(0)});
+selectToPort.addEventListener("click", () => {setDisTo(1)});
+selectToSB.addEventListener("click", () => {setDisTo(2)});
