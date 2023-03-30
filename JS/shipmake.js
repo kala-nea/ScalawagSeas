@@ -54,7 +54,7 @@ let rudderHP = document.getElementById("rudderHP");
 let alDisplay = document.getElementById("alDisplay");
 
 let cpDisplay = document.getElementById("cpDisplay");
-let fsDisplay = document.getElementById("fsDisplay");
+let fspDisplay = document.getElementById("fspDisplay");
 let fpDisplay = document.getElementById("fpDisplay");
 
 let wlDisplayB = document.getElementById("wlDisplayB");
@@ -116,28 +116,46 @@ let roundAdd = document.getElementById("roundAdd");
 let grapeAdd = document.getElementById("grapeAdd");
 let chainAdd = document.getElementById("chainAdd");
 
+// declare base stat vars
+let wcBase;
+let cpBase;
+let fspBase;
+let fpBase;
+let brHPBase;
+let boHPBase;
+let aHPBase;
+let pHPBase;
+let sHPBase;
+let biHPBase;
+let mHPBase;
+let rHPBase;
+let armorRemainingBase;
+let weaponsRemainingBBase;
+let weaponsRemainingPBase;
+let weaponsRemainingSBase;
+
 // set base values when tonnage changes
 function setBaseVals () {
     // set base vars
-    let wcBase = statsByTon[parseInt(tonnageTable.value)][1];
+    wcBase = statsByTon[parseInt(tonnageTable.value)][1];
 
-    let cpBase = statsByTon[parseInt(tonnageTable.value)][14];
-    let fspBase = statsByTon[parseInt(tonnageTable.value)][15];
-    let fpBase = statsByTon[parseInt(tonnageTable.value)][16];
+    cpBase = statsByTon[parseInt(tonnageTable.value)][14];
+    fspBase = statsByTon[parseInt(tonnageTable.value)][15];
+    fpBase = statsByTon[parseInt(tonnageTable.value)][16];
 
-    let brHPBase = statsByTon[parseInt(tonnageTable.value)][2];
-    let boHPBase = statsByTon[parseInt(tonnageTable.value)][3];
-    let aHPBase = statsByTon[parseInt(tonnageTable.value)][4];
-    let pHPBase = statsByTon[parseInt(tonnageTable.value)][5];
-    let sHPBase = statsByTon[parseInt(tonnageTable.value)][6];
-    let biHPBase = statsByTon[parseInt(tonnageTable.value)][7];
-    let mHPBase = statsByTon[parseInt(tonnageTable.value)][8];
-    let rHPBase = statsByTon[parseInt(tonnageTable.value)][9];
-    
-    let armorRemainingBase = statsByTon[parseInt(tonnageTable.value)][10];
-    let weaponsRemainingBBase = statsByTon[parseInt(tonnageTable.value)][11];
-    let weaponsRemainingPBase = statsByTon[parseInt(tonnageTable.value)][12];
-    let weaponsRemainingSBase = statsByTon[parseInt(tonnageTable.value)][13];
+    brHPBase = statsByTon[parseInt(tonnageTable.value)][2];
+    boHPBase = statsByTon[parseInt(tonnageTable.value)][3];
+    aHPBase = statsByTon[parseInt(tonnageTable.value)][4];
+    pHPBase = statsByTon[parseInt(tonnageTable.value)][5];
+    sHPBase = statsByTon[parseInt(tonnageTable.value)][6];
+    biHPBase = statsByTon[parseInt(tonnageTable.value)][7];
+    mHPBase = statsByTon[parseInt(tonnageTable.value)][8];
+    rHPBase = statsByTon[parseInt(tonnageTable.value)][9];
+
+    armorRemainingBase = statsByTon[parseInt(tonnageTable.value)][10];
+    weaponsRemainingBBase = statsByTon[parseInt(tonnageTable.value)][11];
+    weaponsRemainingPBase = statsByTon[parseInt(tonnageTable.value)][12];
+    weaponsRemainingSBase = statsByTon[parseInt(tonnageTable.value)][13];
 
     // update displays
     wcDisplay.textContent = wcBase;
@@ -155,7 +173,7 @@ function setBaseVals () {
     alDisplay.textContent = armorRemainingBase;
 
     cpDisplay.textContent = cpBase;
-    fsDisplay.textContent = fspBase;
+    fspDisplay.textContent = fspBase;
     fpDisplay.textContent = fpBase;
 
     wlDisplayB.textContent = weaponsRemainingBBase;
@@ -163,4 +181,18 @@ function setBaseVals () {
     wlDisplayS.textContent = weaponsRemainingSBase;
 }
 
-tonnageTable.addEventListener("blur", setBaseVals());
+// set base values of default tonnage
+setBaseVals();
+// changes base values whenever the tonnage is changed
+tonnageTable.addEventListener("change", setBaseVals);
+
+function addArmorTo () {
+    if (armorRemainingBase >= parseInt(arType.value)) {
+        switch (arType.value + "-" + arArea.value) {
+            case "0-0":
+
+        }
+    } else {
+        alert("This armor type is too expensive");
+    }
+}
