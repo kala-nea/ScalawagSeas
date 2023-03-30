@@ -33,6 +33,9 @@ function loadreviews () {
     let rateTotal = 0;
     let revCount = 0;
 
+    let star = '\u2605';
+    let noStar = "\u2606";
+
     getJSON('https://opensheet.elk.sh/1fKstg6LUiDjQxEDib5Im3n_e-4NADRWxv0r7EhZZG60/FormResponses1',
     function(err, data) {
       if (err !== null) {
@@ -53,9 +56,8 @@ function loadreviews () {
 
             // saves the rating made by the reviewer
             revRate = review.rating;
+            rateTotal = rateTotal + parseInt(revRate);
             let revRateSect = document.createElement("p");
-            let star = '\u2605';
-            let noStar = "\u2606";
             revRateSect.textContent = (star.repeat(parseInt(revRate))) + (noStar.repeat(parseInt(10-revRate)));
             rateTotal = rateTotal + parseInt(revRate);
 
@@ -80,15 +82,15 @@ function loadreviews () {
             revTable.append(revRow);
         }
         let totalRateRow = document.createElement("p");
-        if (rateCount > 0) {
-          let remain = 10 - Math.floor(totalRate / revCount);
-          totalRateRow.textcontent = "Current Average Rating: " + star.repeat(Math.floor(totalRate / revCount)) + noStar.repeat(remain);
+        if (revCount > 0) {
+          let remain = 10 - Math.floor(rateTotal / revCount);
+          totalRateRow.textcontent = "Current Average Rating: " + star.repeat(Math.abs(Math.floor(rateTotal / revCount))) + noStar.repeat(Math.abs(remain));
         } else {
           totalRateRow.textcontent = "Current Average Rating: None";
         }
         
         // places table on page
-        tableArea.unshift(totalRateRow);
+        tableArea.append(totalRateRow);
         tableArea.append(revTable);
       }
     });
