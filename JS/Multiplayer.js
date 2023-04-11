@@ -2210,6 +2210,7 @@ function nextBoatAttack(){
     ships[teams[activeTeam].ships[activeBoat]].deselectColor();
     moveShadent(ships[teams[activeTeam].ships[activeBoat]].shipx,ships[teams[activeTeam].ships[activeBoat]].shipy);
     clearPieceInfo();
+    clearGameControls();
     stopFiring();
     ships[teams[activeTeam].ships[activeBoat]].exhausted = true;
     activeBoat++;
