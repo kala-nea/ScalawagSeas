@@ -1075,6 +1075,7 @@ function readyAll(){
                 weapon[3]=weapon[2];
             }
         }
+        setShip(ship);
     }
 }
 
