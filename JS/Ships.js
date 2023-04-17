@@ -213,8 +213,8 @@ class Ship{
         if(firing&&this.id!=teams[activeTeam].ships[activeBoat].id){
             AttackThis(teams[activeTeam].ships[activeBoat], this)
         }else{
-            // this.displayStats();
-            window.setShipMove(this.shipx,this.shipy,this.shipNum);
+            this.displayStats();
+            // window.setShipMove(this.shipx,this.shipy,this.shipNum);
         }
     }
     //refills the ammo
