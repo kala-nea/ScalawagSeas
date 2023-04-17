@@ -36,7 +36,6 @@ function addStart(){
     sidebar.innerHTML+=`<datalist id="ShipList">
                     </datalist>`;
     sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="makeBoard" onclick="startGame()">start</button>\n`);
-    sidebar.innerHTML = sidebar.innerHTML.concat(`<button id="multiplayerTest" >multi</button>\n`);
     // console.log(`made button`);
     ShipList = document.getElementById("ShipList");
     for(let i =0;i<builtIn.length;i++){
