@@ -40,7 +40,7 @@ let resupplyCount =window.localStorage.getItem('ResupplyCount');
 window.addEventListener('resize',resizeBoard);
 if(hosting){
     setTimeout(MakeBoard,1);
-    setTimeout((e) =>makeBoats(),200);
+    // setTimeout((e) =>makeBoats(),200);
     setTimeout((e) =>AdjustBoard(),200);
     setTimeout((e) =>AdjustBoard(),310);
     setTimeout((e) =>AdjustBoard(),500);
@@ -50,6 +50,7 @@ if(hosting){
 
 //creates the board
 function MakeBoard(){
+    console.log("making board");
     if(boardHeight==null||boardWidth==null){
         try{
             if(parseInt(BoardXIn)!=(Math.min(Math.max(parseInt(BoardXIn),10),50))){
@@ -133,6 +134,7 @@ function MakeBoard(){
     }
     
     boardBuilt = true;
+    makeBoats();
 }
 
 //adjusts the board in case of screen changes
@@ -274,328 +276,328 @@ function unhighlight(id){
 
 //shades the hexes that the boat can move to
 function moveShade(col,row){
-    
-    let goal
-    if(ships[teams[activeTeam].ships[activeBoat]].rotation==0||ships[teams[activeTeam].ships[activeBoat]].rotation==3){
-        
+    if(teams[activeTeam].hash==selfId){
+        let goal
+        if(ships[teams[activeTeam].ships[activeBoat]].rotation==0||ships[teams[activeTeam].ships[activeBoat]].rotation==3){
+            
+            try{
+                goal = document.getElementById(`col${col}row${row+1}`);
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+            }catch{}
+            try{
+                goal = document.getElementById(`col${col}row${row-1}`);
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+            }catch{}
+        }else if(ships[teams[activeTeam].ships[activeBoat]].rotation==1||ships[teams[activeTeam].ships[activeBoat]].rotation==4){
+            
+            if(col%2==0){
+                try{
+                goal = document.getElementById(`col${col+1}row${row}`);
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+                try{
+                    goal = document.getElementById(`col${col-1}row${row+1}`);
+                    
+                    
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+            }else{
+                try{
+                    goal = document.getElementById(`col${col+1}row${row-1}`);
+                    
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+                try{
+                    goal = document.getElementById(`col${col-1}row${row}`);
+                    
+                    
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+            }
+        }else if(ships[teams[activeTeam].ships[activeBoat]].rotation==2||ships[teams[activeTeam].ships[activeBoat]].rotation==5){
+            if(col%2==0){
+                try{
+                    goal = document.getElementById(`col${col+1}row${row+1}`);
+                    
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+                try{
+                    goal = document.getElementById(`col${col-1}row${row}`);
+                    
+                    
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+            }else{
+                try{
+                    goal = document.getElementById(`col${col+1}row${row}`);
+                    
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+                try{
+                    goal = document.getElementById(`col${col-1}row${row-1}`);
+                    
+                    
+                let moveCost;
+                if(goal.getAttribute("Src") == "IMG/hex_island.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
+                    if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
+                        moveCost = 2;
+                    }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
+                        moveCost = 3;
+                    }else{
+                        moveCost = 100000;
+                    }
+                }else{
+                    moveCost = 1;
+                }
+                if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                    goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+                    goal.style.zIndex = "1"
+                }
+                }catch{}
+            }
+        }
+        /*
         try{
             goal = document.getElementById(`col${col}row${row+1}`);
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-                goal.style.zIndex = "1"
-            }
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+            goal.style.zIndex = "1"
+
         }catch{}
         try{
             goal = document.getElementById(`col${col}row${row-1}`);
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-                goal.style.zIndex = "1"
-            }
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+            goal.style.zIndex = "1"
         }catch{}
-    }else if(ships[teams[activeTeam].ships[activeBoat]].rotation==1||ships[teams[activeTeam].ships[activeBoat]].rotation==4){
-        
+        try{
+            goal = document.getElementById(`col${col+1}row${row}`);
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+            goal.style.zIndex = "1"
+        }catch{}
+        try{
+            goal = document.getElementById(`col${col-1}row${row}`);
+            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
+            goal.style.zIndex = "1"
+        }catch{}
         if(col%2==0){
             try{
-            goal = document.getElementById(`col${col+1}row${row}`);
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
+                goal = document.getElementById(`col${col+1}row${row+1}`);
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
-            }
             }catch{}
             try{
                 goal = document.getElementById(`col${col-1}row${row+1}`);
-                
-                
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
-            }
             }catch{}
         }else{
             try{
                 goal = document.getElementById(`col${col+1}row${row-1}`);
-                
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
-            }
-            }catch{}
-            try{
-                goal = document.getElementById(`col${col-1}row${row}`);
-                
-                
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-                goal.style.zIndex = "1"
-            }
-            }catch{}
-        }
-    }else if(ships[teams[activeTeam].ships[activeBoat]].rotation==2||ships[teams[activeTeam].ships[activeBoat]].rotation==5){
-        if(col%2==0){
-            try{
-                goal = document.getElementById(`col${col+1}row${row+1}`);
-                
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-                goal.style.zIndex = "1"
-            }
-            }catch{}
-            try{
-                goal = document.getElementById(`col${col-1}row${row}`);
-                
-                
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-                goal.style.zIndex = "1"
-            }
-            }catch{}
-        }else{
-            try{
-                goal = document.getElementById(`col${col+1}row${row}`);
-                
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
-                goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-                goal.style.zIndex = "1"
-            }
             }catch{}
             try{
                 goal = document.getElementById(`col${col-1}row${row-1}`);
                 
-                
-            let moveCost;
-            if(goal.getAttribute("Src") == "IMG/hex_island.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else if(goal.getAttribute("Src") == "IMG/hex_rocks.png"){
-                if(ships[teams[activeTeam].ships[activeBoat]].tonnage<40){
-                    moveCost = 2;
-                }else if(ships[teams[activeTeam].ships[activeBoat]].tonnage<60){
-                    moveCost = 3;
-                }else{
-                    moveCost = 100000;
-                }
-            }else{
-                moveCost = 1;
-            }
-            if(ships[teams[activeTeam].ships[activeBoat]].moveLeft>=moveCost){
                 goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
                 goal.style.zIndex = "1"
-            }
             }catch{}
-        }
+        }*/
     }
-    /*
-    try{
-        goal = document.getElementById(`col${col}row${row+1}`);
-        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-        goal.style.zIndex = "1"
-
-    }catch{}
-    try{
-        goal = document.getElementById(`col${col}row${row-1}`);
-        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-        goal.style.zIndex = "1"
-    }catch{}
-    try{
-        goal = document.getElementById(`col${col+1}row${row}`);
-        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-        goal.style.zIndex = "1"
-    }catch{}
-    try{
-        goal = document.getElementById(`col${col-1}row${row}`);
-        goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-        goal.style.zIndex = "1"
-    }catch{}
-    if(col%2==0){
-        try{
-            goal = document.getElementById(`col${col+1}row${row+1}`);
-            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-            goal.style.zIndex = "1"
-        }catch{}
-        try{
-            goal = document.getElementById(`col${col-1}row${row+1}`);
-            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-            goal.style.zIndex = "1"
-        }catch{}
-    }else{
-        try{
-            goal = document.getElementById(`col${col+1}row${row-1}`);
-            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-            goal.style.zIndex = "1"
-        }catch{}
-        try{
-            goal = document.getElementById(`col${col-1}row${row-1}`);
-            
-            goal.style.filter ="hue-rotate(90deg) brightness(1.5)";
-            goal.style.zIndex = "1"
-        }catch{}
-    }*/
-    
 }
 
 //removes the shading from hexes that can no longer be moved on
@@ -938,7 +940,11 @@ class Ship{
     }
     //rotates the ship
     rotate(rotationAmmount){
-        if(this.moveLeft>=this.turnCost){
+        let turnFactor = 1;
+        if(this.hitpoints[7][1]){
+           turnFactor = 2; 
+        }
+        if(this.moveLeft>=this.turnCost*turnFactor){
             this.rotation += rotationAmmount;
             while(this.rotation>5||this.rotation<0){
                 if(this.rotation>5){
@@ -1153,6 +1159,9 @@ function makeBoats(){
             }
         }
     }
+    if(hosting){
+        teams[0].hash=selfId;
+    }
     addStart();
 }
 
@@ -1238,10 +1247,7 @@ function moveShipClick(id){
 //postions the turning arrows
 function repositionArrows(){
     // console.log(ships[teams[activeTeam].ships[activeBoat]].moveType);
-    if(ships[teams[activeTeam].ships[activeBoat]].moveLeft<ships[teams[activeTeam].ships[activeBoat]].turnCost||ships[teams[activeTeam].ships[activeBoat]].hitpoints[7][1]<0){
-        LeftArrow.style.visibility = "hidden";
-        RightArrow.style.visibility = "hidden";
-    }else if(ships[teams[activeTeam].ships[activeBoat]].moveType != "Flank"){
+    if(ships[teams[activeTeam].ships[activeBoat]].moveType != "Flank"){
         LeftArrow.style.visibility = "visible";
         RightArrow.style.visibility = "visible";
         let selectedBoat = document.getElementById(`col${ships[teams[activeTeam].ships[activeBoat]].shipx}row${ships[teams[activeTeam].ships[activeBoat]].shipy}`);
@@ -1756,7 +1762,7 @@ function willItHit(attacker,defender){
         ToBeat+=1;
     }
     // console.log(`Must beat: ${ToBeat}`);
-    return ToBeat<Math.round(Math.random()*12);
+    return ToBeat<Math.floor(Math.random()*15);
 }
 
 //applies damage to the target
@@ -1807,10 +1813,11 @@ let GameControls;
 function addStart(){
     sidebar = document.getElementById("SideBarContent");
     for(let i = 0;i<parseInt(window.localStorage.getItem('PlayerCount'));i++){
-        console.log(teams[i].hash);
+        console.log(teams[i]);
         if(teams[i].hash==selfId){
             sidebar.innerHTML+=`<h3>Player ${i+1} Ships</h3>`;
             for(let j = 0;j<parseInt(window.localStorage.getItem('BoatCount'));j++){
+                console.log("displaying one of your ship selections");
                 sidebar.innerHTML+=`<input list="ShipList" name="Player${i}ShipSelect${j}" id="Player${i}ShipSelect${j}" placeholder="Player ${i+1}: Ship ${j+1}" autocomplete="off">`;
             }
             sidebar.innerHTML+=`<br>`;
@@ -2406,14 +2413,6 @@ function randomHash() {
   return Math.random().toString(36).substring(2, 15);
 }
 
-
-setTimeout(
-    ()=>{
-        if(hosting){
-            teams[0].hash=selfId;
-        }
-    },10
-);
 
 // listen to peer activity
 room.onPeerJoin( (peerId) => {
