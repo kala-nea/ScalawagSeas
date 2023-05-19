@@ -64,9 +64,6 @@ let wlDisplayS = document.getElementById("wlDisplayS");
 let BwpnSlt1 = document.getElementById("BwpnSlt1");
 let BwpnSlt2 = document.getElementById("BwpnSlt2");
 let BwpnSlt3 = document.getElementById("BwpnSlt3");
-let BwpnSlt4 = document.getElementById("BwpnSlt4");
-let BwpnSlt5 = document.getElementById("BwpnSlt5");
-let BwpnSlt6 = document.getElementById("BwpnSlt6");
 
 let PwpnSlt1 = document.getElementById("PwpnSlt1");
 let PwpnSlt2 = document.getElementById("PwpnSlt2");
@@ -93,6 +90,7 @@ let shipName = document.getElementById("shipName");
 let arType = document.getElementById("armorType");
 let arArea = document.getElementById("armorArea");
 let addArBut = document.getElementById("addArmorButton");
+let rsArBut = document.getElementById("rsArmorButton");
 
 let iconSel = document.getElementById("iconSelect");
 
@@ -158,6 +156,10 @@ function setBaseVals () {
     weaponsRemainingSBase = statsByTon[parseInt(tonnageTable.value)][13];
 
     // update displays
+    update();
+}
+
+function update () {
     wcDisplay.textContent = wcBase;
 
     bowHP.textContent = boHPBase;
@@ -186,13 +188,511 @@ setBaseVals();
 // changes base values whenever the tonnage is changed
 tonnageTable.addEventListener("change", setBaseVals);
 
-function addArmorTo () {
-    if (armorRemainingBase >= parseInt(arType.value)) {
-        switch (arType.value + "-" + arArea.value) {
-            case "0-0":
+let iconPreview = document.getElementById("iconPreview");
+let iconSelect = document.getElementById("iconSelect");
+console.log(iconSelect);
+let icon;
 
-        }
-    } else {
-        alert("This armor type is too expensive");
+// Ship sprites
+function getIcon () {
+    console.log(parseInt(iconSelect.value))
+    switch (parseInt(iconSelect.value)) {
+        case 0:
+            iconPreview.setAttribute("src", "../IMG/Sampan.png");
+            icon = 1;
+            break;
+        case 1:
+            iconPreview.setAttribute("src", "../IMG/catboat.png");
+            icon = 2;
+            break;
+        case 2:
+            iconPreview.setAttribute("src", "../IMG/Lugger.png");
+            icon = 3;
+            break;
+        case 3:
+            iconPreview.setAttribute("src", "../IMG/cutter.png");
+            icon = 4;
+            break;
+        case 4:
+            iconPreview.setAttribute("src", "../IMG/galleon.png");
+            icon = 5;
+            break;
+        case 5:
+            iconPreview.setAttribute("src", "../IMG/schooner.png");
+            icon = 6;
+            break;
+        case 6:
+            iconPreview.setAttribute("src", "../IMG/brig.png");
+            icon = 7;
+            break;
+        case 7:
+            iconPreview.setAttribute("src", "../IMG/barque.png");
+            icon = 8;
+            break;
+        case 8:
+            iconPreview.setAttribute("src", "../IMG/frigate.png");
+            icon = 9;
+            break;
+    }
+}
+
+iconSelect.addEventListener("change", getIcon);
+
+function showArea (input) {
+    console.log(input);
+    switch (input) {
+        case 0:
+            console.log(input);
+            wpnDisB.style.visibility = "visible";
+            wpnDisP.style.visibility = "hidden";
+            wpnDisS.style.visibility = "hidden";
+            break;
+        case 1:
+            console.log(input);
+            wpnDisB.style.visibility = "hidden";
+            wpnDisP.style.visibility = "visible";
+            wpnDisS.style.visibility = "hidden";
+            break;
+        case 2:
+            console.log(input);
+            wpnDisB.style.visibility = "hidden";
+            wpnDisP.style.visibility = "hidden";
+            wpnDisS.style.visibility = "visible";
+            break;
+    }
+}
+
+selectToBow.addEventListener("click", (e)=>{
+    showArea(0);
+});
+
+selectToPort.addEventListener("click", (e)=>{
+    showArea(1);
+});
+
+selectToSB.addEventListener("click", (e)=>{
+    showArea(2);
+});
+
+function addArmor () {
+    console.log(armorRemainingBase);
+    switch (arType.value + "-" + arArea.value) {
+        case "1-0":
+            if (armorRemainingBase >= 1) {
+                brHPBase += 1;
+                armorRemainingBase -= 1;
+                update(); 
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "1-1":
+            if (armorRemainingBase >= 1) {
+                boHPBase += 1;
+                armorRemainingBase -= 1;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "1-2":
+            if (armorRemainingBase >= 1) {
+                aHPBase += 1;
+                armorRemainingBase -= 1;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "1-3":
+            if (armorRemainingBase >= 1) {
+                pHPBase += 1;
+                armorRemainingBase -= 1;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "1-4":
+            if (armorRemainingBase >= 1) {
+                sHPBase += 1;
+                armorRemainingBase -= 1;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "1-5":
+            if (armorRemainingBase >= 1) {
+                biHPBase += 1;
+                armorRemainingBase -= 1;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "1-6":
+            if (armorRemainingBase >= 1) {
+               mHPBase += 1;
+                armorRemainingBase -= 1;
+                update(); 
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "1-7":
+            if (armorRemainingBase >= 1) {
+                rHPBase += 1;
+                armorRemainingBase -= 1;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+
+        case "5-0":
+            if (armorRemainingBase >= 5) {
+                brHPBase += 6;
+                armorRemainingBase -= 5;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "5-1":
+            if (armorRemainingBase >= 5) {
+                boHPBase += 6;
+                armorRemainingBase -= 5;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "5-2":
+            if (armorRemainingBase >= 5) {
+                aHPBase += 6;
+                armorRemainingBase -= 5;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "5-3":
+            if (armorRemainingBase >= 5) {
+               pHPBase += 6;
+                armorRemainingBase -= 5;
+                update(); 
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "5-4":
+            if (armorRemainingBase >= 5) {
+                sHPBase += 6;
+                armorRemainingBase -= 5;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "5-5":
+            if (armorRemainingBase >= 5) {
+                biHPBase += 6;
+                armorRemainingBase -= 5;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "5-6":
+            if (armorRemainingBase >= 5) {
+                mHPBase += 6;
+                armorRemainingBase -= 5;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "5-7":
+            if (armorRemainingBase >= 5) {
+                rHPBase += 6;
+                armorRemainingBase -= 5;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+
+        case "10-0":
+            if (armorRemainingBase >= 10) {
+                brHPBase += 15;
+                armorRemainingBase -= 10;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "10-1":
+            if (armorRemainingBase >= 10) {
+                boHPBase += 15;
+                armorRemainingBase -= 10;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "10-2":
+            if (armorRemainingBase >= 10) {
+                aHPBase += 15;
+                armorRemainingBase -= 10;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "10-3":
+            if (armorRemainingBase >= 10) {
+                pHPBase += 15;
+                armorRemainingBase -= 10;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "10-4":
+            if (armorRemainingBase >= 10) {
+               sHPBase += 15;
+                armorRemainingBase -= 10;
+                update(); 
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "10-5":
+            if (armorRemainingBase >= 10) {
+                biHPBase += 15;
+                armorRemainingBase -= 10;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "10-6":
+            if (armorRemainingBase >= 10) {
+                mHPBase += 15;
+                armorRemainingBase -= 10;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "10-7":
+            if (armorRemainingBase >= 10) {
+                rHPBase += 15;
+                armorRemainingBase -= 10;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+
+        case "25-0":
+            if (armorRemainingBase >= 25) {
+                brHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "25-1":
+            if (armorRemainingBase >= 25) {
+                boHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "25-2":
+            if (armorRemainingBase >= 25) {
+                aHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "25-3":
+            if (armorRemainingBase >= 25) {
+                pHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "25-4":
+            if (armorRemainingBase >= 25) {
+                sHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "25-5":
+            if (armorRemainingBase >= 25) {
+                biHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "25-6":
+            if (armorRemainingBase >= 25) {
+                mHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "25-7":
+            if (armorRemainingBase >= 25) {
+                rHPBase += 44;
+                armorRemainingBase -= 25;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+
+        case "50-0":
+            if (armorRemainingBase >= 50) {
+                brHPBase += 100;
+                armorRemainingBase -= 50;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "50-1":
+            if (armorRemainingBase >= 50) {
+                boHPBase += 100;
+                armorRemainingBase -= 50;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "50-2":
+            if (armorRemainingBase >= 50) {
+               aHPBase += 100;
+                armorRemainingBase -= 50;
+                update(); 
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "50-3":
+            if (armorRemainingBase >= 50) {
+                pHPBase += 100;
+                armorRemainingBase -= 50;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "50-4":
+            if (armorRemainingBase >= 50) {
+                sHPBase += 100;
+                armorRemainingBase -= 50;
+                update(); 
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "50-5":
+            if (armorRemainingBase >= 50) {
+                biHPBase += 100;
+                armorRemainingBase -= 50;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "50-6":
+            if (armorRemainingBase >= 50) {
+                mHPBase += 100;
+                armorRemainingBase -= 50;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+        case "50-7":
+            if (armorRemainingBase >= 50) {
+                rHPBase += 100;
+                armorRemainingBase -= 50;
+                update();
+            } else {
+                alert("You cannot add this much armor");
+            }
+            break;
+    }
+}
+
+addArBut.addEventListener("click", addArmor);
+
+function rsArmor () {
+    brHPBase = statsByTon[parseInt(tonnageTable.value)][2];
+    boHPBase = statsByTon[parseInt(tonnageTable.value)][3];
+    aHPBase = statsByTon[parseInt(tonnageTable.value)][4];
+    pHPBase = statsByTon[parseInt(tonnageTable.value)][5];
+    sHPBase = statsByTon[parseInt(tonnageTable.value)][6];
+    biHPBase = statsByTon[parseInt(tonnageTable.value)][7];
+    mHPBase = statsByTon[parseInt(tonnageTable.value)][8];
+    rHPBase = statsByTon[parseInt(tonnageTable.value)][9];
+
+    armorRemainingBase = statsByTon[parseInt(tonnageTable.value)][10];
+
+    update();
+}
+
+rsArBut.addEventListener("click", rsArmor);
+
+let slotsB = [BwpnSlt1, BwpnSlt2, BwpnSlt3];
+let slotsP = [PwpnSlt1, PwpnSlt2, PwpnSlt3, PwpnSlt4, PwpnSlt5, PwpnSlt6];
+let slotsS = [SwpnSlt1, SwpnSlt2, SwpnSlt3, SwpnSlt4, SwpnSlt5, SwpnSlt6];
+
+function addWeapon (ind) {
+    switch (ind) {
+        case 0:
+            // bow
+            let x = 0;
+            for (let i; i < slotsB.length; i++) {
+                if (slotsB[i] == null) {
+                    switch (wpnLbB.value + "-" + wpnTypeB.value) {
+                        
+                    }
+                    break;
+                } else {
+                    x += 1;
+                }
+            }
+            if (x = 3) {
+                alert("You may not add any more weapons");
+            }
+            break;
+        case 1:
+            // port
+
+            break;
+        case 2:
+            // starboard
+
+            break;
     }
 }

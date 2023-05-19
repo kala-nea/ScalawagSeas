@@ -18,13 +18,13 @@
         <article class="halfHeight">
             <section class="choiceArea">
                 <section class="row">
-                    <h2>Ship Name:</h2>
+                    <h2 class="sideMag1">Ship Name:</h2>
                     <input id="shipName" type="text">
                 </section>
                 <section class="row">
-                    <h3>Tonnage:</h3>
-                    <select name="" id="tonnageTable"></select>
-                    <h3>Weight Class:</h3>
+                    <h3 class="sideMag1">Tonnage:</h3>
+                    <select class="sideMag2" name="" id="tonnageTable"></select>
+                    <h3 class="sideMag1">Weight Class:</h3>
                     <p id="wcDisplay"></p>
                 </section>
                 <section class="row">
@@ -33,38 +33,46 @@
                 <section class="row">
                     <section class="column">
                         <section class="row">
-                            <h3>Bow HP:</h3>
-                            <p id="bowHP"></p>
+                            <h3 class="sideMag1">Bow HP:</h3>
+                            <p class="sideMag1" id="bowHP"></p>
+                            <button id="rsBo">Reset</button>
                         </section>
                         <section class="row">
-                            <h3>Aft HP:</h3>
-                            <p id="aftHP"></p>
+                            <h3 class="sideMag1">Aft HP:</h3>
+                            <p class="sideMag1" id="aftHP"></p>
+                            <button id="rsA">Reset</button>
                         </section>
                         <section class="row">
-                            <h3>Port HP:</h3>
-                            <p id="portHP"></p>
+                            <h3 class="sideMag1">Port HP:</h3>
+                            <p class="sideMag1" id="portHP"></p>
+                            <button id="rsP">Reset</button>
                         </section>
                         <section class="row">
-                            <h3>Starboard HP:</h3>
-                            <p id="starboardHP"></p>
+                            <h3 class="sideMag1">Starboard HP:</h3>
+                            <p class="sideMag1" id="starboardHP"></p>
+                            <button id="rsS">Reset</button>
                         </section>
                     </section>
                     <section class="column">
                         <section class="row">
-                            <h3>Bridge HP:</h3>
-                            <p id="bridgeHP"></p>
+                            <h3 class="sideMag1">Bridge HP:</h3>
+                            <p class="sideMag1" id="bridgeHP"></p>
+                            <button id="rsBr">Reset</button>
                         </section>
                         <section class="row">
-                            <h3>Bilge HP:</h3>
-                            <p id="bilgeHP"></p>
+                            <h3 class="sideMag1">Bilge HP:</h3>
+                            <p class="sideMag1" id="bilgeHP"></p>
+                            <button id="rsBi">Reset</button>
                         </section>
                         <section class="row">
-                            <h3>Mast HP:</h3>
-                            <p id="mastHP"></p>
+                            <h3 class="sideMag1">Mast HP:</h3>
+                            <p class="sideMag1" id="mastHP"></p>
+                            <button id="rsM">Reset</button>
                         </section>
                         <section class="row">
-                            <h3>Rudder HP:</h3>
-                            <p id="rudderHP"></p>
+                            <h3 class="sideMag1">Rudder HP:</h3>
+                            <p class="sideMag1" id="rudderHP"></p>
+                            <button id="rsR">Reset</button>
                         </section>
                     </section>
                 </section>
@@ -73,16 +81,16 @@
                     <p id="alDisplay"></p>
                 </section>
                 <section class="row">
-                    <h2>Armor:</h2>
-                    <select name="" id="armorType">
-                        <option value="1">Wood</option>
-                        <option value="5">Ceramic</option>
-                        <option value="10">Iron</option>
-                        <option value="25">Compund</option>
-                        <option value="50">Synthetic</option>
+                    <h2 class="sideMag1">Armor:</h2>
+                    <select class="sideMag1" name="" id="armorType">
+                        <option value="1">Wood (adds 1, costs 1)</option>
+                        <option value="5">Ceramic (adds 6, costs 5)</option>
+                        <option value="10">Iron (adds 15, costs 10)</option>
+                        <option value="25">Compund (adds 44, costs 25)</option>
+                        <option value="50">Synthetic (adds 100, costs 50)</option>
                     </select>
-                    <p>to</p>
-                    <select name="" id="armorArea">
+                    <p class="sideMag1">to</p>
+                    <select class="sideMag1" name="" id="armorArea">
                         <option value="0">Bridge</option>
                         <option value="1">Bow</option>
                         <option value="2">Aft</option>
@@ -92,12 +100,13 @@
                         <option value="6">Mast</option>
                         <option value="7">Rudder</option>
                     </select>
-                    <button id="addArmorButton">Add</button>
+                    <button class="sideMag1" id="addArmorButton">Add</button>
+                    <button id="rsArmorButton">Reset All Armor</button>
                 </section>
             </section>
             <section class="displayArea">
                 <section class="row">
-                    <h2>Icon:</h2>
+                    <h2 class="sideMag1">Icon:</h2>
                     <select name="" id="iconSelect">
                         <option value="0">Sampan</option>
                         <option value="1">Catboat</option>
@@ -111,15 +120,17 @@
                     </select>
                 </section>
                 
-                <img src="../IMG/Sampan.png" alt="Icon Preview" id="iconPreview">
+                <div id="prevCont">
+                    <img src="../IMG/Sampan.png" alt="Icon Preview" id="iconPreview">
+                </div>
 
                 <section class="row">
-                    <h3>Cruising:</h3>
-                    <p id="cpDisplay"></p>
-                    <h3>Full Steam:</h3>
-                    <p id="fspDisplay"></p>
-                    <h3>Flanking:</h3>
-                    <p id="fpDisplay"></p>
+                    <h3 class="sideMag1">Cruising:</h3>
+                    <p class="sideMag2" id="cpDisplay"></p>
+                    <h3 class="sideMag1">Full Steam:</h3>
+                    <p class="sideMag2" id="fspDisplay"></p>
+                    <h3 class="sideMag1">Flanking:</h3>
+                    <p class="sideMag2" id="fpDisplay"></p>
                 </section>
             </section>
         </article>
@@ -140,18 +151,13 @@
                                 <p id="BwpnSlt2"></p>
                                 <p id="BwpnSlt3"></p>
                             </section>
-                            <section class="column">
-                                <p id="BwpnSlt4"></p>
-                                <p id="BwpnSlt5"></p>
-                                <p id="BwpnSlt6"></p>
-                            </section>
                         </section>
                         <section class="row">
-                            <h3>Weapon Points Remaining:</h3>
+                            <h3 class="sideMag1">Weapon Points Remaining:</h3>
                             <p id="wlDisplayB"></p>
                         </section>
                         <section class="row">
-                            <h2>Weapon:</h2>
+                            <h2 class="sideMag1">Weapon:</h2>
                             <select name="" id="weaponLbB">
                                 <option value="0">6lb</option>
                                 <option value="1">8lb</option>
@@ -186,11 +192,11 @@
                             </section>
                         </section>
                         <section class="row">
-                            <h3>Weapon Points Remaining:</h3>
+                            <h3 class="sideMag1">Weapon Points Remaining:</h3>
                             <p id="wlDisplayP"></p>
                         </section>
                         <section class="row">
-                            <h2>Weapon:</h2>
+                            <h2 class="sideMag1">Weapon:</h2>
                             <select name="" id="weaponLbP">
                                 <option value="0">6lb</option>
                                 <option value="1">8lb</option>
@@ -225,11 +231,11 @@
                             </section>
                         </section>
                         <section class="row">
-                            <h3>Weapon Points Remaining:</h3>
+                            <h3 class="sideMag1">Weapon Points Remaining:</h3>
                             <p id="wlDisplayS"></p>
                         </section>
                         <section class="row">
-                            <h2>Weapon:</h2>
+                            <h2 class="sideMag1">Weapon:</h2>
                             <select name="" id="weaponLbS">
                                 <option value="0">6lb</option>
                                 <option value="1">8lb</option>
@@ -259,26 +265,26 @@
                         <h2>Ammunition</h2>
                     </section>
                     <section class="row">
-                        <h3>Round Shot:</h3>
-                        <p id="roundDisplay"></p>
+                        <h3 class="sideMag1">Round Shot:</h3>
+                        <p class="sideMag1" id="roundDisplay"></p>
                         <button id="roundAdd">Add</button>
                     </section>
                     <section class="row">
-                        <h3>Grape Shot:</h3>
-                        <p id="grapeDisplay"></p>
+                        <h3 class="sideMag1">Grape Shot:</h3>
+                        <p class="sideMag1" id="grapeDisplay"></p>
                         <button id="grapeAdd">Add</button>
                     </section>
                     <section class="row">
-                        <h3>Chain Shot:</h3>
-                        <p id="chainDisplay"></p>
+                        <h3 class="sideMag1">Chain Shot:</h3>
+                        <p class="sideMag1" id="chainDisplay"></p>
                         <button id="chainAdd">Add</button>
                     </section>
                     <section class="row">
-                        <h3>Ammo Points Remaining:</h3>
+                        <h3 class="sideMag1">Ammo Points Remaining:</h3>
                         <p id="amDisplay"></p>
                     </section>
                     <section class="row">
-                        <button onclick="saveBoatToLocal()">Save Your Ship</button>
+                        <button class="sideMag1" onclick="saveBoatToLocal()">Save Your Ship</button>
                         <a href="shipyard.html">Return to Shipyard</a>
                     </section>
                 </section>

@@ -950,10 +950,12 @@ function saveBoatToLocal(){
 
 let iconPreview = document.getElementById("iconPreview");
 let iconSelect = document.getElementById("iconSelect");
+console.log(iconSelect);
 let icon;
 
 // Ship sprites
 function getIcon () {
+    console.log(parseInt(iconSelect.value))
     switch (parseInt(iconSelect.value)) {
         case 0:
             iconPreview.setAttribute("src", "../IMG/Sampan.png");
@@ -994,6 +996,8 @@ function getIcon () {
     }
 }
 
+iconSelect.addEventListener("change", getIcon);
+
 // Deletes all ships
 function clearAllShipsForcefully(){
     for(let i = 0;i<100;i++){
@@ -1001,5 +1005,3 @@ function clearAllShipsForcefully(){
     }
     window.localStorage.setItem('numberOfShips',0)
 }
-
-iconSelect.addEventListener("change", getIcon);

@@ -126,6 +126,27 @@ main {
     width: 33%;
 }
 
+#iconPreview {
+    width: 100%;
+    height: auto;
+    image-rendering:pixelated;
+}
+
+#prevCont {
+    width: 300px;
+    height: 300px;
+    margin: 3px;
+    padding: 3px;
+}
+
+.sideMag1 {
+    margin-right: 5px;
+}
+
+.sideMag2 {
+    margin-right: 25px;
+}
+
 /* button.nextBoat{
     background-color: red;
     color: white;
