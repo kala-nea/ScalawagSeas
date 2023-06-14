@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome - Scalawag Seas</title>
+    <title>BT Counter</title>
     <link rel="stylesheet" href="css/home.css">
     <link rel="icon" href="IMG/logoIcon.PNG">
 </head>
@@ -14,49 +14,246 @@
     </audio>
 
     <header>
-        <img src="IMG/SSLogo2.png" alt="Scalawag Seas" id="title">
-        <h1>Scalawag Seas</h1>
+        <h1>BT Counter</h1>
     </header>
     <main>
-        <section class="contentArea">
-            <a href="localOptions.html">Play Local</a>
-            <a title="This function is a work in progress, and thus may not work yet" href="hostOr.html">Play Online (In progress)</a>
-            <a href="rules.html">How to Play</a>
-            <a href="shipyard.html">Your Shipyard</a>
-            <a href="feedback.html">Reviews</a>
+
+        <article>
+            <section>
+                <h3>Hitpoints</h3>
+                <table>
+                    <tr>
+                        <td class="tableHead">Area</td>
+                        <td class="tableHead">Max Hitpoints</td>
+                        <td class="tableHead">Current Hitpoints</td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Head (H)</td>
+                        <td>
+                            <input id="H" type="number">
+                        </td>
+                        <td>
+                            <p id="curH"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Center Torso (CT)</td>
+                        <td>
+                            <input id="CT" type="number">
+                        </td>
+                        <td>
+                            <p id="curCT"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Left Torso (LT)</td>
+                        <td>
+                            <input id="LT" type="number">
+                        </td>
+                        <td>
+                            <p id="curLT"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Right Torso (RT)</td>
+                        <td>
+                            <input id="RT" type="number">
+                        </td>
+                        <td>
+                            <p id="curRT"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Left Arm (LA)</td>
+                        <td>
+                            <input id="LA" type="number">
+                        </td>
+                        <td>
+                            <p id="curLA"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Right Arm (RA)</td>
+                        <td>
+                            <input id="RA" type="number">
+                        </td>
+                        <td>
+                            <p id="curRA"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Left Leg (LL)</td>
+                        <td>
+                            <input id="LL" type="number">
+                        </td>
+                        <td>
+                            <p id="curLL"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rowHead">Right Leg (RL)</td>
+                        <td>
+                            <input id="RL" type="number">
+                        </td>
+                        <td>
+                            <p id="curRL"></p>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="nthSection">
+                <h3>Guns</h3>
+                <table>
+                    <tr>
+                        <td class="tableHead">Quantity</td>
+                        <td class="tableHead">Type</td>
+                        <td class="tableHead">Damage</td>
+                        <td class="tableHead">Cluster</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="numG" type="number">
+                        </td>
+                        <td>
+                            <input id="typeG" type="text">
+                        </td>
+                        <td>
+                            <input id="dmg" type="number">
+                        </td>
+                        <td>
+                            <input id="cluster" type="number">
+                        </td>
+                    </tr>
+                </table>
+                <button onclick="addGun()">Add Gun</button>
+                <button onclick="resetGuns()">Reset</button>
+                <table id="guns"></table>
+            </section>
+
+            <section class="nthSection">
+                <h3>Ammunitions</h3>
+                <table>
+                    <tr>
+                        <td class="tableHead">Corresponding Gun</td>
+                        <td class="tableHead">Max Amount</td>
+                        <td class="tableHead">Current Amount</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="typeA" type="text">
+                        </td>
+                        <td>
+                            <input id="numA" type="number">
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+                <button onclick="addAmmo()">Add Ammo</button>
+                <button onclick="resetAmmo()">Reset</button>
+                <table id="ammos"></table>
+            </section>
+        </article>
+        
+        <h2>Weapon Attacks</h2>
+        <section>
+            <h3>Attacking</h3>
+            <table>
+                <tr>
+                    <td class="tableHead">Gunnery Skill</td>
+                    <td class="tableHead">Attacking Movement Type</td>
+                    <td class="tableHead">Opponent Movement Amount</td>
+                    <td class="tableHead">Opponent Tile Type</td>
+                    <td class="tableHead">Light Cover</td>
+                    <td class="tableHead">Heavy Cover</td>
+                    <td class="tableHead">Range</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="skill" type="number">
+                    </td>
+                    <td>
+                        <select name="" id="typeM">
+                            <option value="0">Walk</option>
+                            <option value="1">Run</option>
+                            <option value="2">Jump</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="moveCount" type="number">
+                    </td>
+                    <td>
+                        <select name="" id="typeT">
+                            <option value="0">Normal</option>
+                            <option value="1">Light</option>
+                            <option value="2">Heavy</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="LCCount" type="number">
+                    </td>
+                    <td>
+                        <input id="HCCount" type="number">
+                    </td>
+                    <td>
+                        <select name="" id="range">
+                            <option value="0">Short</option>
+                            <option value="1">Mid</option>
+                            <option value="2">Long</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button onclick="getRollToBeat()">Check Attack</button>
+                    </td>
+                </tr>
+            </table>
+            <p id="rtbOutput"></p>
         </section>
+
+        <article>
+            <section>
+                <h3>Damage Given</h3>
+                <table>
+                    <tr>
+                        <td class="tableHead">Gun</td>
+                        <td class="tableHead">Roll to Match</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text">
+                        </td>
+                        <td></td>
+                        <td>
+                            <button>Calculate Damage</button>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="nthSection">
+                <h3>Damage Taken</h3>
+                <table>
+                    <tr>
+                        <td class="tableHead">Area (Use Abreviations)</td>
+                        <td class="tableHead">Amount</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text">
+                        </td>
+                        <td>
+                            <input type="number">
+                        </td>
+                        <td>
+                            <button>Calculate Damage</button>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </article>
         
     </main>
-    <footer>
-        <article class="footerArea">
-            <h2>Team</h2>
 
-            <section class="creditArea">
-                <p>Development - Colby Olsen</p>
-                <p>Design & Playtesting - Colby Kirk</p>
-                <p>Research & Production - Justus Pettit</p>
-            </section>
-
-            <h2>Credits</h2>
-
-            <section class="creditArea">
-                <p>Black Chancery Font - Doug Miles</p>
-                <p>Pfeffer Medi&#230;val Font - Robert Pfeffer</p>
-            </section>
-
-            <section class="creditArea">
-                <p>Music by Hot Music, Magiksolo, and Melodyayresgriffiths from Pixabay</p>
-            </section>
-
-            <section class="creditArea">
-                <p>&hearts; Special Thanks to: Captain Lorenz, Kori, Ahmed Salam, Parker Stockdale, Lucas Cox, Ian Day, Raquel Aguilera, and Mr. Fast &hearts;</p>
-            </section>
-
-            <p>Inspired by the tabletop game BattleTech by Catalyst Game Labs</p>
-            <p>Made for <abbr title="The Center for Advanced Research and Technology">CART</abbr>'s Web Application Development course</p>
-        </article>
-    </footer>
-
-    <script type="text/javascript" src="JS/music.js"></script>
+    <script type="text/javascript" src="JS/app.js"></script>
 </body>
 </html>
